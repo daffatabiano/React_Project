@@ -28,11 +28,11 @@ const Login = () => {
     axios
       .post("https://reqres.in/api/login", payload)
       .then((res) => {
-        setNotif("Login Success");
+        setNotif("Welcome Back " + res?.data?.token);
         console.log(res?.data);
         setLoading(true);
         setTimeout(() => {
-          navigate("/home");
+          navigate("/");
         }, 2000)
 
       })
