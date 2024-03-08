@@ -1,0 +1,131 @@
+body{
+    background-color: rgb(27, 27, 27);
+    height: 1000px;
+    color: white;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    list-style: none;
+}
+
+header{
+    background-color: #272822;
+    margin:120px 10px;
+    padding: 20px;
+    border-radius: 30px;
+    transition: .3s ease;
+    height: 250px;
+    text-align: center;
+    display: wrap;   
+}
+
+header:hover{
+    box-shadow: 0 0 .6px 0 rgb(255, 255, 255),0 0 10px 0 rgb(255, 255, 255);
+}
+
+.card{
+    display: flex;
+    justify-content: center;
+    width: 140px;
+    margin: auto 5px;
+    padding: 5px;
+    background-color: transparent;
+    transition: .3s linear;
+    border: none;
+    font-family: "Quicksand", sans-serif;
+    /* overflow: hidden; */
+}
+.card img{
+    width: 100%;
+    height: 200px;
+}
+
+
+.bodyCard{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin: 0 35px ;
+    
+}
+.bodyCard2{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    bottom: 0;
+    margin: 0;
+}
+.bodyCard2 a{
+    display: flex;
+    /* position: absolute; */
+    /* background-color: yellow; */
+    bottom: 0;
+    margin: 4px -4px;
+    border: none;
+}
+
+.bodyCard2 img{
+    display: flex;
+    position: sticky;
+    width: 100%;
+    height: 100%;
+    max-width: 30px; 
+    max-height: 35px;
+     padding: 1px;
+    border-radius: 50%;
+    border: 1px solid rgb(255, 255, 255, 0.7);
+    /* margin: auto -10px ; */
+}
+
+.bodyCard2 em{
+    /* top: 0; */
+    color: #ffffff;
+    /* background-color: yellowgreen; */
+    margin: auto -7px;
+    font-size: 9px;
+    font-weight: 700;
+    max-width: 80px;
+    padding-left: 2px;
+}
+
+
+.card p {
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 1;
+}
+
+.card button{
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: lighter;
+    background-color: transparent;
+    border: 1px solid rgb(255, 255, 255);
+    width: 50px;
+    height: 50px;
+    transition: .2s ease;
+}
+
+.card button:hover{
+    background-color: rgb(255, 255, 255);
+    color: #010101;
+}
+
+.card:hover{
+    transform: scale(1.05);
+}
+
+@media(max-width: 320px){
+    header{
+        /* margin: 100px 10px; */
+        padding: 50px;
+        max-height: 50px;
+    }
+}
+@media(max-width :768px){
+    header{
+        height: 200px;
+    }
+}
