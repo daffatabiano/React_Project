@@ -30,10 +30,10 @@ const Login = () => {
       .then((res) => {
         setNotif("Welcome Back " + res?.data?.token);
         console.log(res?.data);
-        setLoading(true);
+        setLoading(false);
         setTimeout(() => {
           navigate("/");
-        }, 2000)
+        }, 3000)
 
       })
       .catch((err) => {
@@ -64,7 +64,7 @@ const Login = () => {
           <p id="register" className="form-text">Do not have an account? <Link to="/register">Register</Link></p>
         </form>
         <div className="button">
-          <button type="submit" onClick={handleSubmit}>Login</button>
+          <button type="submit" onClick={handleSubmit} disabled={loading ? true : false}>{loading ? "Loading..." : "Login"}</button>
         </div>
         <div className="backButton">
           <Link onClick={() => navigate(-1)}>Back</Link>

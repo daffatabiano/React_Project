@@ -1,4 +1,4 @@
-.bg{
+.bg {
     padding: 0;
     display: block;
     margin: 0;
@@ -9,10 +9,10 @@
     bottom: 0;
     top: 0;
     left: 0;
-    right: 0; 
+    right: 0;
 }
 
-.login  {
+.login {
     background-image: url("https://th.bing.com/th/id/OIG2.rAcBPbuRsjw_IhKNo23u?w=1024&h=1024&rs=1&pid=ImgDetMain");
     background-size: cover;
     background-repeat: no-repeat;
@@ -23,11 +23,11 @@
     padding: 0;
     display: flex;
     justify-content: center;
-    
+
 }
 
 
-.container{
+.container {
     display: flex;
     flex-direction: column;
     background-color: transparent;
@@ -38,7 +38,7 @@
     justify-content: center;
     align-items: center;
     margin: 25px auto;
-    box-shadow: 0 0 2px 0 rgba(255, 255, 255, 0.5),0 0 10px 0 rgb(0, 0, 0, .7),0 0 20px 0 rgb(0, 0, 0, .4);
+    box-shadow: 0 0 2px 0 rgba(255, 255, 255, 0.5), 0 0 10px 0 rgb(0, 0, 0, .7), 0 0 20px 0 rgb(0, 0, 0, .4);
     border-radius: 30px;
     backdrop-filter: blur(8px);
     position: fixed;
@@ -46,7 +46,7 @@
 
 }
 
-.logo{
+.logo {
     background-color: #e8f3ff;
     border-radius: 50%;
     padding: 10px;
@@ -57,15 +57,15 @@
     text-align: center;
     position: relative;
     z-index: 3;
-    box-shadow: 0 0 1px 0 rgba(255, 255, 255),0 0 10px 0 rgb(255, 255, 255, .7),0 0 20px 0 rgb(0, 0, 0, .4); 
+    box-shadow: 0 0 1px 0 rgba(255, 255, 255), 0 0 10px 0 rgb(255, 255, 255, .7), 0 0 20px 0 rgb(0, 0, 0, .4);
 }
 
-.logo svg{
+.logo svg {
     width: 100px;
     color: #010101;
 }
 
-.container form{
+.container form {
     background-color: rgb(214, 213, 213);
     display: flex;
     flex-direction: column;
@@ -74,21 +74,21 @@
     margin: auto;
     border: 1px solid rgb(255, 255, 255, 0.6);
     border-radius: 80px;
-    padding-top :50px;
+    padding-top: 50px;
     color: #010101;
     width: 500px;
     height: 450px;
     position: absolute;
     z-index: 2;
-    box-shadow: 0 0 1px 0 rgba(255, 255, 255),0 0 10px 0 rgb(255, 255, 255, .7),0 0 20px 0 rgb(0, 0, 0, .4) ;
+    box-shadow: 0 0 1px 0 rgba(255, 255, 255), 0 0 10px 0 rgb(255, 255, 255, .7), 0 0 20px 0 rgb(0, 0, 0, .4);
 
 }
 
-.container form label{
+.container form label {
     margin-left: 60px;
 }
 
-.container form .form-control{
+.container form .form-control {
     width: 350px;
     height: 40px;
     margin: 10px auto;
@@ -99,53 +99,53 @@
     color: #010101;
     outline: none;
     /* z-index: 2; */
-    box-shadow: 0 0 1px 0 rgba(255, 255, 255),0 0 10px 0 rgb(255, 255, 255, .7),0 0 20px 0 rgb(0, 0, 0, .4);
+    box-shadow: 0 0 1px 0 rgba(255, 255, 255), 0 0 10px 0 rgb(255, 255, 255, .7), 0 0 20px 0 rgb(0, 0, 0, .4);
 }
 
-.form-check-input{
+.form-check-input {
     width: 20px;
     height: 20px;
     /* margin-left: 60px; */
 }
 
-.form-check-input:checked{
+.form-check-input:checked {
     margin-left: 40px;
     padding: 5px;
 }
 
-.form-check p{
-    padding-left:70px;
+.form-check p {
+    padding-left: 70px;
     padding-top: 3px;
 }
 
-#register{
+#register {
     font-size: 15px;
     margin-left: 60px;
 }
 
-.alert{
+.alert {
     margin-left: 140px;
     /* padding-top: 50px; */
     /* margin-bottom: -5px; */
-} 
+}
 
-.container button{
+.container button {
     width: 350px;
     height: 80px;
     margin-left: -180px;
-    margin-top:330px ;
+    margin-top: 330px;
     border: 1px solid rgb(255, 255, 255, .2);
     border-radius: 30px;
-    padding-top :40px;
+    padding-top: 40px;
     background-color: rgb(214, 213, 213);
     color: #010101;
     outline: none;
     position: absolute;
     z-index: 1;
-    box-shadow: 0 0 1px 0 rgba(255, 255, 255),0 0 10px 0 rgb(255, 255, 255, .7),0 0 20px 0 rgb(0, 0, 0, .4);
+    box-shadow: 0 0 1px 0 rgba(255, 255, 255), 0 0 10px 0 rgb(255, 255, 255, .7), 0 0 20px 0 rgb(0, 0, 0, .4);
 }
 
-.backButton{
+.backButton {
     margin: 10px;
     z-index: 999;
     position: absolute;
@@ -155,18 +155,47 @@
     background-color: rgb(214, 213, 213);
     border: 1px solid rgb(255, 255, 255, 0.6);
     border-radius: 30px;
-    box-shadow: 0 0 1px 0 rgba(255, 255, 255),0 0 10px 0 rgb(255, 255, 255, .7),0 0 20px 0 rgb(0, 0, 0, .4);
+    box-shadow: 0 0 1px 0 rgba(255, 255, 255), 0 0 10px 0 rgb(255, 255, 255, .7), 0 0 20px 0 rgb(0, 0, 0, .4);
     outline: none;
     cursor: pointer;
 }
 
-.backButton a{
+.backButton a {
     color: #010101;
     text-decoration: none;
     font-size: 15px;
     font-weight: bold;
     font-style: italic;
     padding: 10px;
+}
+
+.containerRegister {
+    width: 100%;
+    max-width: 1000px;
+    min-height: 900px;
+    margin: 55px auto;
+    background-image: url("https://th.bing.com/th/id/OIG2.4aWwLx8zA4LuG2YCtSFr?pid=ImgGn");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    box-shadow: 0 0 1px 0 rgb(0, 0, 0), 0 0 10px 0 rgba(0, 0, 0, 0.7), 0 0 20px 0 rgb(0, 0, 0, .4);
+}
+
+.registerForm{
+    width: 550px;
+    background-color: #060409;
+    position: absolute;
+    height: 900px
+}
+.registerForm h1,
+.registerForm p{
+    color: #ffff;
+    text-align: center;
+    padding: 5px;
+}
+.registerForm h1{
+    padding-top: 30px;
 }
 
 @keyframes bounce {
@@ -198,6 +227,3 @@
         transform: scale3d(1, 1, 1);
     }
 }
- 
-
-
