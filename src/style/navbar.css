@@ -124,6 +124,16 @@
 .loginPage li a{
   font-size: 20px;
   border: 1px solid #ffff;
+  transition: .5s;
+}
+
+.loginPage li a:hover{
+  background-color: #ffff;
+  color: #010101;
+}
+
+.btn-close {
+  background-color: #ffff;
 }
 
 @media(max-width:320px){
