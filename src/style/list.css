@@ -13,11 +13,10 @@
 
 .container-list-friends {
     background-color: #272822;
-    margin: 120px 90px;
+    margin: 200px 90px;
     padding: 20px;
     border-radius: 30px;
     transition: .3s ease;
-    height: 250px;
     text-align: center;
     display: wrap;
 }
@@ -38,4 +37,78 @@
     display: flex;
     gap: 15px;
     padding: 8px;
+}
+
+.list-friends .row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30px;
+}
+.list-friends-item{
+    display: flex;
+    align-items: center;
+    line-height: .5;
+    padding: 10px;
+    width: 500px;
+    border: 1px solid #ffffff;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin: 10px;
+}
+
+.list-friends img{
+    width: 100px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.list-friends-item-name h3{
+    width: 100px;
+    font-size: 20px;
+    padding-left: 12px;
+    font-weight: 600;
+}
+
+.list-friends-item-name>p{
+    font-size: 12px;
+    padding-left: 15px;
+    font-weight: 300;
+}
+
+.list-friends-item-info{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    justify-content: space-between;
+    width: 400px;
+}
+
+.btn-popover{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid #ffffff;
+    color:#ffffff;
+    font-weight: bolder;
+    cursor: pointer;
+}
+.btn-popover p{
+    font-size: 13px;
+    margin:auto;
+    padding-bottom: 7px;
+    text-align: center;
+}
+
+.dropdown-toggle::after {
+    display: none !important;
+  } 
+
+.dropdown-menu a{
+    color: #010101;
+    font-weight: 300;
+    font-size: 13px;
 }

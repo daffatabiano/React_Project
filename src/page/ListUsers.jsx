@@ -4,11 +4,13 @@ import { useState, useEffect } from 'react';
 import SearchButton from '../components/SearchButton';
 import Navbar from '../components/Navbar';
 import '../style/list.css';
+import { Link } from 'react-router-dom';
+// import Dropdown from 'react-bootstrap/Dropdown';
 
 const ListUsers = () => {
     const navigate = useNavigate();
-    const [ListUsers, setListUsers] = useState([]);
-    const [page, setPage] = useState({
+    const [listUsers, setListUsers] = useState([]);
+    const [pagination, setPagination] = useState({
         page: 0,
         per_page: 6,
         total: 12,
@@ -17,9 +19,9 @@ const ListUsers = () => {
 
     const getListUsers = () => {
         axios
-          .get(`https://reqres.in/api/users?page=${page.page}`)
+          .get(`https://reqres.in/api/users?page=${pagination.page}`)
           .then((res) => {
-            setPage({
+            setPagination({
                 page: res.data.page,
                 per_page: res.data.per_page,
                 total: res.data.total,
@@ -32,25 +34,25 @@ const ListUsers = () => {
           });
           const handleBack = () => {
            setPage({
-               ...page,
-               page: page.page - 1
+               ...pagination,
+               page: pagination.page - 1
            })
           }
 
           const handleNext = () => {
               setPage({
-                  ...page,
-                  page: page.page + 1
+                  ...pagination,
+                  page: pagination.page + 1
               });
           }
 
-          useEffect(() => {
-              getListUsers();
-          }, [page.page]);
-          useEffect(() => {
-              console.log(page);
-          }, [page]);
-    }
+        }
+        useEffect(() => {
+            getListUsers();
+        }, [pagination.page]);
+        useEffect(() => {
+            console.log(pagination);
+        }, [pagination]);
 
   return (
     <div className="main-page">
@@ -75,17 +77,54 @@ const ListUsers = () => {
       <section className="list-friends">
           <div className="tab-content" id="myTabContent">
 
-              <div className="tab-pane fade px-4 show active d-flex w-25" id="home" role="tabpanel" aria-labelledby="home-tab">
-                  <div className="list-friends row gx-5">
-                      <div className="list-friends-item col">
+              <div className="tab-pane fade show active d-flex flex-column" id="home" role="tabpanel" aria-labelledby="home-tab">
+                  <div className="list-friends row">
+
+{/* list friends */}
+{listUsers.map((user) => {
+  return (
+      <>
+      <div className="list-friends-item col-lg-6">
                           <div className="list-friends-item-img">
-                              <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="profile" />
+                              <img src={user.avatar} alt={user.first_name} />
                           </div>
-                          <div className="list-friends-item-name">
-                              <h3>John Doe</h3>
+                          <div className="list-friends-item-info">
+
+                          <div className="list-friends-item-name d-flex flex-column ">
+                              <h3>{user.first_name} {user.last_name}</h3>
+                              <p>{user.email}</p>
+                          </div>
+
+                          <div className='dropend'>
+                          <button type="button" className="btn-popover dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" >
+                          <p>. . .</p>
+                          <ul className='dropdown-menu '>
+                            <li className="dropdown-item text-decoration-none"><Link className='text-success d-flex align-items-center text-decoration-none p-1'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil me-2" viewBox="0 0 16 16">
+  <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+</svg>Edit Name</Link></li>
+                            <li className="dropdown-item text-decoration-none"><Link className='text-success d-flex align-items-center text-decoration-none p-1'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-star me-2" viewBox="0 0 16 16">
+  <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/>
+</svg>Add Close-Friends</Link></li>
+                            <li className="dropdown-item text-decoration-none"><Link className='text-success d-flex align-items-center text-decoration-none p-1'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-dash me-2" viewBox="0 0 16 16">
+  <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1m0-7a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+  <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
+</svg>Unfollow</Link></li>
+                            <li><hr className="dropdown-divider"/></li>
+                            <li className="dropdown-item "><Link className='text-danger d-flex align-items-center text-decoration-none'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-ban me-2" viewBox="0 0 16 16">
+  <path d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0"/>
+</svg>Block</Link></li>
+                            
+                          </ul>
+</button>
+                          </div>
                           </div>
                       </div>
-                  </div>
+      </>
+  )
+})}
+    
+                      
+                    </div>
               </div>
               
           </div>
