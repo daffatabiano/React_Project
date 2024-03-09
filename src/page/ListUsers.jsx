@@ -1,5 +1,9 @@
-import React from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import SearchButton from '../components/SearchButton';
+import Navbar from '../components/Navbar';
+import '../style/list.css';
 
 const ListUsers = () => {
     const navigate = useNavigate();
@@ -13,21 +17,67 @@ const ListUsers = () => {
 
     const getListUsers = () => {
         axios
-          .get("https://reqres.in/api/users")
+          .get(`https://reqres.in/api/users?page=${page.page}`)
           .then((res) => {
+            setPage({
+                page: res.data.page,
+                per_page: res.data.per_page,
+                total: res.data.total,
+                total_pages: res.data.total_pages,
+            })
             setListUsers(res.data.data);
           })
           .catch((err) => {
             console.log(err.response);
-          })
+          });
+          const handleBack = () => {
+           setPage({
+               ...page,
+               page: page.page - 1
+           })
+          }
 
+          const handleNext = () => {
+              setPage({
+                  ...page,
+                  page: page.page + 1
+              });
+          }
 
+          useEffect(() => {
+              getListUsers();
+          }, [page.page]);
+          useEffect(() => {
+              console.log(page);
+          }, [page]);
     }
+
   return (
-    <div>
-      <h1>List Friends</h1>
+    <div className="main-page">
+            <Navbar />
+        <div className='container-list-friends'>
+          <div className='logo-pack'>
+          <svg xmlns="http://www.w3.org/2000/svg" fill='white' className="bi bi-people" viewBox="0 0 16 16">
+  <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+</svg>
+      <h1>Connection</h1>
+          </div>
+
+          <ul className='nav nav-tabs' id='myTab' role="tablist">
+              <li className='nav-item' role="presentation"><button className='nav-link active' id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">All Friends</button></li>
+              <li className='nav-item' role="presentation"><button className='nav-link' id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Close Friends</button></li>
+              <li className='nav-item' role='presentation'><button className='nav-link' id='request-tab' data-bs-toggle='tab' data-bs-target='#request' type='button' role='tab' aria-controls='request' aria-selected='false'>Request
+                <span className='badge rounded-pill text-bg-danger m-1'>9</span>
+              </button>
+              </li>
+              <li className='nav-item' role='presentation'><button className='nav-link' id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Others</button></li>
+          </ul>
+      <section className="list-friends">
+
+      </section>
+        </div>
     </div>
   )
 }
 
-export default ListUsers
+export default ListUsers;
