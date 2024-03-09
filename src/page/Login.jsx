@@ -3,12 +3,14 @@ import "../style/login.css"
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [notif, setNotif] = useState("");
   const [loading, setLoading] = useState(false);
+  const token = localStorage.getItem('token');
 
 
   const handleEmailChange = (event) => {
@@ -24,20 +26,22 @@ const Login = () => {
       email: email,
       password: password,
     }
-
+    setLoading(true);
     axios
       .post("https://reqres.in/api/login", payload)
       .then((res) => {
         setNotif("Welcome Back " + res?.data?.token);
+        localStorage.setItem("token", res?.data?.token);
         console.log(res?.data);
-        setLoading(true);
+        setLoading(false);
         setTimeout(() => {
           navigate("/");
-        }, 2000)
+        }, 3000)
 
       })
       .catch((err) => {
         setNotif(err.response?.data?.error)
+        setLoading(false);
         console.log(err.response);
       })
   }
@@ -64,7 +68,7 @@ const Login = () => {
           <p id="register" className="form-text">Do not have an account? <Link to="/register">Register</Link></p>
         </form>
         <div className="button">
-          <button type="submit" onClick={handleSubmit}>Login</button>
+          <button type="submit" onClick={handleSubmit} disabled={loading ? true : false}>{loading ? "Loading..." : "Login"}</button>
         </div>
         <div className="backButton">
           <Link onClick={() => navigate(-1)}>Back</Link>

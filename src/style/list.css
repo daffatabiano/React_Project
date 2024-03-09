@@ -1,0 +1,41 @@
+.main-page {
+    padding: 0;
+    margin: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.container-list-friends {
+    background-color: #272822;
+    margin: 120px 60px;
+    padding: 20px;
+    border-radius: 30px;
+    transition: .3s ease;
+    height: 250px;
+    text-align: center;
+    display: wrap;
+}
+
+
+.logo-pack{
+    display: flex;
+    padding: 10px;
+}
+
+.logo-pack svg{
+    width: 50px;
+    height: 50px;
+    padding: 2px;
+}
+
+.list{
+    display: flex;
+    gap: 15px;
+    padding: 8px;
+}

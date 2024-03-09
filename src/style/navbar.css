@@ -114,6 +114,9 @@
   color: #ffff;
   text-decoration: none;
 }
+.show-search{
+  display: none;
+}
 
 .loginPage {
   display: flex;
@@ -151,7 +154,7 @@
     flex-direction: row;
     padding: 1px;
   }
-  .search{
+  .show-search{
     display: none;
     /* padding: 7px; */
   }
