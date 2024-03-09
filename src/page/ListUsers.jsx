@@ -73,7 +73,22 @@ const ListUsers = () => {
               <li className='nav-item' role='presentation'><button className='nav-link' id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Others</button></li>
           </ul>
       <section className="list-friends">
+          <div className="tab-content" id="myTabContent">
 
+              <div className="tab-pane fade px-4 show active d-flex w-25" id="home" role="tabpanel" aria-labelledby="home-tab">
+                  <div className="list-friends row gx-5">
+                      <div className="list-friends-item col">
+                          <div className="list-friends-item-img">
+                              <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="profile" />
+                          </div>
+                          <div className="list-friends-item-name">
+                              <h3>John Doe</h3>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
+          </div>
       </section>
         </div>
     </div>
