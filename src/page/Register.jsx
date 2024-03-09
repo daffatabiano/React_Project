@@ -40,7 +40,9 @@ const Register = () => {
   }
 
   return (
+    <div className="registerBackground">
     <div className="containerRegister">
+
       <div className="registerForm">
       <h1>Register</h1>
       <p>Its Completely Free</p>
@@ -80,7 +82,12 @@ const Register = () => {
         </label>
       </form>
       <button onClick={handleRegister} disabled={loading ? true : false}>{loading ? "Loading..." : "Register"}</button>
+      <div>
+        <button className="backButton" onClick={() => navigate(-1)}>Back</button>
       </div>
+      </div>
+    </div>
+
     </div>
   )
 }

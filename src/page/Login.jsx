@@ -3,12 +3,14 @@ import "../style/login.css"
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [notif, setNotif] = useState("");
   const [loading, setLoading] = useState(false);
+  const token = localStorage.getItem('token');
 
 
   const handleEmailChange = (event) => {
@@ -24,11 +26,12 @@ const Login = () => {
       email: email,
       password: password,
     }
-
+    setLoading(true);
     axios
       .post("https://reqres.in/api/login", payload)
       .then((res) => {
         setNotif("Welcome Back " + res?.data?.token);
+        localStorage.setItem("token", res?.data?.token);
         console.log(res?.data);
         setLoading(false);
         setTimeout(() => {
@@ -38,6 +41,7 @@ const Login = () => {
       })
       .catch((err) => {
         setNotif(err.response?.data?.error)
+        setLoading(false);
         console.log(err.response);
       })
   }

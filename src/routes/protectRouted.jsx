@@ -5,7 +5,10 @@ const protectRouted = ({children}) => {
     if(!token) {
         return <Navigate to="/login" />
     }
-    return <>{children || <Outlet />}</>
+    return <>
+    {children}
+    <Outlet />
+    </>
 }
 
 export default protectRouted;
