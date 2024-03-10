@@ -1,0 +1,25 @@
+.card-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 700px;
+    margin: 0px auto;
+    background-color: transparent;
+    backdrop-filter: blur(5px);
+    padding: 30px;
+    border-radius: 30px;
+    position: fixed;
+}
+
+.parents-detail {
+    background-image: url("https://s0.smartresize.com/wallpaper/794/389/HD-wallpaper-hexagons-2012-abstract-design-selected.jpg");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
