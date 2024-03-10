@@ -3,12 +3,13 @@ import "../style/login.css"
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Alert from "../components/Alert";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [notif, setNotif] = useState("");
+  const [notif, setNotif] = useState({type: "", message: ""});
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem('token');
 
@@ -30,17 +31,17 @@ const Login = () => {
     axios
       .post("https://reqres.in/api/login", payload)
       .then((res) => {
-        setNotif("Welcome Back " + res?.data?.token);
+        setNotif({type: "success" , message: `Welcome Back ${res?.data?.token}`});
         localStorage.setItem("token", res?.data?.token);
         console.log(res?.data);
         setLoading(false);
         setTimeout(() => {
           navigate("/");
-        }, 3000)
+        }, 2000)
 
       })
       .catch((err) => {
-        setNotif(err.response?.data?.error)
+        setNotif({type:"danger", message:err.response?.data?.error})
         setLoading(false);
         console.log(err.response);
       })
@@ -56,7 +57,7 @@ const Login = () => {
           </svg>
         </div>
         <form action="">
-          {!!notif.length && <p className={notif ? "alert alert-danger" : "alert alert-success"}>{notif}</p>}
+          {notif && <Alert type={notif.type} message={notif.message}/>}
           <label htmlFor="email">Email</label>
           <input className="form-control" type="email" name="email" id="email" onChange={handleEmailChange} placeholder="email" />
           <label htmlFor="password">Password</label>
