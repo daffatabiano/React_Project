@@ -5,7 +5,8 @@ import SearchButton from '../components/SearchButton';
 import Navbar from '../components/Navbar';
 import '../style/list.css';
 import { Link } from 'react-router-dom';
-// import Dropdown from 'react-bootstrap/Dropdown';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const ListUsers = () => {
     const navigate = useNavigate();
@@ -32,21 +33,19 @@ const ListUsers = () => {
           .catch((err) => {
             console.log(err.response);
           });
-          const handleBack = () => {
-           setPage({
+        }
+        const handleBack = () => {
+           setPagination({
                ...pagination,
                page: pagination.page - 1
            })
           }
-
           const handleNext = () => {
-              setPage({
+              setPagination({
                   ...pagination,
                   page: pagination.page + 1
               });
           }
-
-        }
         useEffect(() => {
             getListUsers();
         }, [pagination.page]);
@@ -79,12 +78,10 @@ const ListUsers = () => {
 
               <div className="tab-pane fade show active d-flex flex-column" id="home" role="tabpanel" aria-labelledby="home-tab">
                   <div className="list-friends row">
-
-{/* list friends */}
 {listUsers.map((user) => {
   return (
       <>
-      <div className="list-friends-item col-lg-6">
+      <Link className="list-friends-item col-lg-6 text-decoration-none text-white"  to={"/detail"}>
                           <div className="list-friends-item-img">
                               <img src={user.avatar} alt={user.first_name} />
                           </div>
@@ -94,7 +91,6 @@ const ListUsers = () => {
                               <h3>{user.first_name} {user.last_name}</h3>
                               <p>{user.email}</p>
                           </div>
-
                           <div className='dropend'>
                           <button type="button" className="btn-popover dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" >
                           <p>. . .</p>
@@ -112,19 +108,37 @@ const ListUsers = () => {
                             <li><hr className="dropdown-divider"/></li>
                             <li className="dropdown-item "><Link className='text-danger d-flex align-items-center text-decoration-none'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-ban me-2" viewBox="0 0 16 16">
   <path d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0"/>
-</svg>Block</Link></li>
-                            
+</svg>Block</Link></li>   
                           </ul>
 </button>
                           </div>
                           </div>
-                      </div>
+                      </Link>
       </>
   )
 })}
     
-                      
+                    
                     </div>
+                
+  
+<nav aria-label="...">
+  <ul className="pagination justify-content-center">
+    <li className="page-item">
+      <Link className="page-link" disabled={pagination.page === 1} onClick={handleBack}>Previous</Link>
+    </li>
+    <li className="page-item"><a className="page-link" href="#">1</a></li>
+    <li className="page-item" aria-current="page">
+      <a className="page-link" href="#">2</a>
+    </li>
+    <li className="page-item"><a className="page-link" href="#">3</a></li>
+    <li className="page-item">
+      <Link className="page-link" disabled={!pagination.page} onClick={handleNext}>Next</Link>
+    </li>
+  </ul>
+</nav>
+    
+
               </div>
               
           </div>

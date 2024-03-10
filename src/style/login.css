@@ -124,9 +124,8 @@
 }
 
 .alert {
-    margin-left: 140px;
-    /* padding-top: 50px; */
-    /* margin-bottom: -5px; */
+    text-align: center;
+    margin: 5px 25px;
 }
 
 .container button {
@@ -169,7 +168,7 @@
     padding: 10px;
 }
 
-.registerBackground{
+.registerBackground {
     margin: 0;
     padding: 0;
     display: flex;
@@ -193,27 +192,30 @@
     box-shadow: 0 0 1px 0 rgb(0, 0, 0), 0 0 10px 0 rgba(0, 0, 0, 0.7), 0 0 20px 0 rgb(0, 0, 0, .4);
 }
 
-.registerForm{
+.registerForm {
     width: 550px;
     background-color: #060409;
     position: absolute;
     height: 900px
 }
+
 .registerForm h1,
-.registerForm p{
+.registerForm p {
     color: #ffff;
     text-align: center;
     padding: 5px;
 }
-.registerForm h1{
+
+.registerForm h1 {
     padding-top: 30px;
 }
-@media (max-width:320px ){
-   .container form,
-   .container input
-   {
-       width: 80%;
-   }
+
+@media (max-width:320px) {
+
+    .container form,
+    .container input {
+        width: 80%;
+    }
 }
 
 @keyframes bounce {

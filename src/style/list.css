@@ -22,30 +22,31 @@
 }
 
 
-.logo-pack{
+.logo-pack {
     display: flex;
     padding: 10px;
 }
 
-.logo-pack svg{
+.logo-pack svg {
     width: 50px;
     height: 50px;
     padding: 2px;
 }
 
-.list{
+.list {
     display: flex;
     gap: 15px;
     padding: 8px;
 }
 
-.list-friends .row{
+.list-friends .row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 30px;
 }
-.list-friends-item{
+
+.list-friends-item {
     display: flex;
     align-items: center;
     line-height: .5;
@@ -57,27 +58,27 @@
     margin: 10px;
 }
 
-.list-friends img{
+.list-friends img {
     width: 100px;
     border-top-left-radius: 10px;
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
 }
 
-.list-friends-item-name h3{
+.list-friends-item-name h3 {
     width: 100px;
     font-size: 20px;
     padding-left: 12px;
     font-weight: 600;
 }
 
-.list-friends-item-name>p{
+.list-friends-item-name>p {
     font-size: 12px;
     padding-left: 15px;
     font-weight: 300;
 }
 
-.list-friends-item-info{
+.list-friends-item-info {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -86,29 +87,45 @@
     width: 400px;
 }
 
-.btn-popover{
+.btn-popover {
     width: 35px;
     height: 35px;
     border-radius: 50%;
     background: transparent;
     border: 1px solid #ffffff;
-    color:#ffffff;
+    color: #ffffff;
     font-weight: bolder;
     cursor: pointer;
 }
-.btn-popover p{
+
+.btn-popover p {
     font-size: 13px;
-    margin:auto;
+    margin: auto;
     padding-bottom: 7px;
     text-align: center;
 }
 
 .dropdown-toggle::after {
     display: none !important;
-  } 
+}
 
-.dropdown-menu a{
+.dropdown-menu a {
     color: #010101;
     font-weight: 300;
     font-size: 13px;
+}
+
+.pagination .page-link {
+    color: white;
+    background-color: transparent;
+
+}
+
+.pagination .page-link:hover {
+    background-color: #010101
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #010101;
+    border-color: #010101;
 }

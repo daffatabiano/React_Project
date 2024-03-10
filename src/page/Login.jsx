@@ -56,7 +56,7 @@ const Login = () => {
           </svg>
         </div>
         <form action="">
-          {!!notif.length && <p className="alert">{notif}</p>}
+          {!!notif.length && <p className={notif ? "alert alert-danger" : "alert alert-success"}>{notif}</p>}
           <label htmlFor="email">Email</label>
           <input className="form-control" type="email" name="email" id="email" onChange={handleEmailChange} placeholder="email" />
           <label htmlFor="password">Password</label>

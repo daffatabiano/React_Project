@@ -33,7 +33,9 @@ const Navbar = () => {
             <Sidebar />
             <div className={scrollPosition > 0 ? "navbar scrolled" : "navbar"}>
             <div className="container-fluid">
+                <Link className="text-decoration-none" to={"/"}>
                 <h1 className="navbar-brand">soci<span>all</span></h1>
+                </Link>
                 <SearchButton />
                 <div className="d-flex justify-content-end align-items-center p-2">
                     <button type="button" className="button"
