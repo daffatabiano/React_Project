@@ -138,6 +138,12 @@ header:hover {
     border-radius: 10px;
 }
 
+.home-content {
+    display: flex;
+    flex-direction: column;
+}
+
+
 .head-content {
     display: flex;
     gap: 10px;
