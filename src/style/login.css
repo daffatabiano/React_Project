@@ -168,48 +168,6 @@
     padding: 10px;
 }
 
-.registerBackground {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    background-image: url("https://th.bing.com/th/id/OIG2.4aWwLx8zA4LuG2YCtSFr?pid=ImgGn");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100%;
-}
-
-.containerRegister {
-    width: 100%;
-    max-width: 1000px;
-    min-height: 900px;
-    margin: 55px auto;
-    background-image: url("https://th.bing.com/th/id/OIG2.4aWwLx8zA4LuG2YCtSFr?pid=ImgGn");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    position: relative;
-    box-shadow: 0 0 1px 0 rgb(0, 0, 0), 0 0 10px 0 rgba(0, 0, 0, 0.7), 0 0 20px 0 rgb(0, 0, 0, .4);
-}
-
-.registerForm {
-    width: 550px;
-    background-color: #060409;
-    position: absolute;
-    height: 900px
-}
-
-.registerForm h1,
-.registerForm p {
-    color: #ffff;
-    text-align: center;
-    padding: 5px;
-}
-
-.registerForm h1 {
-    padding-top: 30px;
-}
-
 @media (max-width:320px) {
 
     .container form,

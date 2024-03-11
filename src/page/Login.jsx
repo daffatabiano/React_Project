@@ -116,9 +116,6 @@ const Login = () => {
                             {loading ? 'Loading...' : 'Login'}
                         </button>
                     </div>
-                    <div className="backButton">
-                        <Link onClick={() => navigate(-1)}>Back</Link>
-                    </div>
                 </div>
             </div>
         </div>

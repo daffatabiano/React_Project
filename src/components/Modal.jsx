@@ -39,7 +39,7 @@ const Modal = () => {
                         </div>
                         <div className="modal-body">
                             <img src="" alt="" />
-                            <h4>content</h4>
+                            <h4></h4>
                         </div>
                         <div className="modal-footer"></div>
                     </div>

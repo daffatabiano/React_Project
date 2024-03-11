@@ -1,0 +1,151 @@
+.registerBackground {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-image: url("https://th.bing.com/th/id/OIG2.4aWwLx8zA4LuG2YCtSFr?pid=ImgGn");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+}
+
+.containerRegister {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    min-height: 900px;
+    margin: 55px auto;
+    background-image: url("https://th.bing.com/th/id/OIG2.4aWwLx8zA4LuG2YCtSFr?pid=ImgGn");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    /* justify-content: space-between; */
+    box-shadow: 0 0 1px 0 rgb(0, 0, 0), 0 0 10px 0 rgba(0, 0, 0, 0.7), 0 0 20px 0 rgb(0, 0, 0, .4);
+}
+
+.registerForm {
+    width: 550px;
+    background-color: rgba(0, 0, 0, 0.753);
+    border-right: .5px solid rgb(255, 255, 255, 0.5);
+    box-shadow: 5px 0 5px -5px rgba(255, 255, 255, 0.5);
+    border-radius: 30px;
+    position: absolute;
+    height: 900px;
+    backdrop-filter: blur(3px);
+    position: relative;
+}
+
+.registerForm h1,
+.registerForm p {
+    color: #ffff;
+    text-align: center;
+    padding: 5px;
+}
+
+.registerForm h1 {
+    padding-top: 30px;
+}
+
+.registerForm p {
+    padding-bottom: 30px;
+    font-size: 20px;
+    font-weight: 200;
+}
+
+.registerForm form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 200px;
+    margin: auto;
+}
+
+.registerForm form label {
+    padding-bottom: 5px;
+}
+
+.registerForm form input {
+    padding: 10px;
+    border: 1px solid rgb(255, 255, 255, 0.5);
+    border-radius: 5px;
+    outline: none;
+    background-color: transparent;
+    color: #ffff;
+}
+
+.registerForm form input::placeholder {
+    color: rgb(255, 255, 255, 0.5);
+}
+
+.registerForm form input:focus {
+    box-shadow: 0 0 1px 0 rgb(255, 255, 255, 0.5), 0 0 10px 0 rgba(255, 255, 255, 0.5), 0 0 20px 0 rgb(0, 0, 0, .4);
+    transform: scale(1.05);
+}
+
+.registerForm form button {
+    padding: 10px;
+    border: 1px solid rgb(255, 255, 255, 0.5);
+    border-radius: 5px;
+    outline: none;
+    background-color: transparent;
+    color: #ffff;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.registerForm form button:hover {
+    background-color: rgb(255, 255, 255, 0.5);
+    color: #010101;
+
+}
+
+
+.other-side {
+    position: relative;
+    text-align: center;
+    margin: auto;
+}
+
+
+.other-side h3 {
+    border-bottom: 1px solid rgb(255, 255, 255, 0.5);
+    padding-bottom: 8px;
+    text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.452), 0px 0px 10px rgba(0, 0, 0, 0.541);
+}
+
+.social-media {
+    display: flex;
+    gap: 10px;
+
+}
+
+.social-media>li {
+    list-style: none;
+    border: 1px solid #ffff;
+    padding: 11px;
+    border-radius: 50%;
+    margin: 4px;
+    box-sizing: border-box;
+    background-color: #ffff;
+    transition: 0.5s;
+}
+
+.social-media>li>a>svg {
+    width: 30px;
+    color: rgba(0, 0, 0, 0.452);
+
+}
+
+.social-media>li>a:hover svg {
+    color: rgb(255, 255, 255);
+    transform: rotateY(360deg);
+    transition: 0.5s;
+}
+
+.social-media>li:hover {
+    background-color: rgba(0, 0, 0, 0.596);
+    border: 1px solid rgba(0, 0, 0, 0.596);
+}
