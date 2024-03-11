@@ -57,6 +57,10 @@
   font-family: "Homemade Apple", cursive;
 }
 
+.custom-popover{
+  --bs-popover-header-color: var(--bs-black);
+}
+
 .container {
   display: flex;
   justify-content: space-between;

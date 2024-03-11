@@ -1,3 +1,4 @@
+import DetailUser from "../page/DetailUser";
 import Home from "../page/Home";
 import ListUsers from "../page/ListUsers";
 import Login from "../page/Login";
@@ -25,6 +26,13 @@ export const routeList = [
         element: 
         <ProtectRouted>
             <ListUsers />
+        </ProtectRouted>
+    },
+    {
+        path: '/detail',
+        element:
+        <ProtectRouted>
+            <DetailUser />
         </ProtectRouted>
     }
     

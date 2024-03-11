@@ -1,4 +1,4 @@
-body{
+body {
     background-color: rgb(27, 27, 27);
     height: 1000px;
     color: white;
@@ -10,27 +10,27 @@ body{
     list-style: none;
 }
 
-header{
+header {
     background-color: #272822;
-    margin:120px 10px;
+    margin: 120px 10px;
     padding: 20px;
     border-radius: 30px;
     transition: .3s ease;
     height: 250px;
     text-align: center;
-    display: wrap;   
+    display: wrap;
 }
 
-header:hover{
-    box-shadow: 0 0 .6px 0 rgb(255, 255, 255),0 0 10px 0 rgb(255, 255, 255);
+header:hover {
+    box-shadow: 0 0 .6px 0 rgb(255, 255, 255), 0 0 10px 0 rgb(255, 255, 255);
 }
 
-.cardContainer{
+.cardContainer {
     display: flex;
     flex-direction: row;
 }
 
-.card{
+.card {
     display: flex;
     justify-content: center;
     width: 140px;
@@ -42,30 +42,40 @@ header:hover{
     font-family: "Quicksand", sans-serif;
     /* animation: slideRight 1.5s linear forwards ; */
 }
-.card img{
+
+.card img {
     width: 100%;
     height: 200px;
+    opacity: 0.8;
+    transition: .3s ease;
 }
 
-.card:hover{
-    box-shadow: 0 0 .6px 0 rgb(0, 0, 0),0 0 10px 0 rgb(0, 0, 0);
+.card img:hover {
+    opacity: 1;
+    transform: scale(1.1);
 }
 
-.bodyCard{
+.card:hover {
+    box-shadow: 0 0 .6px 0 rgb(0, 0, 0), 0 0 10px 0 rgb(0, 0, 0);
+}
+
+.bodyCard {
     display: flex;
     flex-direction: column;
     position: absolute;
-    margin: 0 35px ;
-    
+    margin: 0 35px;
+
 }
-.bodyCard2{
+
+.bodyCard2 {
     position: absolute;
     display: flex;
     flex-direction: row;
     bottom: 0;
     margin: 0;
 }
-.bodyCard2 a{
+
+.bodyCard2 a {
     display: flex;
     /* position: absolute; */
     /* background-color: yellow; */
@@ -74,20 +84,20 @@ header:hover{
     border: none;
 }
 
-.bodyCard2 img{
+.bodyCard2 img {
     display: flex;
     position: sticky;
     width: 100%;
     height: 100%;
-    max-width: 30px; 
+    max-width: 30px;
     max-height: 35px;
-     padding: 1px;
+    padding: 1px;
     border-radius: 50%;
     border: 1px solid rgb(255, 255, 255, 0.7);
     /* margin: auto -10px ; */
 }
 
-.bodyCard2 em{
+.bodyCard2 em {
     /* top: 0; */
     color: #ffffff;
     /* background-color: yellowgreen; */
@@ -105,7 +115,7 @@ header:hover{
     line-height: 1;
 }
 
-.card button{
+.card button {
     color: #ffffff;
     font-size: 25px;
     font-weight: lighter;
@@ -116,20 +126,21 @@ header:hover{
     transition: .2s ease;
 }
 
-.card button:hover{
+.card button:hover {
     background-color: rgb(255, 255, 255);
     color: #010101;
 }
 
-@media(max-width: 320px){
-    header{
+@media(max-width: 320px) {
+    header {
         /* margin: 100px 10px; */
         padding: 50px;
         max-height: 50px;
     }
 }
-@media(max-width :768px){
-    header{
+
+@media(max-width :768px) {
+    header {
         height: 200px;
     }
 }
