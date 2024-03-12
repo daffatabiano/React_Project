@@ -1,10 +1,14 @@
 import axios from 'axios';
 import '../style/modal.css';
-import PropTypes from 'prop-types';
-
-// Inside the Modal component
-
+import { handleLogin } from '../utils/api';
+import { useEffect } from 'react';
 const Modal = (props) => {
+    const { firstname, lastname, image } = props;
+    let { id } = props;
+
+    useEffect(() => {
+        handleLogin({ id });
+    });
     return (
         <div>
             <div
@@ -15,14 +19,14 @@ const Modal = (props) => {
                 aria-hidden="true"
             >
                 <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content" id={props.id}>
+                    <div className="modal-content">
                         <div className="modal-header">
                             <h1 className="modal-title " id="exampleModalLabel">
-                                {props.first_name} {props.last_name}
+                                {firstname} {lastname}
                             </h1>
                         </div>
                         <div className="modal-body">
-                            <img src={props.avatar} alt="" />
+                            <img src={image} alt="" />
                             <h4></h4>
                         </div>
                         <div className="modal-footer"></div>
@@ -31,12 +35,6 @@ const Modal = (props) => {
             </div>
         </div>
     );
-};
-Modal.propTypes = {
-    first_name: PropTypes.string.isRequired,
-    last_name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
 };
 
 export default Modal;

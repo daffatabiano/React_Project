@@ -143,7 +143,7 @@ const Footer = () => {
                                 {' '}
                                 <a
                                     className="footer-call-to-action-link"
-                                    href="tel:0124-64XXXX"
+                                    href="tel:089890499"
                                     target="_self"
                                 >
                                     {' '}

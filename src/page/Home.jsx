@@ -30,7 +30,6 @@ const Home = () => {
     useEffect(() => {
         getUser();
     }, []);
-    console.log(getUser);
 
     return (
         <div>
@@ -57,13 +56,17 @@ const Home = () => {
                     {/* <Slider /> */}
                     {user.map((item) => (
                         <>
-                            <Modal {...item} />
+                            <Modal
+                                id={item.id}
+                                firstname={item.first_name}
+                                lastname={item.last_name}
+                                image={item.avatar}
+                            />
                             <Link
                                 className="card col-sm-6 mb-3 mb-sm-0"
                                 data-bs-toggle="modal"
                                 data-bs-target="#exampleModal"
                                 to={`/users/${item.id}`}
-                                key={item.id}
                             >
                                 <img
                                     className="card-img"
@@ -81,6 +84,12 @@ const Home = () => {
                                     <em className="">{`${item.first_name} ${item.last_name}`}</em>
                                 </div>
                             </Link>
+                            <Modal
+                                id={item.id}
+                                firstname={item.first_name}
+                                lastname={item.last_name}
+                                image={item.avatar}
+                            />
                         </>
                     ))}
                 </div>
