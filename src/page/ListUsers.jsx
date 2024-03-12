@@ -144,7 +144,7 @@ const ListUsers = () => {
                                         <>
                                             <Link
                                                 className="list-friends-item col-lg-6 text-decoration-none text-white"
-                                                to={'/detail'}
+                                                to={'/users/' + user.id}
                                             >
                                                 <div className="list-friends-item-img">
                                                     <img

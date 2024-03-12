@@ -1,27 +1,10 @@
 import axios from 'axios';
 import '../style/modal.css';
-import { useParams } from 'react-router-dom';
-import { useState } from 'react';
-import { useEffect } from 'react';
-const Modal = () => {
-    const [user, setUser] = useState(null);
-    const { id } = useParams('');
+import PropTypes from 'prop-types';
 
-    const getUserDetail = () => {
-        axios
-            .get(`https://reqres.in/api/users/${id}`)
-            .then((res) => {
-                setUser(res.data.data);
-                console.log(res?.data?.data);
-            })
-            .catch((err) => {
-                console.log(err.response);
-            });
-    };
+// Inside the Modal component
 
-    useEffect(() => {
-        getUserDetail();
-    });
+const Modal = (props) => {
     return (
         <div>
             <div
@@ -32,13 +15,14 @@ const Modal = () => {
                 aria-hidden="true"
             >
                 <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content">
+                    <div className="modal-content" id={props.id}>
                         <div className="modal-header">
                             <h1 className="modal-title " id="exampleModalLabel">
+                                {props.first_name} {props.last_name}
                             </h1>
                         </div>
                         <div className="modal-body">
-                            <img src="" alt="" />
+                            <img src={props.avatar} alt="" />
                             <h4></h4>
                         </div>
                         <div className="modal-footer"></div>
@@ -47,6 +31,12 @@ const Modal = () => {
             </div>
         </div>
     );
+};
+Modal.propTypes = {
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
 };
 
 export default Modal;

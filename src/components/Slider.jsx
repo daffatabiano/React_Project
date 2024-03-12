@@ -6,14 +6,10 @@ import axios from 'axios';
 
 function Responsive() {
     const [user, setUser] = useState([]);
-    const perPage = 7;
+    // const perPage = 7;
     const getUser = () => {
         axios
-            .get('https://reqres.in/api/users', {
-                params: {
-                    per_page: perPage,
-                },
-            })
+            .get('https://reqres.in/api/users')
             .then((res) => {
                 setUser(res.data.data);
             })
@@ -62,57 +58,23 @@ function Responsive() {
     };
 
     return (
-        <>
-            <div>
-                <Slider {...settings}>
-                    <div className="card">
-                        <Modal />
-                        <img
-                            className="card-img"
-                            src="https://almuhtada.org/wp-content/uploads/2024/01/Sifat-Orang-Munafik.jpg"
-                            alt=""
-                        />
-                        <div className="bodyCard">
-                            <p>My Story</p>
-                            <button
-                                data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"
-                                className="btn rounded-circle m-auto"
-                            >
-                                +
-                            </button>
-                        </div>
-                    </div>
-
-                    {user.map((item) => (
-                        <>
+        <Slider {...settings}>
+            {user.map((data) => {
+                return (
+                    <div key={data}>
+                        <Link
+                            to={{
+                                pathname: '/detail',
+                                state: { data },
+                            }}
+                        >
+                            <img src={data.avatar} alt="avatar" />
                             <Modal />
-                            <Link
-                                className="card"
-                                data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"
-                            >
-                                <img
-                                    className="card-img"
-                                    src={item.avatar}
-                                    alt={item.last_name}
-                                />
-                                <div className="bodyCard2">
-                                    <Link className="btn rounded-circle">
-                                        <img
-                                            className="img-fluid"
-                                            src={item.avatar}
-                                            alt={item.last_name}
-                                        />
-                                    </Link>
-                                    <em className="">{`${item.first_name} ${item.last_name}`}</em>
-                                </div>
-                            </Link>
-                        </>
-                    ))}
-                </Slider>
-            </div>
-        </>
+                        </Link>
+                    </div>
+                );
+            })}
+        </Slider>
     );
 }
 

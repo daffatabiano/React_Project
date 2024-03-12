@@ -37,8 +37,7 @@ const Home = () => {
             <Navbar />
             <header>
                 <div className="cardContainer">
-                    {/* <div className="card">
-                        <Modal />
+                    <div className="card col-sm-6 mb-3 mb-sm-0">
                         <img
                             className="card-img"
                             src="https://almuhtada.org/wp-content/uploads/2024/01/Sifat-Orang-Munafik.jpg"
@@ -54,15 +53,17 @@ const Home = () => {
                                 +
                             </button>
                         </div>
-                    </div> */}
-                    <Slider />
-                    {/* {user.map((item) => (
+                    </div>
+                    {/* <Slider /> */}
+                    {user.map((item) => (
                         <>
-                            <Modal />
+                            <Modal {...item} />
                             <Link
-                                className="card"
+                                className="card col-sm-6 mb-3 mb-sm-0"
                                 data-bs-toggle="modal"
                                 data-bs-target="#exampleModal"
+                                to={`/users/${item.id}`}
+                                key={item.id}
                             >
                                 <img
                                     className="card-img"
@@ -81,7 +82,7 @@ const Home = () => {
                                 </div>
                             </Link>
                         </>
-                    ))} */}
+                    ))}
                 </div>
             </header>
             <section>
@@ -90,12 +91,17 @@ const Home = () => {
                         <>
                             <div className="home-content">
                                 <div className="head-content">
-                                    <div className="d-flex ">
+                                    <div className="d-flex">
                                         <img src={item.avatar} alt="" />
                                         <h6>
                                             {item.first_name}
                                             <br />
-                                            <span>22 minutes ago</span>
+                                            <span>
+                                                {Math.floor(
+                                                    Math.random() * 60
+                                                ) + '  '}
+                                                minutes ago
+                                            </span>
                                         </h6>
                                     </div>
                                     <svg
@@ -159,7 +165,7 @@ const Home = () => {
                     ))}
                 </div>
             </section>
-            <Footer></Footer>
+            <Footer />
         </div>
     );
 };

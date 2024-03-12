@@ -31,7 +31,7 @@ export const routeList = [
         ),
     },
     {
-        path: '/detail',
+        path: '/users/:id',
         element: (
             <ProtectRouted>
                 <DetailUser />
