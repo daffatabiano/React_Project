@@ -1,23 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../style/footer.css';
+import MySvgComponent from './Elements/MySvgComponent';
+import Logo from './Elements/Logo';
 
 const Footer = () => {
     const year = new Date().getFullYear();
     return (
         <div className="pg-footer">
             <footer className="footer">
-                <svg
-                    className="footer-wave-svg"
-                    xmlns="http://www.w3.org/2000/svg"
+                <MySvgComponent
+                    icon="footer-wave-svg"
                     viewBox="0 0 1200 100"
-                    preserveAspectRatio="none"
+                    aspectRatio="none"
                 >
                     <path
                         className="footer-wave-path"
                         d="M851.8,100c125,0,288.3-45,348.2-64V0H0v44c3.7-1,7.3-1.9,11-2.9C80.7,22,151.7,10.8,223.5,6.3C276.7,2.9,330,4,383,9.8 c52.2,5.7,103.3,16.2,153.4,32.8C623.9,71.3,726.8,100,851.8,100z"
                     ></path>
-                </svg>
+                </MySvgComponent>
                 <div className="footer-content">
                     <div className="footer-content-column">
                         <div className="footer-logo">
@@ -25,9 +26,7 @@ const Footer = () => {
                                 <span className="hidden-link-text">
                                     Sociall .
                                 </span>
-                                <h1>
-                                    Soci<span>all</span>
-                                </h1>
+                                <Logo />
                             </a>
                         </div>
                         <div className="footer-menu">
@@ -243,8 +242,8 @@ const Footer = () => {
                                 target="_self"
                             >
                                 {' '}
-                                &copy; {new Date().getFullYear()}. | Designed
-                                By: Daffa Tabiano. | All rights reserved.{' '}
+                                &copy; {year}. | Designed By: Daffa Tabiano. |
+                                All rights reserved.{' '}
                             </a>
                         </p>
                     </div>

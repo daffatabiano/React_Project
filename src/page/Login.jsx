@@ -3,7 +3,7 @@ import '../style/login.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import Alert from '../components/Alert';
+import Alert from "../components/Elements/Alert";
 
 const Login = () => {
     const navigate = useNavigate();
