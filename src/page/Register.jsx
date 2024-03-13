@@ -30,7 +30,7 @@ const Register = () => {
         setLoading(true);
         axios
             .post('https://reqres.in/api/register', payload)
-            .then((res) => {
+            .then(() => {
                 setLoading(false);
                 setNotif('Register Success');
                 setTimeout(() => {

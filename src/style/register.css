@@ -7,6 +7,7 @@
     background-repeat: no-repeat;
     background-position: center;
     height: 100%;
+    width: 100%;
 }
 
 .containerRegister {
@@ -148,4 +149,12 @@
 .social-media>li:hover {
     background-color: rgba(0, 0, 0, 0.596);
     border: 1px solid rgba(0, 0, 0, 0.596);
+}
+
+@media (max-width: 425px) {
+    .registerBackground {
+        width: fit-content;
+    }
+
+    .containerRegister {}
 }

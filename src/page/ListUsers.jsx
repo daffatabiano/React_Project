@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import SearchButton from '../components/SearchButton';
-import Navbar from '../components/Navbar';
+import SearchButton from '../components/Fragments/SearchButton';
+import Navbar from '../components/Fragments/Navbar';
 import '../style/list.css';
 import { Link } from 'react-router-dom';
 import AOS from 'aos';
@@ -144,7 +144,7 @@ const ListUsers = () => {
                                         <>
                                             <Link
                                                 className="list-friends-item col-lg-6 text-decoration-none text-white"
-                                                to={'/detail'}
+                                                to={'/users/' + user.id}
                                             >
                                                 <div className="list-friends-item-img">
                                                     <img

@@ -1,9 +1,9 @@
-import DetailUser from "../page/DetailUser";
-import Home from "../page/Home";
-import ListUsers from "../page/ListUsers";
-import Login from "../page/Login";
-import Register from "../page/Register";
-import ProtectRouted from "./protectRouted";
+import DetailUser from '../page/DetailUser';
+import Home from '../page/Home';
+import ListUsers from '../page/ListUsers';
+import Login from '../page/Login';
+import Register from '../page/Register';
+import ProtectRouted from './protectRouted';
 
 export const routeList = [
     {
@@ -16,24 +16,26 @@ export const routeList = [
     },
     {
         path: '/',
-        element:
-        <ProtectRouted>
-        <Home />
-        </ProtectRouted>
+        element: (
+            <ProtectRouted>
+                <Home />
+            </ProtectRouted>
+        ),
     },
     {
         path: '/friends',
-        element: 
-        <ProtectRouted>
-            <ListUsers />
-        </ProtectRouted>
+        element: (
+            <ProtectRouted>
+                <ListUsers />
+            </ProtectRouted>
+        ),
     },
     {
-        path: '/detail',
-        element:
-        <ProtectRouted>
-            <DetailUser />
-        </ProtectRouted>
-    }
-    
+        path: '/users/:id',
+        element: (
+            <ProtectRouted>
+                <DetailUser />
+            </ProtectRouted>
+        ),
+    },
 ];

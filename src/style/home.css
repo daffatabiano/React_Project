@@ -1,6 +1,7 @@
 body {
     background-color: rgb(27, 27, 27);
-    height: 1000px;
+    /* height: 1000px; */
+    width: 100%;
     color: white;
     box-sizing: border-box;
     margin: 0;
@@ -131,9 +132,85 @@ header:hover {
     color: #010101;
 }
 
+.home-page {
+    margin: -50px 300px;
+    /* padding: 20px; */
+    border-radius: 10px;
+}
+
+.home-content {
+    background-color: #272822;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.head-content {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.head-content img {
+    width: 100%;
+    max-width: 50px;
+    border-radius: 50%;
+}
+
+.head-content h6 {
+    align-items: center;
+    padding-bottom: 7px;
+    margin: auto 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.301);
+    width: fit-content;
+}
+
+.head-content h6>span {
+    font-size: 10px;
+    font-weight: 100;
+}
+
+.head-content svg {
+    width: 20px
+}
+
+.body-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+}
+
+.body-component ul {
+    display: flex;
+    gap: 30px;
+}
+
+.body-component ul>li>a>svg {
+    width: 30px;
+}
+
+.body-component ul>li>a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: #ffffff;
+}
+
+
+
 @media(max-width: 320px) {
+    body {
+        width: fit-content;
+    }
+
     header {
-        /* margin: 100px 10px; */
         padding: 50px;
         max-height: 50px;
     }
@@ -141,6 +218,7 @@ header:hover {
 
 @media(max-width :768px) {
     header {
+
         height: 200px;
     }
 }
