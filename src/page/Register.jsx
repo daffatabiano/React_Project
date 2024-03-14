@@ -1,9 +1,12 @@
+/* eslint-disable react/prop-types */
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../style/register.css';
 import Modal from '../components/Modal';
+import Form from '../components/Fragments/Form';
+import MySvgComponent from '../components/Elements/MySvgComponent';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -51,61 +54,49 @@ const Register = () => {
                     <h1>Register</h1>
                     <p>Its Completely Free !</p>
                     <p>{notif}</p>
-                    <form action={handleRegister}>
-                        <label htmlFor="firstname">
-                            First Name
-                            <input
-                                type="text"
-                                name="firstname"
-                                id="firstname"
-                                placeholder="Enter your first name"
-                            />
-                        </label>
-                        <label htmlFor="lastname">
-                            Last Name
-                            <input
-                                type="text"
-                                name="lastname"
-                                id="lastname"
-                                placeholder="Enter your last name"
-                            />
-                        </label>
-                        <label htmlFor="username">
-                            Username
-                            <input
-                                type="text"
-                                name="username"
-                                id="username"
-                                placeholder="Enter your username"
-                            />
-                        </label>
-                        <label htmlFor="email">
-                            Email
-                            <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                onChange={handleEmailChange}
-                                placeholder="Enter your email"
-                            />
-                        </label>
-                        <label htmlFor="password">
-                            Password
-                            <input
-                                type="password"
-                                name="password"
-                                id="password"
-                                onChange={handlePasswordChange}
-                                placeholder="Enter your password"
-                            />
-                        </label>
-                        <button
-                            onClick={handleRegister}
+                    <Form>
+                        <Form.Label htmlFor="fullname">Full Name</Form.Label>
+                        <Form.Input
+                            type="fullname"
+                            id="fullname"
+                            name="fullname"
+                            onChange={handleEmailChange}
+                            placeholder="Enter Your Full"
+                        />
+                        <Form.Label htmlFor="email">Email</Form.Label>
+                        <Form.Input
+                            type="email"
+                            id="email"
+                            name="email"
+                            onChange={handleEmailChange}
+                            placeholder="email@example.com"
+                        />
+                        <Form.Label htmlFor="password">Password</Form.Label>
+                        <Form.Input
+                            type="password"
+                            id="password"
+                            name="password"
+                            onChange={handleEmailChange}
+                            placeholder="••••••••"
+                        />
+                        <Form.Label htmlFor="email">
+                            Confirm Password
+                        </Form.Label>
+                        <Form.Input
+                            type="password"
+                            id="password"
+                            name="password"
+                            onChange={handleEmailChange}
+                            placeholder="••••••••"
+                        />
+
+                        <Form.Button
+                            click={handleRegister}
                             disabled={loading ? true : false}
                         >
-                            {loading ? 'Loading...' : 'Register'}
-                        </button>
-                    </form>
+                            {loading ? 'Loading...' : 'Login'}
+                        </Form.Button>
+                    </Form>
                     <div>
                         <button
                             className="backButton mt-3 ms-3"

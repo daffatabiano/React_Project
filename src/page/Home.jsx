@@ -1,13 +1,9 @@
 import axios from 'axios';
-import Navbar from '../components/Fragments/Navbar';
 import '../style/home.css';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Modal from '../components/Modal';
-import Aos from 'aos';
-import 'aos/dist/aos.css';
-import Footer from '../components/Footer';
-import Slider from 'react-slick';
+import AuthLayout from '../components/Layout/AuthLayout';
 
 const Home = () => {
     const [user, setUser] = useState([]);
@@ -33,7 +29,7 @@ const Home = () => {
 
     return (
         <div>
-            <Navbar />
+            <AuthLayout >
             <header>
                 <div className="cardContainer">
                     <div className="card col-sm-6 mb-3 mb-sm-0">
@@ -174,7 +170,7 @@ const Home = () => {
                     ))}
                 </div>
             </section>
-            <Footer />
+            </AuthLayout>
         </div>
     );
 };

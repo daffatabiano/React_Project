@@ -181,5 +181,8 @@
     display: none;
     /* padding: 7px; */
   }
+  .sidebar .offcanvas {
+    width: 60%;
+  }
 
 }
