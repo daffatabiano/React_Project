@@ -17,7 +17,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    height: 100vw;
+    height: 100vh;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -122,6 +122,9 @@
     font-size: 15px;
     margin-left: 60px;
 }
+#register a {
+    color: #010101;
+}
 
 .alert {
     text-align: center;
@@ -168,13 +171,57 @@
     padding: 10px;
 }
 
-@media (max-width:320px) {
-
-    .container form,
-    .container input {
-        width: 80%;
+@media (max-width:600px) {
+    .login {
+        padding: 15px;
     }
+
+    .container {
+        width: 90%;
+    }
+
+
+    .container form label {
+        margin-left: 30px;
+        font-size: 15px;
+        padding: 3px;
+    }
+
+    .container .logo {
+        width: 33%;
+        /* height: 0%; */
+        padding: 8px;
+        margin-top: -440px;
+    }
+
+    .container form .form-control {
+        width: 80%;
+        margin: 10px auto;
+        font-size: 12px;
+    }
+
+    .container button {
+        width: 60%;
+        font-size: 20px;
+        margin-left: -125px;
+        margin-top: 360px;
+    }
+
+    #register{
+        margin-left: 30px;
+        font-size: 15px;
+        padding: 3px;
+    }
+
+    
+
+    .container form {
+        width: 80%;
+        height: 80%;
+    }
+
 }
+
 
 @keyframes bounce {
     0% {

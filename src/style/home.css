@@ -205,15 +205,81 @@ header:hover {
 
 
 
-@media(max-width: 320px) {
+@media(max-width: 600px) {
     body {
-        width: fit-content;
+        width: 100%;
     }
 
     header {
-        padding: 50px;
-        max-height: 50px;
+        /* padding: 50px; */
+        max-height: 80px;
+        /* background-color: white; */
+        position: relative;
+        display: flex;
+        justify-content: center;
+        margin: 90px 0px;
+        padding: 0;
     }
+
+
+    .cardContainer {
+        width: 420px;
+    }
+
+    .cardContainer .card {
+        /* background-color: ye/llow; */
+        border-radius: 50%;
+        margin: auto 0px;
+    }
+
+    .cardContainer .card img {
+        height: 100%;
+        border-radius: 50%;
+        margin: auto 0px;
+        
+    }
+    .bodyCard{
+        display: flex;
+        margin: 0px auto;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        position: absolute;
+        justify-content: center;
+    }
+    .bodyCard p{
+        display: none;
+    }
+    .bodyCard2{
+        display: none;
+    }
+    .bodyCard button{
+        display: inline-block;
+        width: auto;
+        height: auto;
+        padding: 0;
+        margin: 0;
+        border: none;
+        font-size: 20px;
+    }
+    .bodyCard button:hover{
+        background-color: transparent;
+        color: #ffffff;
+    }
+
+    section{
+        /* display: none; */
+        display: flex;
+        justify-content: center;
+        /* background-color: yellowgreen; */
+    }
+    .body-component {
+        display: block;
+
 }
 
 @media(max-width :768px) {
