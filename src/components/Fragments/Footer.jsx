@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../style/footer.css';
-import MySvgComponent from './Elements/MySvgComponent';
-import Logo from './Elements/Logo';
-import SocialMedia from './Fragments/SocialMedia';
-import FooterMenu from './Fragments/FooterMenu';
-import UnorderedList from './Elements/Input/UnorderedList';
+import '../../style/footer.css';
+import MySvgComponent from '../Elements/MySvgComponent';
+import Logo from '../Elements/Logo';
+import SocialMedia from './SocialMedia';
+import FooterMenu from './FooterMenu';
+import UnorderedList from '../Elements/Input/UnorderedList';
 
 const Footer = () => {
     const year = new Date().getFullYear();
