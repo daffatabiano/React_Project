@@ -23,3 +23,14 @@
     justify-content: center;
 }
 
+@media (max-width: 600px) {
+    .card-detail {
+        width: 400px;
+        padding: 10px;
+    }
+
+    .card-detail p {
+        font-size: 12px;
+        text-align: center;
+    }
+}

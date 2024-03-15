@@ -11,7 +11,6 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [notif, setNotif] = useState({ type: '', message: '' });
     const [loading, setLoading] = useState(false);
-    const token = localStorage.getItem('token');
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
