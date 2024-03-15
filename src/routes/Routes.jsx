@@ -3,17 +3,9 @@ import Home from '../page/Home';
 import ListUsers from '../page/ListUsers';
 import Login from '../page/Login';
 import Register from '../page/Register';
-import ProtectRouted from './protectRouted';
+import ProtectRouted from './ProtectRouted';
 
 export const routeList = [
-    {
-        path: '/login',
-        element: <Login />,
-    },
-    {
-        path: '/register',
-        element: <Register />,
-    },
     {
         path: '/',
         element: (
@@ -37,5 +29,13 @@ export const routeList = [
                 <DetailUser />
             </ProtectRouted>
         ),
+    },
+    {
+        path: '/login',
+        element: <Login />,
+    },
+    {
+        path: '/register',
+        element: <Register />,
     },
 ];

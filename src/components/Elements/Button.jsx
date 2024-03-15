@@ -12,7 +12,7 @@ const Button = (props) => {
         (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
     );
     const {
-        type,
+        type = 'button',
         classname = 'button',
         toggle,
         title,
@@ -27,7 +27,6 @@ const Button = (props) => {
                 type={type}
                 className={classname}
                 data-bs-toggle={toggle}
-                data-bs-custom-class="custom-popover"
                 data-bs-title={title}
                 data-bs-content={content}
                 data-bs-target={target}
@@ -38,5 +37,15 @@ const Button = (props) => {
         </div>
     );
 };
+
+const Popover = () => {
+    return (
+        <div>
+            <Button data-bs-custom-class="custom-popover"/>
+        </div>
+    );
+};
+
+Button.Popover = Popover;
 
 export default Button;

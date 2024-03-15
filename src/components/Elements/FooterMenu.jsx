@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import UnorderedList from '../Elements/Input/UnorderedList';
+import UnorderedList from './Input/UnorderedList';
 
 const FooterMenu = (props) => {
     const { children, text } = props;
@@ -8,7 +8,7 @@ const FooterMenu = (props) => {
         <div>
             <div className="footer-menu">
                 <h2 className="footer-menu-name"> {children}</h2>
-                <UnorderedList text={text}/>
+                <UnorderedList text={text} />
             </div>
         </div>
     );

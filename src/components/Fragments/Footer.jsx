@@ -4,7 +4,7 @@ import '../../style/footer.css';
 import MySvgComponent from '../Elements/MySvgComponent';
 import Logo from '../Elements/Logo';
 import SocialMedia from './SocialMedia';
-import FooterMenu from './FooterMenu';
+import FooterMenu from '../Elements/FooterMenu';
 import UnorderedList from '../Elements/Input/UnorderedList';
 
 const Footer = () => {

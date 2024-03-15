@@ -45,7 +45,6 @@ const Navbar = () => {
                     </div>
                     <div className="right-button-navbar d-flex justify-content-end align-items-center p-2">
                         <Button
-                            type="button"
                             toggle="popover"
                             title="Notification"
                             content={notificationsContent.content}
@@ -63,8 +62,6 @@ const Navbar = () => {
                             </span>
                         </Button>
                         <Button
-                            classname="button"
-                            type="button"
                             toggle="offcanvas"
                             target="#offcanvasRight"
                             control="offcanvasRight"
