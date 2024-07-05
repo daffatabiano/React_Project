@@ -2,6 +2,8 @@
     margin: 0;
     padding: 0;
     display: flex;
+    justify-content: center;
+    align-items: center;
     background-image: url('img/register.png');
     background-size: cover;
     background-repeat: no-repeat;
@@ -15,7 +17,7 @@
     width: 100%;
     max-width: 1000px;
     min-height: 900px;
-    margin: 55px auto;
+    margin: 55px;
     background-image: url('img/register.png');
     background-size: cover;
     background-repeat: no-repeat;
@@ -26,4 +28,20 @@
     /* justify-content: space-between; */
     box-shadow: 0 0 1px 0 rgb(0, 0, 0), 0 0 10px 0 rgba(0, 0, 0, 0.7),
         0 0 20px 0 rgb(0, 0, 0, 0.4);
+}
+
+@media (max-width: 768px) {
+    .container-register {
+        flex-direction: column;
+        margin: 50px 20px;
+        gap: 20px;
+        border-radius: 30px;
+    }
+}
+
+@media (max-width: 375px) {
+    .container-register {
+        margin: 0px;
+        border-radius: 0px;
+    }
 }
