@@ -1,0 +1,29 @@
+.register-background {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-image: url('img/register.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* width: 100vh; */
+    /* height: 100vw; */
+}
+
+.container-register {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    min-height: 900px;
+    margin: 55px auto;
+    background-image: url('img/register.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    /* justify-content: space-between; */
+    box-shadow: 0 0 1px 0 rgb(0, 0, 0), 0 0 10px 0 rgba(0, 0, 0, 0.7),
+        0 0 20px 0 rgb(0, 0, 0, 0.4);
+}
