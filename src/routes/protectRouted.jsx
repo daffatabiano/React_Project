@@ -1,14 +1,16 @@
-import { Navigate,Outlet } from "react-router-dom";
+import { Navigate, Outlet } from 'react-router-dom';
 
-const protectRouted = ({children}) => {
+const ProtectRouted = ({ children }) => {
     const token = localStorage.getItem('token');
-    if(!token) {
-        return <Navigate to="/login" />
+    if (!token) {
+        return <Navigate to="/login" />;
     }
-    return <>
-    {children}
-    <Outlet />
-    </>
-}
+    return (
+        <>
+            {children}
+            <Outlet />
+        </>
+    );
+};
 
-export default protectRouted;
+export default ProtectRouted;

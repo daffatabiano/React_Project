@@ -1,188 +1,185 @@
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-  list-style: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
 }
 
 /* Navbar */
 .navbar {
-  top: 0;
-  display: flex;
-  position: fixed;
-  flex-direction: column;
-  width: 100%;
-  transition: background-color 0.3s ease;
-  background-color: transparent;
-  z-index: 999;
+    top: 0;
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    background-color: transparent;
+    z-index: 999;
 }
 
 .my-bootstrap-class {
-  border: none !important;
-  background-color: transparent !important;
+    border: none !important;
+    background-color: transparent !important;
 }
 
 .navbar.scrolled {
-  /* Ganti dengan warna yang diinginkan ketika di-scroll */
-  background-color: rgba(255, 255, 255, 0.8);
-  border-bottom: .5px solid #ffff;
-  box-shadow: 0 0 10px 0 rgba(255, 255, 255);
-  backdrop-filter: blur(3px);
+    /* Ganti dengan warna yang diinginkan ketika di-scroll */
+    background-color: rgba(255, 255, 255, 0.8);
+    border-bottom: 0.5px solid #ffff;
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255);
+    backdrop-filter: blur(3px);
 }
 
 .navbar.scrolled h1,
 .navbar.scrolled ul li a {
-  color: #010101;
+    color: #010101;
 }
 
 .navbar.scrolled h1 {
-  text-shadow: 0 0 .7px rgba(0, 0, 0), 0 0 5px rgba(0, 0, 0, 0.8);
+    text-shadow: 0 0 0.7px rgba(0, 0, 0), 0 0 5px rgba(0, 0, 0, 0.8);
 }
 
 .navbar h1 {
-  color: rgba(250, 250, 250);
-  font-style: italic;
-  font-size: 30px;
-  margin: auto 5px;
-  padding: 5px;
-  text-shadow: 0 0 .7px rgba(255, 255, 255), 0 0 5px rgba(255, 255, 255, 0.8);
+    color: rgba(250, 250, 250);
+    font-style: italic;
+    font-size: 30px;
+    margin: auto 5px;
+    padding: 5px;
+    text-shadow: 0 0 0.7px rgba(255, 255, 255), 0 0 5px rgba(255, 255, 255, 0.8);
 }
 
 .navbar h4 {
-  font-style: italic;
-  color: rgba(250, 250, 250);
+    font-style: italic;
+    color: rgba(250, 250, 250);
 }
 
 .navbar h4 span {
-  font-family: "Homemade Apple", cursive;
+    font-family: 'Homemade Apple', cursive;
 }
 
 .navbar h1 span {
-  font-family: "Homemade Apple", cursive;
+    font-family: 'Homemade Apple', cursive;
 }
 
 .custom-popover {
-  --bs-popover-header-color: var(--bs-black);
+    --bs-popover-header-color: var(--bs-black);
 }
 
 .container {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .button {
-  display: inline-block;
-  border-radius: 10px;
-  border: none;
-  color: #fff;
-  background: transparent;
-  /* font-size: 16px; */
-  padding: 8px;
-
+    display: inline-block;
+    border-radius: 10px;
+    border: none;
+    color: #fff;
+    background: transparent;
+    /* font-size: 16px; */
+    padding: 8px;
 }
 
 .button.search {
-  border: 1px solid #fff;
+    border: 1px solid #fff;
 }
 
 .button.search:hover {
-  background: #fff;
-  color: #010101;
+    background: #fff;
+    color: #010101;
 }
 
 .button.search:hover:after {
-  box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.8);
 }
 
 .navbar.scrolled .button {
-  color: #010101;
+    color: #010101;
 }
 
 .navbar.scrolled .btn {
-  color: #010101;
+    color: #010101;
 }
 
 /* sidebar */
 .sidebar {
-  display: block;
-  position: absolute;
-  top: 0;
+    display: block;
+    position: absolute;
+    top: 0;
 }
 
 .sidebar ul {
-  font-size: 20px;
-  padding: 5px;
+    font-size: 20px;
+    padding: 5px;
 }
 
 .sidebar ul li {
-  gap: 10px;
-  padding: 8px;
+    gap: 10px;
+    padding: 8px;
 }
 
 .sidebar ul li a {
-  color: #ffff;
-  text-decoration: none;
+    color: #ffff;
+    text-decoration: none;
 }
 
 .show-search {
-  display: none;
+    display: none;
 }
 
 .loginPage {
-  display: flex;
-  position: absolute;
-  bottom: 0;
-  /* background-color: yellowgreen; */
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    /* background-color: yellowgreen; */
 }
 
 .loginPage li a {
-  font-size: 20px;
-  border: 1px solid #ffff;
-  transition: .5s;
+    font-size: 20px;
+    border: 1px solid #ffff;
+    transition: 0.5s;
 }
 
 .loginPage li a:hover {
-  background-color: #ffff;
-  color: #010101;
+    background-color: #ffff;
+    color: #010101;
 }
 
 .btn-close {
-  background-color: #ffff;
+    background-color: #ffff;
 }
 
-@media(max-width:425px) {
-  .navbar {
-    width: max-content;
-    /* font-size: 60%; */
-    width: 100%;
-  }
+@media (max-width: 425px) {
+    .navbar {
+        width: max-content;
+        /* font-size: 60%; */
+        width: 100%;
+    }
 
-  .d-flex.button {
-    width: 30px;
-    height: 30px;
-  }
+    .d-flex.button {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 @media (max-width: 600px) {
-  .navbar {
-    flex-direction: row;
-    padding: 1px;
-    width: 100%;
-    position: fixed;
-    /* background-color: yellowgreen; */
-  }
+    .navbar {
+        flex-direction: row;
+        padding: 1px;
+        width: 100%;
+        position: fixed;
+    }
 
-  .container-fluid {
-    justify-content: space-between;
-  }
+    .container-fluid {
+        justify-content: space-between;
+    }
 
-  .show-search {
-    display: none;
-    /* padding: 7px; */
-  }
-  .sidebar .offcanvas {
-    width: 60%;
-  }
-
+    .show-search {
+        display: none;
+        /* padding: 7px; */
+    }
+    .sidebar .offcanvas {
+        width: 60%;
+    }
 }
