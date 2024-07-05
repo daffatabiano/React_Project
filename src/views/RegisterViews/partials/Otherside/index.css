@@ -1,4 +1,5 @@
 .other-side {
+    padding: 0 25px;
     position: relative;
     text-align: center;
     margin: auto;
@@ -20,10 +21,10 @@
     list-style: none;
     border: 1px solid #ffff;
     width: 50px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
     border-radius: 50%;
     margin: 4px;
     box-sizing: border-box;
@@ -46,4 +47,33 @@
 .social-media > li:hover {
     background-color: rgba(0, 0, 0, 0.596);
     border: 1px solid rgba(0, 0, 0, 0.596);
+}
+
+@media (max-width: 768px) {
+    .other-side {
+        padding: 35px;
+    }
+}
+
+@media (max-width: 500px) {
+    .social-media > li {
+        width: 35px;
+        height: 35px;
+        padding: 20px;
+    }
+    .social-media {
+        gap: 5px;
+    }
+}
+
+@media (max-width: 375px) {
+    .social-media > li {
+        width: 20px;
+        height: 20px;
+        padding: 15px;
+    }
+
+    .social-media > li > a > i {
+        font-size: 15px;
+    }
 }

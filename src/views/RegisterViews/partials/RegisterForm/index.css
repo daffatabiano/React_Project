@@ -71,3 +71,20 @@
     background-color: rgb(255, 255, 255, 0.5);
     color: #010101;
 }
+
+@media (max-width: 768px) {
+    .register-form {
+        width: 100%;
+    }
+    .register-form h1 {
+        font-size: 50px;
+    }
+}
+
+@media (max-width: 375px) {
+    .register-form {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        padding: 35px 20px;
+    }
+}
