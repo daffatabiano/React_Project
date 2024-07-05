@@ -1,14 +1,13 @@
-import axios from 'axios';
 import '../style/modal.css';
 import { handleLogin } from '../utils/api';
 import { useEffect } from 'react';
-const Modal = (props) => {
-    const { firstname, lastname, image } = props;
-    let { id } = props;
+const Modal = (prop) => {
+    const { firstname, lastname, image } = prop;
+    let { id } = prop;
 
     useEffect(() => {
         handleLogin({ id });
-    });
+    }, []);
     return (
         <div>
             <div

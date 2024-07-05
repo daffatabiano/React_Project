@@ -13,7 +13,7 @@
 }
 
 .login {
-    background-image: url("https://th.bing.com/th/id/OIG2.rAcBPbuRsjw_IhKNo23u?w=1024&h=1024&rs=1&pid=ImgDetMain");
+    background-image: url('img/login.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -23,9 +23,7 @@
     padding: 0;
     display: flex;
     justify-content: center;
-
 }
-
 
 .container {
     display: flex;
@@ -38,12 +36,12 @@
     justify-content: center;
     align-items: center;
     margin: 25px auto;
-    box-shadow: 0 0 2px 0 rgba(255, 255, 255, 0.5), 0 0 10px 0 rgb(0, 0, 0, .7), 0 0 20px 0 rgb(0, 0, 0, .4);
+    box-shadow: 0 0 2px 0 rgba(255, 255, 255, 0.5), 0 0 10px 0 rgb(0, 0, 0, 0.7),
+        0 0 20px 0 rgb(0, 0, 0, 0.4);
     border-radius: 30px;
     backdrop-filter: blur(8px);
     position: fixed;
     animation: bounce 2.5s ease normal forwards;
-
 }
 
 .logo {
@@ -57,7 +55,8 @@
     text-align: center;
     position: relative;
     z-index: 3;
-    box-shadow: 0 0 1px 0 rgba(255, 255, 255), 0 0 10px 0 rgb(255, 255, 255, .7), 0 0 20px 0 rgb(0, 0, 0, .4);
+    box-shadow: 0 0 1px 0 rgba(255, 255, 255),
+        0 0 10px 0 rgb(255, 255, 255, 0.7), 0 0 20px 0 rgb(0, 0, 0, 0.4);
 }
 
 .logo svg {
@@ -80,8 +79,8 @@
     height: 450px;
     position: absolute;
     z-index: 2;
-    box-shadow: 0 0 1px 0 rgba(255, 255, 255), 0 0 10px 0 rgb(255, 255, 255, .7), 0 0 20px 0 rgb(0, 0, 0, .4);
-
+    box-shadow: 0 0 1px 0 rgba(255, 255, 255),
+        0 0 10px 0 rgb(255, 255, 255, 0.7), 0 0 20px 0 rgb(0, 0, 0, 0.4);
 }
 
 .container form label {
@@ -99,7 +98,8 @@
     color: #010101;
     outline: none;
     /* z-index: 2; */
-    box-shadow: 0 0 1px 0 rgba(255, 255, 255), 0 0 10px 0 rgb(255, 255, 255, .7), 0 0 20px 0 rgb(0, 0, 0, .4);
+    box-shadow: 0 0 1px 0 rgba(255, 255, 255),
+        0 0 10px 0 rgb(255, 255, 255, 0.7), 0 0 20px 0 rgb(0, 0, 0, 0.4);
 }
 
 .form-check-input {
@@ -136,7 +136,7 @@
     height: 80px;
     margin-left: -180px;
     margin-top: 330px;
-    border: 1px solid rgb(255, 255, 255, .2);
+    border: 1px solid rgb(255, 255, 255, 0.2);
     border-radius: 30px;
     padding-top: 40px;
     background-color: rgb(214, 213, 213);
@@ -144,7 +144,8 @@
     outline: none;
     position: absolute;
     z-index: 1;
-    box-shadow: 0 0 1px 0 rgba(255, 255, 255), 0 0 10px 0 rgb(255, 255, 255, .7), 0 0 20px 0 rgb(0, 0, 0, .4);
+    box-shadow: 0 0 1px 0 rgba(255, 255, 255),
+        0 0 10px 0 rgb(255, 255, 255, 0.7), 0 0 20px 0 rgb(0, 0, 0, 0.4);
 }
 
 .backButton {
@@ -157,7 +158,8 @@
     background-color: rgb(214, 213, 213);
     border: 1px solid rgb(255, 255, 255, 0.6);
     border-radius: 30px;
-    box-shadow: 0 0 1px 0 rgba(255, 255, 255), 0 0 10px 0 rgb(255, 255, 255, .7), 0 0 20px 0 rgb(0, 0, 0, .4);
+    box-shadow: 0 0 1px 0 rgba(255, 255, 255),
+        0 0 10px 0 rgb(255, 255, 255, 0.7), 0 0 20px 0 rgb(0, 0, 0, 0.4);
     outline: none;
     cursor: pointer;
 }
@@ -171,7 +173,7 @@
     padding: 10px;
 }
 
-@media (max-width:600px) {
+@media (max-width: 600px) {
     .login {
         padding: 15px;
     }
@@ -179,7 +181,6 @@
     .container {
         width: 90%;
     }
-
 
     .container form label {
         margin-left: 30px;
@@ -207,21 +208,17 @@
         margin-top: 360px;
     }
 
-    #register{
+    #register {
         margin-left: 30px;
         font-size: 15px;
         padding: 3px;
     }
 
-    
-
     .container form {
         width: 80%;
         height: 80%;
     }
-
 }
-
 
 @keyframes bounce {
     0% {

@@ -1,12 +1,19 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
 
 const Form = (props) => {
     const { children, action } = props;
     return (
-        <div>
-            <form action={action}>{children}</form>
-        </div>
+        <form
+            action={action}
+            style={{
+                width: '100%',
+                padding: '0 80px',
+                display: 'flex',
+                flexDirection: 'column',
+            }}
+        >
+            {children}
+        </form>
     );
 };
 
@@ -16,7 +23,15 @@ const Label = (props) => {
 };
 const Input = (props) => {
     const { type, name, id, placeholder } = props;
-    return <input type={type} name={name} id={id} placeholder={placeholder} />;
+    return (
+        <input
+            type={type}
+            name={name}
+            id={id}
+            placeholder={placeholder}
+            style={{ backgroundColor: 'red', width: '100%' }}
+        />
+    );
 };
 const Button = (props) => {
     const { disabled, click, children } = props;

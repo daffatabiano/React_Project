@@ -1,0 +1,79 @@
+.other-side {
+    padding: 0 25px;
+    position: relative;
+    text-align: center;
+    margin: auto;
+}
+
+.other-side h3 {
+    border-bottom: 1px solid rgb(255, 255, 255, 0.5);
+    padding-bottom: 8px;
+    text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.452),
+        0px 0px 10px rgba(0, 0, 0, 0.541);
+}
+
+.social-media {
+    display: flex;
+    gap: 10px;
+}
+
+.social-media > li {
+    list-style: none;
+    border: 1px solid #ffff;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin: 4px;
+    box-sizing: border-box;
+    background-color: #ffff;
+    transition: 0.5s;
+}
+
+.social-media > li > a > i {
+    font-size: 25px;
+    color: rgba(0, 0, 0, 0.4);
+    transition: 0.5s;
+}
+
+.social-media > li > a:hover > i {
+    color: rgb(255, 255, 255);
+    transform: rotateX(360deg);
+    transition: 0.5s;
+}
+
+.social-media > li:hover {
+    background-color: rgba(0, 0, 0, 0.596);
+    border: 1px solid rgba(0, 0, 0, 0.596);
+}
+
+@media (max-width: 768px) {
+    .other-side {
+        padding: 35px;
+    }
+}
+
+@media (max-width: 500px) {
+    .social-media > li {
+        width: 35px;
+        height: 35px;
+        padding: 20px;
+    }
+    .social-media {
+        gap: 5px;
+    }
+}
+
+@media (max-width: 375px) {
+    .social-media > li {
+        width: 20px;
+        height: 20px;
+        padding: 15px;
+    }
+
+    .social-media > li > a > i {
+        font-size: 15px;
+    }
+}
