@@ -7,6 +7,7 @@ import ProtectRouted from './ProtectRouted';
 
 export const routeList = [
     {
+        
         path: '/',
         element: (
             <ProtectRouted>
