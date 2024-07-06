@@ -1,16 +1,21 @@
 import './index.css';
 
-const Input = (prop) => {
-    const { label, type, placeholder, name } = prop;
+export const Input = (prop) => {
+    const { label, type, placeholder, name, ...rest } = prop;
     return (
         <>
             <label htmlFor="">{label}</label>
-            <input type={type} placeholder={placeholder} name={name} />
+            <input
+                type={type}
+                placeholder={placeholder}
+                name={name}
+                {...rest}
+            />
         </>
     );
 };
 
-const Button = (prop) => {
+export const Button = (prop) => {
     const { text, type } = prop;
     return <button type={type}>{text}</button>;
 };
@@ -56,6 +61,7 @@ export default function RegisterForm(prop) {
                     placeholder="••••••••"
                     name="password"
                     disabled={isLoading}
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                 />
                 <Input
                     label="Confirm Password"
