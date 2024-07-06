@@ -10,7 +10,7 @@ export default function LoginViews() {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [api, contextHolder] = notification.useNotification();
-    const { handleLogin } = useAuth();
+    const { authLogin } = useAuth();
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -25,7 +25,8 @@ export default function LoginViews() {
             email: email,
             password: password,
         };
-        const res = await handleLogin(payload);
+        const res = await authLogin(payload);
+        setLoading(true);
         if (res?.status === 200) {
             api['success']({
                 message: 'Login Success',
@@ -33,9 +34,11 @@ export default function LoginViews() {
             });
             localStorage.setItem('token', res?.data?.token);
             setTimeout(() => {
+                setLoading(false);
                 navigate('/');
             }, 2000);
         } else {
+            setLoading(false);
             api['error']({
                 message: 'Login Failed',
                 description: res?.response?.data?.message,
