@@ -1,0 +1,17 @@
+.story {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+.story img {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+}
+
+.story p {
+    padding-top: 2px;
+    font-size: 8px;
+    text-align: center;
+}
