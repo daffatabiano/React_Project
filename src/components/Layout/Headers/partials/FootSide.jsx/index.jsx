@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import './Footside.css';
+import { Dropdown, notification } from 'antd';
+import useAuth from '../../../../../hooks/auth/useAuth';
 
 export const friendList = [
     {
@@ -49,42 +51,98 @@ const CardProfileSuggestions = (prop) => {
     );
 };
 
-export default function FootSide() {
+export default function FootSide(prop) {
+    const { profilePictureUrl, name, username } = prop;
     const yearsUpdated = new Date().getFullYear();
+    const { authLogout } = useAuth();
+    const token = localStorage.getItem('token');
+    const [api, contextHolder] = notification.useNotification();
+
+    const handleLogout = async () => {
+        await authLogout(token).then((res) => {
+            if (res?.status === 200) {
+                api['success']({
+                    message: 'Logout Success',
+                    description: res?.data?.message,
+                });
+                setTimeout(() => {
+                    localStorage.clear();
+                    localStorage.removeItem('token');
+                    window.location.reload();
+                }, 2000);
+            } else {
+                api['error']({
+                    message: 'Logout Failed',
+                    description: res?.response?.data?.message,
+                });
+            }
+        });
+    };
     return (
-        <div className="footer-side">
-            <div className="profile">
-                <CardProfileSuggestions
-                    img="https://reqres.in/img/faces/9-image.jpg"
-                    name="John Doe"
-                    username="@johndoe"
-                />
-                <button>
-                    <i className="bi bi-three-dots" />
-                </button>
+        <>
+            {contextHolder}
+            <div className="footer-side">
+                <div className="profile">
+                    <CardProfileSuggestions
+                        img={
+                            profilePictureUrl ||
+                            'https://t4.ftcdn.net/jpg/05/09/07/49/360_F_509074967_jtbWlggeOjCGyQqAzA9uNgHoW6LWEDth.jpg'
+                        }
+                        name={name}
+                        username={username}
+                    />
+                    <Dropdown
+                        trigger={['click']}
+                        placement="bottom"
+                        menu={{
+                            items: [
+                                {
+                                    key: '1',
+                                    label: (
+                                        <button
+                                            style={{
+                                                width: '100%',
+                                                backgroundColor: 'transparent',
+                                                color: 'red',
+                                            }}
+                                            onClick={handleLogout}
+                                        >
+                                            Logout
+                                        </button>
+                                    ),
+                                },
+                            ],
+                        }}
+                        arrow={{ pointAtCenter: true }}
+                    >
+                        <button>
+                            <i className="bi bi-three-dots" />
+                        </button>
+                    </Dropdown>
+                </div>
+                <div className="friends">
+                    <ul>
+                        <div className="title">
+                            <p>Most Friendly Contacted</p>
+                            <Link to={'/'}>See All</Link>
+                        </div>
+                        {friendList.map((item, index) => (
+                            <li className key={index}>
+                                <CardProfileSuggestions {...item} />
+                                <Link>View Profile</Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <div className="real-footer">
+                    <ul>
+                        <li>{footerSideData.map((item) => '  . ' + item)}</li>
+                    </ul>
+                </div>
+                <p className="copyright">
+                    &copy; {yearsUpdated} Daffa Tabiano. All rights reserved.
+                </p>
             </div>
-            <div className="friends">
-                <ul>
-                    <div className="title">
-                        <p>Most Friendly Contacted</p>
-                        <Link to={'/'}>See All</Link>
-                    </div>
-                    {friendList.map((item, index) => (
-                        <li className key={index}>
-                            <CardProfileSuggestions {...item} />
-                            <Link>View Profile</Link>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <div className="real-footer">
-                <ul>
-                    <li>{footerSideData.map((item) => '  . ' + item)}</li>
-                </ul>
-            </div>
-            <p className="copyright">
-                &copy; {yearsUpdated} Daffa Tabiano. All rights reserved.
-            </p>
-        </div>
+        </>
     );
 }

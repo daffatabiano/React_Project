@@ -1,0 +1,10 @@
+.form-profile {
+    background-color: yellowgreen;
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+}
+
+.form-profile .profile {
+    display: flex;
+}

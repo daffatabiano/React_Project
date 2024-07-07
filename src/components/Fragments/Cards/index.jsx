@@ -69,12 +69,14 @@ export default function Postcard() {
                     {'1,000 likes'}
                 </div>
                 <div className="foot-desc">
-                    <h6>{'john doe'}</h6>
-                    <p>
-                        {
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod'
-                        }
-                    </p>
+                    <h6>
+                        {'john.doe'}{' '}
+                        <span>
+                            {
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod'
+                            }
+                        </span>
+                    </h6>
                 </div>
                 <div className="comments-total">
                     <em>{'View all 1,000 comments'}</em>

@@ -35,13 +35,25 @@
     font-size: 20px;
 }
 
+.aside ul li.active,
+.aside ul li.active a {
+    border-radius: 30px;
+    color: #010101;
+    width: 100%;
+    background-color: rgba(255, 255, 255);
+}
+
+.aside ul li.active a i {
+    color: #010101;
+}
+
 .aside ul li a {
     display: flex;
     gap: 15px;
     color: var(--txt);
     font-size: 20px;
     align-items: center;
-    padding: 20px 15px;
+    padding: 10px 15px;
 }
 
 .aside ul li a i {
@@ -72,4 +84,8 @@
     object-fit: cover;
     object-position: center;
     border: 1px solid var(--txt);
+}
+
+.aside ul li a:hover img {
+    border: 1px dashed #111111;
 }

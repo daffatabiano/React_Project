@@ -1,0 +1,82 @@
+.profile-card {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1px;
+}
+
+.profile-card .card-img {
+    width: 30%;
+}
+
+.profile-card .card-img img {
+    width: 250px;
+    height: 250px;
+    padding: 10px;
+    border-radius: 50%;
+    border: 1px solid #ffff;
+    object-fit: cover;
+    object-position: center;
+}
+
+.profile-card .card-info {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+}
+
+.profile-card .card-info .info-title {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-card .card-info .info-title p {
+    color: #ffff;
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.profile-card .card-info .info-title button {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    color: #ffff;
+    cursor: pointer;
+}
+
+.profile-card .card-info .info-content {
+    display: flex;
+    width: 60%;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+.profile-card .card-info .info-content p {
+    color: #ffff;
+    margin: 0;
+    font-size: 15px;
+}
+
+.profile-card .card-info .info-content span {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.profile-card .card-info .info-desc {
+    width: 70%;
+    align-items: center;
+    margin-top: 25px;
+    font-weight: 300;
+}
+
+.profile-card .card-info .info-desc h6 {
+    font-size: 15px;
+    font-weight: bold;
+}
