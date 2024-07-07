@@ -33,7 +33,18 @@ function useAccount() {
         }
     };
 
-    return { getLogUser, editUser };
+    const uploadImage = async (body) => {
+        try {
+            const res = await axios.post(`${BASE_URL}/upload-image`, body, {
+                headers: Headers,
+            });
+            return res;
+        } catch (err) {
+            return err;
+        }
+    };
+
+    return { getLogUser, editUser, uploadImage };
 }
 
 export default useAccount;
