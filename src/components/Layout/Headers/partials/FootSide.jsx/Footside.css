@@ -83,7 +83,6 @@
     display: flex;
     width: 300px;
     gap: 4px;
-    line-height: 1.2;
 }
 
 .footer-side .real-footer ul li {
@@ -93,7 +92,7 @@
     margin-right: 4px;
     width: 100%;
     text-align: end;
-    line-height: 1.2;
+    line-height: 1.5;
     font-weight: 300;
 }
 
