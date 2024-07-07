@@ -1,0 +1,105 @@
+.footer-side {
+    color: #fff;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    position: absolute;
+    right: 0;
+    top: 70px;
+    width: min-content;
+}
+
+.footer-side .profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-radius: 10px;
+    width: 300px;
+}
+
+.profile-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.profile-img p {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    line-height: 1.2;
+    flex-direction: column;
+    height: 60px;
+    font-weight: 600;
+}
+.profile-img p em {
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.profile-img img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.footer-side .profile button {
+    background-color: transparent;
+    color: var(--txt);
+}
+
+.friends {
+    width: 300px;
+}
+
+.friends ul .title,
+.friends ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.friends ul li a {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    width: max-content;
+}
+
+.friends ul .title p {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+}
+
+.friends ul .title a {
+    font-size: 12px;
+}
+
+.footer-side .real-footer ul {
+    display: flex;
+    width: 300px;
+    gap: 4px;
+    line-height: 1.2;
+}
+
+.footer-side .real-footer ul li {
+    flex-wrap: wrap;
+    font-size: 12px;
+    margin: 0;
+    margin-right: 4px;
+    width: 100%;
+    text-align: end;
+    line-height: 1.2;
+    font-weight: 300;
+}
+
+.footer-side .copyright {
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.2;
+    color: #fff;
+}

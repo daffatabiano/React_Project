@@ -1,0 +1,75 @@
+.aside {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 250px;
+    background-color: transparent;
+    border: 1px solid rgb(255, 255, 255, 0.6);
+    backdrop-filter: blur(5px);
+    border-radius: 30px;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto 30px;
+    z-index: 10;
+    padding: 20px 15px;
+}
+.aside:hover {
+    box-shadow: 0 0 1px 0 rgba(255, 255, 255),
+        0 0 10px 0 rgb(255, 255, 255, 0.7), 0 0 20px 0 rgb(0, 0, 0, 0.4);
+}
+
+.aside ul {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.aside ul li {
+    display: flex;
+    font-size: 20px;
+}
+
+.aside ul li a {
+    display: flex;
+    gap: 15px;
+    color: var(--txt);
+    font-size: 20px;
+    align-items: center;
+    padding: 20px 15px;
+}
+
+.aside ul li a i {
+    font-size: 30px;
+    color: var(--txt);
+}
+
+.aside ul li a:hover {
+    transition: 0.3s ease;
+    border-radius: 30px;
+    color: #010101;
+    width: 100%;
+    background-color: rgba(255, 255, 255);
+}
+
+.aside ul li a:hover i {
+    color: #010101;
+}
+
+.aside ul li a:focus {
+    outline: none;
+}
+
+.aside ul li a img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    border: 1px solid var(--txt);
+}

@@ -1,0 +1,109 @@
+.card-posting {
+    width: 100%;
+    height: 100%;
+}
+
+.card-posting .head {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+.card-posting .head .head-profile {
+    display: flex;
+    align-items: center;
+}
+
+.card-posting .head .head-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.card-posting .body {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-posting .body img {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-posting .foot {
+}
+
+.card-posting .foot .action {
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-posting .foot .action .action-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.card-posting .foot .action .action-item button,
+.card-posting .foot .action .action-item2 button {
+    background-color: transparent;
+    padding: 5px 0;
+}
+
+.card-posting .foot .action .action-item button i,
+.card-posting .foot .action .action-item2 button i {
+    font-size: 30px;
+    color: #ffffff;
+    opacity: 0.8;
+}
+
+.card-posting .foot .action .action-item button i:hover,
+.card-posting .foot .action .action-item2 button i:hover {
+    opacity: 1;
+}
+
+.card-posting .foot .likes-total {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding-bottom: 10px;
+    opacity: 0.5;
+}
+
+.card-posting .foot .foot-desc {
+    display: flex;
+}
+
+.card-posting .foot .foot-desc h6 {
+    width: 15%;
+    font-weight: 500;
+}
+
+.card-posting .foot .foot-desc p {
+    width: 85%;
+    font-weight: 300;
+}
+
+.card-posting .foot .comments-total {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.card-posting .foot .foot-comment {
+    margin-top: 10px;
+    display: flex;
+}
+.card-posting .foot .foot-comment input {
+    color: rgba(255, 255, 255, 0.8);
+    border: none;
+    outline: none;
+    background-color: transparent;
+    width: 90%;
+}
+
+.card-posting .foot .foot-comment button {
+    background-color: transparent;
+}

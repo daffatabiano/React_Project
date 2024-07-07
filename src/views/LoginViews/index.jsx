@@ -32,7 +32,7 @@ export default function LoginViews() {
                 message: 'Login Success',
                 description: res?.data?.message,
             });
-            localStorage.setItem('token', res?.data?.token);
+            localStorage.setItem('token', `Bearer ${res?.data?.token}`);
             setTimeout(() => {
                 setLoading(false);
                 navigate('/');
