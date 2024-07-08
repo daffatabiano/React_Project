@@ -25,7 +25,13 @@ function useAccount() {
     const editUser = async (body) => {
         try {
             const res = await axios.post(`${BASE_URL}/update-profile`, body, {
-                headers: Headers,
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    apiKey: apiKey,
+                    Authorization: `${token}`,
+                    'Accept-Encoding': 'gzip, deflate, br',
+                },
             });
             return res;
         } catch (err) {
