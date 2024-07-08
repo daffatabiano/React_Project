@@ -12,30 +12,7 @@ export default function RegisterViews() {
     const [api, contextHolder] = notification.useNotification();
     const { authRegister } = useAuth();
     const [passwordNotice, setPasswordNotice] = useState('');
-    const pw = document.querySelector('#password');
-
-    pw?.addEventListener('input', (e) => {
-        e.preventDefault;
-        console.log(e.target.value);
-        if (e.target.value.length < 8) {
-            setPasswordNotice('Password must be at least 8 characters long');
-            return;
-        } else if (!/[A-Z]/.test(e.target.value)) {
-            setPasswordNotice(
-                'Password must contain at least one uppercase letter'
-            );
-            return;
-        } else if (!/[a-z]/.test(e.target.value)) {
-            setPasswordNotice(
-                'Password must contain at least one lowercase letter'
-            );
-            return;
-        } else if (!/\d/.test(e.target.value)) {
-            setPasswordNotice('Password must contain at least one number');
-            return;
-        }
-        setPasswordNotice('');
-    });
+    const pw = document.getElementById('password');
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -78,6 +55,30 @@ export default function RegisterViews() {
             });
         }
     };
+
+    useEffect(() => {
+        pw?.addEventListener('input' || 'change', (e) => {
+            if (e.target.value.length < 8) {
+                setPasswordNotice(
+                    'Password must be at least 8 characters long'
+                );
+                return;
+            } else if (!/[A-Z]/.test(e.target.value)) {
+                setPasswordNotice(
+                    'Password must contain at least one uppercase letter'
+                );
+                return;
+            } else if (!/[a-z]/.test(e.target.value)) {
+                setPasswordNotice(
+                    'Password must contain at least one lowercase letter'
+                );
+                return;
+            } else if (!/\d/.test(e.target.value)) {
+                setPasswordNotice('Password must contain at least one number');
+                return;
+            }
+        });
+    }, []);
 
     return (
         <>

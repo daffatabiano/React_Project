@@ -1,4 +1,6 @@
 import './index.css';
+import { UploadOutlined } from '@ant-design/icons';
+import { apiKey } from '../../../../hooks/service/services';
 
 export const Input = (prop) => {
     const { label, type, placeholder, name, ...rest } = prop;
@@ -15,7 +17,7 @@ export const Input = (prop) => {
     );
 };
 
-export const Button = (prop) => {
+export const CustomButton = (prop) => {
     const { text, type = 'button' } = prop;
     return <button type={type}>{text}</button>;
 };
@@ -75,8 +77,8 @@ export default function RegisterForm(prop) {
                     required
                 />
                 <Input
-                    label="Profile Picture Url*"
-                    type="text"
+                    label="Upload Profile Picture*"
+                    type="file"
                     placeholder="https://images.unsplash.com/photo-........"
                     name="profilePictureUrl"
                     disabled={isLoading}

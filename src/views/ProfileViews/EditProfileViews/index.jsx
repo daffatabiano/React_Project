@@ -1,9 +1,41 @@
 import { useEffect, useState } from 'react';
 import BaseLayout from '../../../components/Layout/Headers/BaseLayout';
 import './EditProfileViews.css';
-import { Button, Modal, notification, Result, Spin, Tooltip } from 'antd';
+import {
+    Button,
+    Input,
+    Modal,
+    notification,
+    Result,
+    Space,
+    Spin,
+    Tooltip,
+} from 'antd';
 import useAccount from '../../../hooks/user/useAccount';
-import { LoadingOutlined } from '@ant-design/icons';
+import { CheckCircleFilled, LoadingOutlined } from '@ant-design/icons';
+
+const CustomInput = (prop) => {
+    const { isData, label, type = 'text', ...rest } = prop;
+    return (
+        <label style={{ width: '100%', color: 'white' }}>
+            {label}
+            <Input
+                {...rest}
+                style={{
+                    padding: '15px 10px',
+                    backgroundColor: 'transparent',
+                    borderRadius: '15px',
+                    border: '1px solid var(--primary)',
+                    color: 'white',
+                }}
+                label="Name"
+                type={type}
+                name="name"
+                defaultValue={isData}
+            />
+        </label>
+    );
+};
 
 export default function EditProfileViews() {
     const [api, contextHolder] = notification.useNotification();
@@ -13,13 +45,20 @@ export default function EditProfileViews() {
     const [isSection, setIsSection] = useState(1);
     const [isImageUrl, setIsImageUrl] = useState('');
     const [isShowModal, setIsShowModal] = useState(false);
-    const [isChangeName, setIsChangeName] = useState('');
-    const [isChangeUsername, setIsChangeUsername] = useState('');
+    const [isSectionPage, setIsSectionPage] = useState(1);
     const { editUser, getLogUser, uploadImage } = useAccount();
 
     const fileChange = (e) => {
         const file = e.target.files[0];
-        setIsFile(file);
+
+        if (file.size > 1000000) {
+            api['error']({
+                message: 'Upload fail',
+                description: 'too bigger size, max.1mb',
+            });
+        } else {
+            setIsFile(file);
+        }
     };
 
     const getDataUser = async () => {
@@ -70,17 +109,15 @@ export default function EditProfileViews() {
 
         setIsSection(1);
 
-        const body = {
-            name: isChangeName,
-            username: isChangeUsername,
+        await editUser({
             profilePictureUrl: isImageUrl,
-            email: isData?.email || '',
-            phoneNumber: isData?.phoneNumber,
-            bio: '',
-            website: '',
-        };
-
-        await editUser(body)
+            name: e.target.name.value,
+            username: e.target.name.value,
+            email: e.target.email.value,
+            phoneNumber: e.target.phoneNumber.value,
+            bio: e.target.bio.value,
+            website: e.target.website.value,
+        })
             .then((res) => {
                 if (res?.status === 200) {
                     setIsLoading(false);
@@ -117,13 +154,18 @@ export default function EditProfileViews() {
                 okType="submit"
                 okButtonProps={{
                     style: {
+                        cursor: isFile ? 'pointer' : 'not-allowed',
                         backgroundColor: '#e8f3ff',
                         color: '#000',
                         border: '1px solid #dddddd',
                         display: isSection === 1 ? 'inline-block' : 'none',
                     },
                 }}
-                onOk={handleEditUser}
+                onOk={() => {
+                    if (isFile) {
+                        setIsSection(2);
+                    }
+                }}
                 cancelText={isSection === 2 ? 'Done' : 'Cancel'}
                 cancelButtonProps={{
                     style: {
@@ -208,17 +250,21 @@ export default function EditProfileViews() {
                                 type="text"
                                 defaultValue={isData?.name}
                                 name="name"
-                                onChange={(e) =>
-                                    setIsChangeName(e?.target?.value)
-                                }
+                                disabled
+                                style={{
+                                    cursor: 'not-allowed',
+                                    opacity: '0.5',
+                                }}
                             />
                             <input
                                 type="text"
                                 defaultValue={isData?.username}
                                 name="username"
-                                onChange={(e) =>
-                                    setIsChangeUsername(e?.target?.value)
-                                }
+                                disabled
+                                style={{
+                                    cursor: 'not-allowed',
+                                    opacity: '0.5',
+                                }}
                             />
                         </div>
                     </form>
@@ -230,25 +276,165 @@ export default function EditProfileViews() {
                     />
                 )}
             </Modal>
-            <div>
-                <h1>Edit Profile</h1>
-                <div className="form-profile">
-                    <div className="profile">
-                        <img src={isData?.profilePictureUrl} alt="" />
-                        <p>
-                            <span>{isData?.name}</span>
-                            {isData?.username}
-                        </p>
-                    </div>
-                    <button
-                        onClick={() => {
-                            setIsSection(1);
-                            setIsShowModal(true);
+            <div
+                style={{
+                    width: '70%',
+                    height: '100%',
+                }}
+            >
+                {isSectionPage === 1 ? (
+                    <>
+                        <h1>Edit Profile</h1>
+                        <div className="form-profile">
+                            <div className="profile">
+                                <img
+                                    src={
+                                        isFile
+                                            ? URL.createObjectURL(isFile)
+                                            : isData?.profilePictureUrl
+                                    }
+                                    alt=""
+                                />
+                                <p>
+                                    <span>{isData?.name}</span>
+                                    {isData?.username}
+                                </p>
+                            </div>
+                            <button
+                                onClick={() => {
+                                    setIsSection(1);
+                                    setIsShowModal(true);
+                                }}
+                            >
+                                Change photo
+                            </button>
+                        </div>
+                        <form
+                            onSubmit={handleEditUser}
+                            style={{
+                                padding: '20px',
+                                gap: '20px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                            }}
+                        >
+                            <CustomInput label="Name" isData={isData?.name} />
+                            <CustomInput
+                                label="Username"
+                                isData={isData?.username}
+                            />
+                            <CustomInput
+                                type="email"
+                                label="Email"
+                                isData={isData?.email}
+                            />
+                            <CustomInput
+                                label="Website"
+                                isData={isData?.website}
+                            />
+                            <label htmlFor="" style={{ width: '100%' }}>
+                                Phone
+                                <Space.Compact
+                                    style={{
+                                        width: '100%',
+                                    }}
+                                >
+                                    <Input
+                                        style={{
+                                            width: '15%',
+                                            fontWeight: '600',
+                                            backgroundColor: 'var(--primary)',
+                                        }}
+                                        defaultValue="+62"
+                                    />
+                                    <Input
+                                        style={{
+                                            width: '100%',
+                                            backgroundColor: 'transparent',
+                                            color: '#fff',
+                                        }}
+                                        defaultValue={isData?.phoneNumber}
+                                        type="number"
+                                    />
+                                </Space.Compact>
+                            </label>
+                            <label htmlFor="" style={{ width: '100%' }}>
+                                Bio
+                                <Input.TextArea
+                                    style={{
+                                        backgroundColor: 'transparent',
+                                        borderRadius: '15px',
+                                        padding: '10px',
+                                        color: '#ffff',
+                                    }}
+                                    autoSize={{ minRows: 3, maxRows: 5 }}
+                                    label="Bio"
+                                    placeholder={isData?.bio}
+                                    name="bio"
+                                    defaultValue={isData?.bio}
+                                    maxLength={250}
+                                />
+                            </label>
+                            <Button
+                                style={{
+                                    backgroundColor: '#ffff',
+                                    color: '#010101',
+                                    width: '100%',
+                                    borderRadius: '15px',
+                                }}
+                                size="large"
+                                onClick={() => setIsSectionPage(2)}
+                            >
+                                Submit Change
+                            </Button>
+                        </form>
+                    </>
+                ) : (
+                    <div
+                        style={{
+                            margin: 'auto',
+                            height: '600px',
+                            width: '600px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                            borderRadius: '50%',
+                            boxShadow:
+                                'inset 0 0 20px 5px rgba(225,225,225, 0.5)',
                         }}
                     >
-                        Change photo
-                    </button>
-                </div>
+                        <Result
+                            style={{ color: 'var(--primary)' }}
+                            icon={
+                                <CheckCircleFilled
+                                    style={{ color: 'var(--primary)' }}
+                                />
+                            }
+                            title={
+                                <h1 style={{ color: '#ffff' }}>
+                                    Profile already updated!
+                                </h1>
+                            }
+                            subTitle={
+                                <p style={{ color: '#ffff', fontWeight: 300 }}>
+                                    Your profile has been updated now.
+                                </p>
+                            }
+                            extra={
+                                <Button
+                                    style={{
+                                        backgroundColor: 'var(--primary)',
+                                        outline: 'none',
+                                        color: '#ffff',
+                                    }}
+                                >
+                                    Go to home
+                                </Button>
+                            }
+                        />
+                    </div>
+                )}
             </div>
         </BaseLayout>
     );

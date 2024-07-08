@@ -3,11 +3,13 @@ import './ProfileCardUser.css';
 import useAccount from '../../../../hooks/user/useAccount';
 import { useEffect, useState } from 'react';
 import { notification } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProfileCardUser() {
     const [isData, setIsData] = useState({});
     const { getLogUser, editUser } = useAccount();
     const [api, contextHolder] = notification.useNotification();
+    const navigate = useNavigate();
 
     const getDataUser = async () => {
         await getLogUser('user').then((res) => {
@@ -56,9 +58,7 @@ export default function ProfileCardUser() {
                         <p>{isData?.name}</p>
                         <button
                             type="button"
-                            onClick={() =>
-                                (window.location.href = '/profile/edit-profile')
-                            }
+                            onClick={() => navigate('/edit-profile')}
                         >
                             Edit profile
                         </button>
