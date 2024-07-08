@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import './Aside.css';
 import { asideData } from '../../../../../hooks/data/asideData';
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 export default function Aside(prop) {
+    const { md } = useBreakpoint();
     const { profilePictureUrl } = prop;
     const token = localStorage.getItem('token');
     const pathname = window.location.pathname;
@@ -25,7 +27,7 @@ export default function Aside(prop) {
                                     alt=""
                                 />
                             ) : null}
-                            {item.title}
+                            {md ? item.title : null}
                         </Link>
                     </li>
                 ))}

@@ -3,11 +3,14 @@ import Logo from '../../Elements/Logo';
 import Aside from './partials/Aside';
 import FootSide from './partials/FootSide.jsx';
 import useAccount from '../../../hooks/user/useAccount.js';
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint.js';
 
 export default function BaseLayout(prop) {
+    const { md } = useBreakpoint();
     const { children } = prop;
     const [isData, setIsData] = useState([]);
     const { getLogUser } = useAccount();
+    console.log(md);
     const disableFootSide = [
         '/profile',
         '/login',
@@ -44,8 +47,9 @@ export default function BaseLayout(prop) {
             >
                 {children}
             </div>
-            {!disableFootSide.includes(pathname) && <FootSide {...isData} />}
-            {/* <FootSide {...isData} /> */}
+            {!disableFootSide.includes(pathname) && md ? (
+                <FootSide {...isData} />
+            ) : null}
         </>
     );
 }

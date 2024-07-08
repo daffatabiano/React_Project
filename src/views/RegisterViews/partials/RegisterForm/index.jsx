@@ -1,6 +1,4 @@
 import './index.css';
-import { UploadOutlined } from '@ant-design/icons';
-import { apiKey } from '../../../../hooks/service/services';
 
 export const Input = (prop) => {
     const { label, type, placeholder, name, ...rest } = prop;
