@@ -9,7 +9,6 @@ export const Input = (prop) => {
                 type={type}
                 placeholder={placeholder}
                 name={name}
-                id={name}
                 {...rest}
             />
         </>
@@ -59,6 +58,7 @@ export default function RegisterForm(prop) {
                     type="password"
                     placeholder="••••••••"
                     name="password"
+                    id="password"
                     disabled={isLoading}
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                     required

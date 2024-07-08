@@ -39,7 +39,7 @@ function useAuth() {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
                     apiKey: apiKey,
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `${token}`,
                 },
             });
             return res;

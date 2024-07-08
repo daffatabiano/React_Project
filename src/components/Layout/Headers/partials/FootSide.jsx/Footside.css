@@ -43,6 +43,10 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 0 1px 0 rgba(255, 255, 255),
+        0 0 10px 0 rgb(255, 255, 255, 0.7), 0 0 20px 0 rgb(0, 0, 0, 0.4);
 }
 
 .footer-side .profile button {
@@ -83,7 +87,6 @@
     display: flex;
     width: 300px;
     gap: 4px;
-    line-height: 1.2;
 }
 
 .footer-side .real-footer ul li {
@@ -93,7 +96,7 @@
     margin-right: 4px;
     width: 100%;
     text-align: end;
-    line-height: 1.2;
+    line-height: 1.5;
     font-weight: 300;
 }
 

@@ -7,14 +7,19 @@ export const Headers = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
     apiKey: apiKey,
-    Authorization: `Bearer ${token}`,
+    Authorization: `${token}`,
 };
 
 function useAccount() {
-    const getLogUser = async (option) => {
-        await axios.get(`${BASE_URL}/user/${option}`, {
-            headers: Headers,
-        });
+    const getLogUser = async (endpoint) => {
+        try {
+            const res = await axios.get(`${BASE_URL}/${endpoint}`, {
+                headers: Headers,
+            });
+            return res;
+        } catch (err) {
+            return err;
+        }
     };
 
     const editUser = async (body) => {
@@ -28,7 +33,23 @@ function useAccount() {
         }
     };
 
-    return { getLogUser, editUser };
+    const uploadImage = async (body) => {
+        try {
+            const res = await axios.post(`${BASE_URL}/upload-image`, body, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Accept: 'application/json',
+                    apiKey: apiKey,
+                    Authorization: `${token}`,
+                },
+            });
+            return res;
+        } catch (err) {
+            return err;
+        }
+    };
+
+    return { getLogUser, editUser, uploadImage };
 }
 
 export default useAccount;

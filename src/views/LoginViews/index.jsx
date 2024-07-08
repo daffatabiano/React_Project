@@ -33,10 +33,11 @@ export default function LoginViews() {
                 description: res?.data?.message,
             });
             localStorage.setItem('token', `Bearer ${res?.data?.token}`);
+            navigate('/');
+            setLoading(false);
             setTimeout(() => {
-                setLoading(false);
-                navigate('/');
-            }, 2000);
+                window.location.reload();
+            }, 1000);
         } else {
             setLoading(false);
             api['error']({

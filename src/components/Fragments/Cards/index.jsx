@@ -8,11 +8,9 @@ import {
 
 const LikeProfile = () => {
     return (
-        <Avatar.Group>
+        <Avatar.Group size={16}>
             <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=1" />
-            <a href="https://ant.design">
-                <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
-            </a>
+            <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
             <Tooltip title="Ant User" placement="top">
                 <Avatar
                     style={{ backgroundColor: '#87d068' }}
@@ -71,12 +69,14 @@ export default function Postcard() {
                     {'1,000 likes'}
                 </div>
                 <div className="foot-desc">
-                    <h6>{'john doe'}</h6>
-                    <p>
-                        {
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod'
-                        }
-                    </p>
+                    <h6>
+                        {'john.doe'}{' '}
+                        <span>
+                            {
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod'
+                            }
+                        </span>
+                    </h6>
                 </div>
                 <div className="comments-total">
                     <em>{'View all 1,000 comments'}</em>

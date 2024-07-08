@@ -79,13 +79,12 @@
 }
 
 .card-posting .foot .foot-desc h6 {
-    width: 15%;
-    font-weight: 500;
+    width: 100%;
+    font-weight: 700;
 }
-
-.card-posting .foot .foot-desc p {
-    width: 85%;
-    font-weight: 300;
+.card-posting .foot .foot-desc h6 span {
+    margin-left: 10px;
+    font-weight: 200;
 }
 
 .card-posting .foot .comments-total {
