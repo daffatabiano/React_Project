@@ -36,7 +36,12 @@ function useAccount() {
     const uploadImage = async (body) => {
         try {
             const res = await axios.post(`${BASE_URL}/upload-image`, body, {
-                headers: Headers,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Accept: 'application/json',
+                    apiKey: apiKey,
+                    Authorization: `${token}`,
+                },
             });
             return res;
         } catch (err) {

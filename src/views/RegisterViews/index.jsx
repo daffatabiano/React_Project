@@ -14,30 +14,29 @@ export default function RegisterViews() {
     const [passwordNotice, setPasswordNotice] = useState('');
     const pw = document.querySelector('#password');
 
-    useEffect(() => {
-        pw?.addEventListener('input', () => {
-            if (pw.value.length < 8) {
-                setPasswordNotice(
-                    'Password must be at least 8 characters long'
-                );
-                return;
-            } else if (!/[A-Z]/.test(pw.value)) {
-                setPasswordNotice(
-                    'Password must contain at least one uppercase letter'
-                );
-                return;
-            } else if (!/[a-z]/.test(pw.value)) {
-                setPasswordNotice(
-                    'Password must contain at least one lowercase letter'
-                );
-                return;
-            } else if (!/\d/.test(pw.value)) {
-                setPasswordNotice('Password must contain at least one number');
-                return;
-            }
-            setPasswordNotice('');
-        });
-    }, [pw]);
+    pw?.addEventListener('input', (e) => {
+        e.preventDefault;
+        console.log(e.target.value);
+        if (e.target.value.length < 8) {
+            setPasswordNotice('Password must be at least 8 characters long');
+            return;
+        } else if (!/[A-Z]/.test(e.target.value)) {
+            setPasswordNotice(
+                'Password must contain at least one uppercase letter'
+            );
+            return;
+        } else if (!/[a-z]/.test(e.target.value)) {
+            setPasswordNotice(
+                'Password must contain at least one lowercase letter'
+            );
+            return;
+        } else if (!/\d/.test(e.target.value)) {
+            setPasswordNotice('Password must contain at least one number');
+            return;
+        }
+        setPasswordNotice('');
+    });
+
     const handleRegister = async (e) => {
         e.preventDefault();
 

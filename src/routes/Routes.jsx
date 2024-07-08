@@ -23,7 +23,7 @@ export const routeList = [
         ),
     },
     {
-        path: '/edit-profile',
+        path: '/profile/edit-profile',
         element: (
             <ProtectRouted>
                 <EditProfile />

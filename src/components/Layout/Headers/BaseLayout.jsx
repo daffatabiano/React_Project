@@ -12,7 +12,7 @@ export default function BaseLayout(prop) {
         '/profile',
         '/login',
         '/register',
-        '/edit-profile',
+        '/profile/edit-profile',
     ];
     const pathname = window.location.pathname;
 

@@ -57,7 +57,7 @@ export default function ProfileCardUser() {
                         <button
                             type="button"
                             onClick={() =>
-                                (window.location.href = '/edit-profile')
+                                (window.location.href = '/profile/edit-profile')
                             }
                         >
                             Edit profile
