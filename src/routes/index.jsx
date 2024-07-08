@@ -3,7 +3,7 @@ import Home from '../page/Home';
 import Login from '../page/Login';
 import Profile from '../page/Profile';
 import Register from '../page/Register';
-import ProtectRouted from './ProtectRouted';
+import ProtectRouted from './ProtectedRouted';
 
 export const routeList = [
     {
