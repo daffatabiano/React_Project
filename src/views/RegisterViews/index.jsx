@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './index.css';
 import useAuth from '../../hooks/auth/useAuth';
-import { message, notification } from 'antd';
+import { notification } from 'antd';
 
 export default function RegisterViews() {
     const navigate = useNavigate();
@@ -23,7 +23,7 @@ export default function RegisterViews() {
             email: e?.target?.email?.value,
             password: e?.target?.password?.value,
             passwordRepeat: e?.target?.passwordRepeat?.value,
-            profilePictureUrl: e?.target?.profilePictureUrl?.value,
+            profilePictureUrl: '',
             phoneNumber: e?.target?.phoneNumber?.value,
             bio: '',
             website: '',
@@ -89,6 +89,8 @@ export default function RegisterViews() {
                         isLoading={isLoading}
                         onSubmit={handleRegister}
                         passwordNotice={passwordNotice}
+                        api={api}
+                        isImageUrl
                     />
                     <Otherside />
                 </div>

@@ -34,7 +34,8 @@
     margin: auto;
 }
 
-.register-form input {
+.register-form input,
+.register-form textarea {
     padding: 10px 15px;
     border: 1px solid rgb(255, 255, 255, 0.5);
     border-radius: 30px;
@@ -45,8 +46,14 @@
     width: 100%;
 }
 
+.register-form textarea {
+    resize: none;
+    padding: 25px;
+}
+
 .register-form form input::placeholder {
     color: rgb(255, 255, 255, 0.5);
+    font-style: italic;
 }
 
 .register-form form input:focus {
@@ -70,6 +77,44 @@
 .register-form form button:hover {
     background-color: rgb(255, 255, 255, 0.5);
     color: #010101;
+}
+
+.form-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.form-image img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    margin-top: -25px;
+    border-radius: 50%;
+}
+
+.form-image input {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    transform: translateY(35px);
+    opacity: 0;
+    cursor: pointer;
+}
+
+.register-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.register-button button {
+    width: 100%;
 }
 
 @media (max-width: 768px) {
