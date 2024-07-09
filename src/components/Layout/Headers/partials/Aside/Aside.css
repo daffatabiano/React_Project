@@ -28,6 +28,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin: 0;
 }
 
 .aside ul li {
@@ -88,4 +89,41 @@
 
 .aside ul li a:hover img {
     border: 1px dashed #111111;
+}
+
+@media (max-width: 768px) {
+    .aside {
+        margin: 0;
+        bottom: 0;
+        top: auto;
+        height: 20vh;
+        width: 100%;
+        border-radius: 0;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        padding: 0px 10px;
+    }
+    .aside ul {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+        width: 100%;
+        justify-items: center;
+        /* align-items: center; */
+        justify-content: center;
+        align-content: center;
+    }
+
+    .aside ul li,
+    .aside ul li a {
+        width: 100%;
+        background-color: red;
+        justify-content: center;
+    }
+
+    .aside ul li.active,
+    .aside ul li.active a {
+        background-color: yellowgreen;
+        width: 100%;
+    }
 }
