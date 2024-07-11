@@ -1,0 +1,14 @@
+.profile {
+    padding: 4% 10% 0 25%;
+}
+@media (max-width: 1500px) {
+    .profile {
+        padding: 4% 0 0 22%;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile {
+        padding: 4% 0 0 0%;
+    }
+}

@@ -106,3 +106,10 @@
 .card-posting .foot .foot-comment button {
     background-color: transparent;
 }
+
+@media (max-width: 500px) {
+    .card-posting .foot .action .action-item button i,
+    .card-posting .foot .action .action-item2 button i {
+        font-size: 20px;
+    }
+}

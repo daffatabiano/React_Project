@@ -6,7 +6,7 @@ import useAccount from '../../../hooks/user/useAccount.js';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint.js';
 
 export default function BaseLayout(prop) {
-    const { md } = useBreakpoint();
+    const { md, lg } = useBreakpoint();
     const { children } = prop;
     const [isData, setIsData] = useState([]);
     const { getLogUser } = useAccount();
@@ -37,15 +37,7 @@ export default function BaseLayout(prop) {
                 {!disableFootSide.includes(pathname) && <Logo />}
             </nav>
             <Aside {...isData} />
-            <div
-                style={{
-                    padding: !disableFootSide.includes(pathname)
-                        ? '20px 340px'
-                        : '20px 40px 0 320px ',
-                }}
-            >
-                {children}
-            </div>
+            <div>{children}</div>
             {!disableFootSide.includes(pathname) && md ? (
                 <FootSide {...isData} />
             ) : null}

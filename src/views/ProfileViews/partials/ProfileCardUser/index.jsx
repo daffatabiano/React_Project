@@ -48,7 +48,8 @@ export default function ProfileCardUser() {
     console.log(isData);
 
     return (
-        <>
+        <div>
+            {contextHolder}
             <div className="profile-card">
                 <div className="card-img">
                     <img src={isData?.profilePictureUrl} alt="" />
@@ -82,6 +83,6 @@ export default function ProfileCardUser() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

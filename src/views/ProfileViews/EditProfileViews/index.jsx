@@ -13,6 +13,7 @@ import {
 } from 'antd';
 import useAccount from '../../../hooks/user/useAccount';
 import { CheckCircleFilled, LoadingOutlined } from '@ant-design/icons';
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
 const CustomInput = (prop) => {
     const { isData, label, type = 'text', ...rest } = prop;
@@ -144,297 +145,311 @@ export default function EditProfileViews() {
         getDataUser();
     }, []);
 
+    const { md } = useBreakpoint();
+
     return (
         <BaseLayout>
             {contextHolder}
-            <Modal
-                title="Change Profile Photo"
-                open={isShowModal}
-                okText="Submit"
-                okType="submit"
-                okButtonProps={{
-                    style: {
-                        cursor: isFile ? 'pointer' : 'not-allowed',
-                        backgroundColor: '#e8f3ff',
-                        color: '#000',
-                        border: '1px solid #dddddd',
-                        display: isSection === 1 ? 'inline-block' : 'none',
-                    },
-                }}
-                onOk={() => {
-                    if (isFile) {
-                        setIsSection(2);
-                    }
-                }}
-                cancelText={isSection === 2 ? 'Done' : 'Cancel'}
-                cancelButtonProps={{
-                    style: {
-                        backgroundColor: isSection === 1 ? 'red' : 'green',
-                        color: '#fff',
-                    },
-                }}
-                onCancel={() => setIsShowModal(false)}
-            >
-                {isLoading ? (
-                    <div
-                        style={{
-                            textAlign: 'center',
-                            height: 'inherit',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            gap: '25px',
-                        }}
-                    >
-                        <Spin
-                            indicator={
-                                <LoadingOutlined
-                                    spin
-                                    style={{ fontSize: '100px' }}
-                                />
-                            }
+            <div className="edit-profile">
+                <Modal
+                    title="Change Profile Photo"
+                    open={isShowModal}
+                    okText="Submit"
+                    okType="submit"
+                    okButtonProps={{
+                        style: {
+                            cursor: isFile ? 'pointer' : 'not-allowed',
+                            backgroundColor: '#e8f3ff',
+                            color: '#000',
+                            border: '1px solid #dddddd',
+                            display: isSection === 1 ? 'inline-block' : 'none',
+                        },
+                    }}
+                    onOk={() => {
+                        if (isFile) {
+                            setIsSection(2);
+                        }
+                    }}
+                    cancelText={isSection === 2 ? 'Done' : 'Cancel'}
+                    cancelButtonProps={{
+                        style: {
+                            backgroundColor: isSection === 1 ? 'red' : 'green',
+                            color: '#fff',
+                        },
+                    }}
+                    onCancel={() => setIsShowModal(false)}
+                >
+                    {isLoading ? (
+                        <div
                             style={{
-                                width: '100%',
+                                textAlign: 'center',
                                 height: 'inherit',
-                            }}
-                        />
-                        Loading...
-                    </div>
-                ) : isSection === 1 ? (
-                    <form action="" className="modal-form">
-                        <Tooltip title="Click to select a photo">
-                            <div className="modal-photo">
-                                <img
-                                    src={
-                                        isFile
-                                            ? URL.createObjectURL(isFile)
-                                            : isData?.profilePictureUrl
-                                    }
-                                    alt={`profile of ${isData?.username}`}
-                                />
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={fileChange}
-                                />
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        gap: '10px',
-                                        paddingTop: '10px',
-                                    }}
-                                >
-                                    <button
-                                        className="btn btn-danger"
-                                        onClick={() => setIsFile('')}
-                                        type="button"
-                                    >
-                                        clear
-                                    </button>
-                                    <button
-                                        className="btn btn-secondary"
-                                        onClick={handleChangeImage}
-                                        type="button"
-                                    >
-                                        save
-                                    </button>
-                                </div>
-                                <p style={{ color: 'red' }}>
-                                    * Max file size is 1MB
-                                </p>
-                            </div>
-                        </Tooltip>
-                        <div className="modal-input">
-                            <input
-                                type="text"
-                                defaultValue={isData?.name}
-                                name="name"
-                                disabled
-                                style={{
-                                    cursor: 'not-allowed',
-                                    opacity: '0.5',
-                                }}
-                            />
-                            <input
-                                type="text"
-                                defaultValue={isData?.username}
-                                name="username"
-                                disabled
-                                style={{
-                                    cursor: 'not-allowed',
-                                    opacity: '0.5',
-                                }}
-                            />
-                        </div>
-                    </form>
-                ) : (
-                    <Result
-                        status="success"
-                        title="Successfully Changed!"
-                        subTitle="Your profile has been changed now."
-                    />
-                )}
-            </Modal>
-            <div
-                style={{
-                    width: '70%',
-                    height: '100%',
-                }}
-            >
-                {isSectionPage === 1 ? (
-                    <>
-                        <h1>Edit Profile</h1>
-                        <div className="form-profile">
-                            <div className="profile">
-                                <img
-                                    src={
-                                        isFile
-                                            ? URL.createObjectURL(isFile)
-                                            : isData?.profilePictureUrl
-                                    }
-                                    alt=""
-                                />
-                                <p>
-                                    <span>{isData?.name}</span>
-                                    {isData?.username}
-                                </p>
-                            </div>
-                            <button
-                                onClick={() => {
-                                    setIsSection(1);
-                                    setIsShowModal(true);
-                                }}
-                            >
-                                Change photo
-                            </button>
-                        </div>
-                        <form
-                            onSubmit={handleEditUser}
-                            style={{
-                                padding: '20px',
-                                gap: '20px',
                                 display: 'flex',
                                 flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                gap: '25px',
                             }}
                         >
-                            <CustomInput label="Name" isData={isData?.name} />
-                            <CustomInput
-                                label="Username"
-                                isData={isData?.username}
+                            <Spin
+                                indicator={
+                                    <LoadingOutlined
+                                        spin
+                                        style={{ fontSize: '100px' }}
+                                    />
+                                }
+                                style={{
+                                    width: '100%',
+                                    height: 'inherit',
+                                }}
                             />
-                            <CustomInput
-                                type="email"
-                                label="Email"
-                                isData={isData?.email}
-                            />
-                            <CustomInput
-                                label="Website"
-                                isData={isData?.website}
-                            />
-                            <label htmlFor="" style={{ width: '100%' }}>
-                                Phone
-                                <Space.Compact
+                            Loading...
+                        </div>
+                    ) : isSection === 1 ? (
+                        <form action="" className="modal-form">
+                            <Tooltip title="Click to select a photo">
+                                <div className="modal-photo">
+                                    <img
+                                        src={
+                                            isFile
+                                                ? URL.createObjectURL(isFile)
+                                                : isData?.profilePictureUrl
+                                        }
+                                        alt={`profile of ${isData?.username}`}
+                                    />
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={fileChange}
+                                    />
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            gap: '10px',
+                                            paddingTop: '10px',
+                                        }}
+                                    >
+                                        <button
+                                            className="btn btn-danger"
+                                            onClick={() => setIsFile('')}
+                                            type="button"
+                                        >
+                                            clear
+                                        </button>
+                                        <button
+                                            className="btn btn-secondary"
+                                            onClick={handleChangeImage}
+                                            type="button"
+                                        >
+                                            save
+                                        </button>
+                                    </div>
+                                    <p style={{ color: 'red' }}>
+                                        * Max file size is 1MB
+                                    </p>
+                                </div>
+                            </Tooltip>
+                            <div className="modal-input">
+                                <input
+                                    type="text"
+                                    defaultValue={isData?.name}
+                                    name="name"
+                                    disabled
                                     style={{
-                                        width: '100%',
+                                        cursor: 'not-allowed',
+                                        opacity: '0.5',
+                                    }}
+                                />
+                                <input
+                                    type="text"
+                                    defaultValue={isData?.username}
+                                    name="username"
+                                    disabled
+                                    style={{
+                                        cursor: 'not-allowed',
+                                        opacity: '0.5',
+                                    }}
+                                />
+                            </div>
+                        </form>
+                    ) : (
+                        <Result
+                            status="success"
+                            title="Successfully Changed!"
+                            subTitle="Your profile has been changed now."
+                        />
+                    )}
+                </Modal>
+                <div
+                    style={{
+                        width: md ? '75%' : '100%',
+                        height: '100%',
+                        padding: !md && '20px',
+                    }}
+                >
+                    {isSectionPage === 1 ? (
+                        <>
+                            <h1>Edit Profile</h1>
+                            <div className="form-profile">
+                                <div className="profile">
+                                    <img
+                                        src={
+                                            isFile
+                                                ? URL.createObjectURL(isFile)
+                                                : isData?.profilePictureUrl
+                                        }
+                                        alt=""
+                                    />
+                                    <p>
+                                        <span>{isData?.name}</span>
+                                        {isData?.username}
+                                    </p>
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        setIsSection(1);
+                                        setIsShowModal(true);
                                     }}
                                 >
-                                    <Input
-                                        style={{
-                                            width: '15%',
-                                            fontWeight: '600',
-                                            backgroundColor: 'var(--primary)',
-                                        }}
-                                        defaultValue="+62"
-                                    />
-                                    <Input
+                                    Change photo
+                                </button>
+                            </div>
+                            <form
+                                onSubmit={handleEditUser}
+                                style={{
+                                    padding: '20px',
+                                    gap: '20px',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                }}
+                            >
+                                <CustomInput
+                                    label="Name"
+                                    isData={isData?.name}
+                                />
+                                <CustomInput
+                                    label="Username"
+                                    isData={isData?.username}
+                                />
+                                <CustomInput
+                                    type="email"
+                                    label="Email"
+                                    isData={isData?.email}
+                                />
+                                <CustomInput
+                                    label="Website"
+                                    isData={isData?.website}
+                                />
+                                <label htmlFor="" style={{ width: '100%' }}>
+                                    Phone
+                                    <Space.Compact
                                         style={{
                                             width: '100%',
-                                            backgroundColor: 'transparent',
-                                            color: '#fff',
                                         }}
-                                        defaultValue={isData?.phoneNumber}
-                                        type="number"
+                                    >
+                                        <Input
+                                            style={{
+                                                width: '15%',
+                                                fontWeight: '600',
+                                                backgroundColor:
+                                                    'var(--primary)',
+                                            }}
+                                            defaultValue="+62"
+                                        />
+                                        <Input
+                                            style={{
+                                                width: '100%',
+                                                backgroundColor: 'transparent',
+                                                color: '#fff',
+                                            }}
+                                            defaultValue={isData?.phoneNumber}
+                                            type="number"
+                                        />
+                                    </Space.Compact>
+                                </label>
+                                <label htmlFor="" style={{ width: '100%' }}>
+                                    Bio
+                                    <Input.TextArea
+                                        style={{
+                                            backgroundColor: 'transparent',
+                                            borderRadius: '15px',
+                                            padding: '10px',
+                                            color: '#ffff',
+                                        }}
+                                        autoSize={{ minRows: 3, maxRows: 5 }}
+                                        label="Bio"
+                                        placeholder={isData?.bio}
+                                        name="bio"
+                                        defaultValue={isData?.bio}
+                                        maxLength={250}
                                     />
-                                </Space.Compact>
-                            </label>
-                            <label htmlFor="" style={{ width: '100%' }}>
-                                Bio
-                                <Input.TextArea
-                                    style={{
-                                        backgroundColor: 'transparent',
-                                        borderRadius: '15px',
-                                        padding: '10px',
-                                        color: '#ffff',
-                                    }}
-                                    autoSize={{ minRows: 3, maxRows: 5 }}
-                                    label="Bio"
-                                    placeholder={isData?.bio}
-                                    name="bio"
-                                    defaultValue={isData?.bio}
-                                    maxLength={250}
-                                />
-                            </label>
-                            <Button
-                                style={{
-                                    backgroundColor: '#ffff',
-                                    color: '#010101',
-                                    width: '100%',
-                                    borderRadius: '15px',
-                                }}
-                                size="large"
-                                onClick={() => setIsSectionPage(2)}
-                            >
-                                Submit Change
-                            </Button>
-                        </form>
-                    </>
-                ) : (
-                    <div
-                        style={{
-                            margin: 'auto',
-                            height: '600px',
-                            width: '600px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                            borderRadius: '50%',
-                            boxShadow:
-                                'inset 0 0 20px 5px rgba(225,225,225, 0.5)',
-                        }}
-                    >
-                        <Result
-                            style={{ color: 'var(--primary)' }}
-                            icon={
-                                <CheckCircleFilled
-                                    style={{ color: 'var(--primary)' }}
-                                />
-                            }
-                            title={
-                                <h1 style={{ color: '#ffff' }}>
-                                    Profile already updated!
-                                </h1>
-                            }
-                            subTitle={
-                                <p style={{ color: '#ffff', fontWeight: 300 }}>
-                                    Your profile has been updated now.
-                                </p>
-                            }
-                            extra={
+                                </label>
                                 <Button
                                     style={{
-                                        backgroundColor: 'var(--primary)',
-                                        outline: 'none',
-                                        color: '#ffff',
+                                        backgroundColor: '#ffff',
+                                        color: '#010101',
+                                        width: '100%',
+                                        borderRadius: '15px',
                                     }}
+                                    size="large"
+                                    onClick={() => setIsSectionPage(2)}
                                 >
-                                    Go to home
+                                    Submit Change
                                 </Button>
-                            }
-                        />
-                    </div>
-                )}
+                            </form>
+                        </>
+                    ) : (
+                        <div
+                            style={{
+                                margin: 'auto',
+                                height: '600px',
+                                width: '600px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                                borderRadius: '50%',
+                                boxShadow:
+                                    'inset 0 0 20px 5px rgba(225,225,225, 0.5)',
+                            }}
+                        >
+                            <Result
+                                style={{ color: 'var(--primary)' }}
+                                icon={
+                                    <CheckCircleFilled
+                                        style={{ color: 'var(--primary)' }}
+                                    />
+                                }
+                                title={
+                                    <h1 style={{ color: '#ffff' }}>
+                                        Profile already updated!
+                                    </h1>
+                                }
+                                subTitle={
+                                    <p
+                                        style={{
+                                            color: '#ffff',
+                                            fontWeight: 300,
+                                        }}
+                                    >
+                                        Your profile has been updated now.
+                                    </p>
+                                }
+                                extra={
+                                    <Button
+                                        style={{
+                                            backgroundColor: 'var(--primary)',
+                                            outline: 'none',
+                                            color: '#ffff',
+                                        }}
+                                    >
+                                        Go to home
+                                    </Button>
+                                }
+                            />
+                        </div>
+                    )}
+                </div>
             </div>
         </BaseLayout>
     );
