@@ -34,13 +34,13 @@
 .aside ul li {
     display: flex;
     font-size: 20px;
+    width: 100%;
 }
 
 .aside ul li.active,
 .aside ul li.active a {
     border-radius: 30px;
     color: #010101;
-    width: 100%;
     background-color: rgba(255, 255, 255);
 }
 
@@ -49,6 +49,7 @@
 }
 
 .aside ul li a {
+    width: 100%;
     display: flex;
     gap: 15px;
     color: var(--txt);
@@ -63,10 +64,8 @@
 }
 
 .aside ul li a:hover {
-    transition: 0.3s ease;
     border-radius: 30px;
     color: #010101;
-    width: 100%;
     background-color: rgba(255, 255, 255);
 }
 
@@ -96,34 +95,50 @@
         margin: 0;
         bottom: 0;
         top: auto;
-        height: 20vh;
+        height: 80px;
         width: 100%;
         border-radius: 0;
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
-        padding: 0px 10px;
+        padding: 5px;
     }
     .aside ul {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        gap: 10px;
+        flex-direction: row;
         width: 100%;
         justify-items: center;
-        /* align-items: center; */
         justify-content: center;
         align-content: center;
+        gap: 5px;
     }
 
     .aside ul li,
     .aside ul li a {
+        height: 100%;
         width: 100%;
-        background-color: red;
         justify-content: center;
     }
+    .aside ul li:first-child.active,
+    .aside ul li:first-child a:hover {
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
 
-    .aside ul li.active,
-    .aside ul li.active a {
-        background-color: yellowgreen;
-        width: 100%;
+    .aside ul li:last-child.active a,
+    .aside ul li:last-child a:hover {
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 0px;
+    }
+
+    .aside ul li a:hover {
+        border-radius: 0px;
+    }
+
+    .aside ul li a:first-child .aside ul li a i {
+        padding: 0;
+        font-size: 25px;
     }
 }

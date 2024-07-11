@@ -8,7 +8,7 @@
 body {
     background-color: var(--bg);
     /* height: 1000px; */
-    width: 100%;
+    max-width: 100vw;
     color: var(--txt);
     box-sizing: border-box;
     margin: 0;
