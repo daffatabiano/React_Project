@@ -5,6 +5,7 @@ import {
     SendOutlined,
     UserOutlined,
 } from '@ant-design/icons';
+import { SUB_IMAGE, SUB_POST_IMAGE } from '../../../hooks/service/services';
 
 const LikeProfile = () => {
     return (
@@ -25,17 +26,19 @@ const LikeProfile = () => {
     );
 };
 
-export default function Postcard() {
+export default function Postcard(prop) {
+    const apiCreatedAt = prop?.createdAt.split('T')[0];
     return (
         <div className="card-posting">
             <div className="head">
                 <div className="head-profile">
                     <img
-                        src="https://reqres.in/img/faces/10-image.jpg"
-                        alt=""
+                        src={prop?.user?.profilePictureUrl || SUB_IMAGE}
+                        alt={`${prop?.user?.username} profile picture`}
                     />
                     <p>
-                        {'John Doe'} <em>•{' 1h'}</em>
+                        {prop?.user?.username || 'unknown'}{' '}
+                        <em>•{apiCreatedAt}</em>
                     </p>
                 </div>
                 <div className="head-action">
@@ -43,13 +46,17 @@ export default function Postcard() {
                 </div>
             </div>
             <div className="body">
-                <img src="https://reqres.in/img/faces/10-image.jpg" alt="" />
+                <img src={prop?.imageUrl || SUB_POST_IMAGE} alt="" />
             </div>
             <div className="foot">
                 <div className="action">
                     <div className="action-item">
                         <button>
-                            <i className="bi bi-heart" />
+                            <i
+                                className={`bi bi-${
+                                    prop?.isLike ? 'heart-fill' : 'heart'
+                                }`}
+                            />
                         </button>
                         <button>
                             <i className="bi bi-chat" />
@@ -65,17 +72,13 @@ export default function Postcard() {
                     </div>
                 </div>
                 <div className="likes-total">
-                    <LikeProfile />
-                    {'1,000 likes'}
+                    {prop?.totalLikes > 0 ? <LikeProfile /> : null}
+                    {`${prop?.totalLikes || 0} likes`}
                 </div>
                 <div className="foot-desc">
                     <h6>
-                        {'john.doe'}{' '}
-                        <span>
-                            {
-                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod'
-                            }
-                        </span>
+                        {`${prop?.user?.username || 'unknown'}`}{' '}
+                        <span>{prop?.caption}</span>
                     </h6>
                 </div>
                 <div className="comments-total">

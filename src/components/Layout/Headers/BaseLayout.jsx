@@ -6,7 +6,7 @@ import useAccount from '../../../hooks/user/useAccount.js';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint.js';
 
 export default function BaseLayout(prop) {
-    const { md, lg } = useBreakpoint();
+    const { md } = useBreakpoint();
     const { children } = prop;
     const [isData, setIsData] = useState([]);
     const { getLogUser } = useAccount();

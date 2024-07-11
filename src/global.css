@@ -3,6 +3,7 @@
     --bg: rgb(27, 27, 27);
     --primary: rgb(255, 255, 255, 0.6);
     --shadow: rgba(0, 0, 0, 0.6);
+    --skeleton: rgba(177, 177, 177, 0.4);
 }
 
 body {
