@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import './index.css';
 import useAccount from '../../../../hooks/user/useAccount';
-import { message } from 'antd';
+import { useDispatch } from 'react-redux';
+import { clearImageUrl, imageUrl } from '../../../../redux/slice/registerSlice';
 
 export const Input = (prop) => {
     const { label, type, placeholder, name, disabled, isLoading, ...rest } =
@@ -26,14 +27,23 @@ export const CustomButton = (prop) => {
 };
 
 const FirstSectionRegForm = (prop) => {
-    const { passwordNotice } = prop;
+    const {
+        passwordNotice,
+        setIsName,
+        setIsEmail,
+        setIsPassword,
+        setIsPasswordRepeat,
+        setIsUsername,
+        setIsPhone,
+    } = prop;
+
     return (
-        <>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <Input
                 label="Name*"
                 type="text"
                 placeholder="Enter Username"
-                name="name"
+                onChange={setIsName}
                 disabled
                 required
             />
@@ -41,7 +51,7 @@ const FirstSectionRegForm = (prop) => {
                 label="Username*"
                 type="text"
                 placeholder="Enter Username"
-                name="username"
+                onChange={setIsUsername}
                 disabled
                 required
             />
@@ -49,7 +59,7 @@ const FirstSectionRegForm = (prop) => {
                 label="Email*"
                 type="email"
                 placeholder="example@mail.com"
-                name="email"
+                onChange={setIsEmail}
                 disabled
                 required
             />
@@ -57,20 +67,24 @@ const FirstSectionRegForm = (prop) => {
                 label="Password*"
                 type="password"
                 placeholder="••••••••"
-                name="password"
+                onChange={setIsPassword}
                 id="password"
                 disabled
                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                 required
             />
             {passwordNotice && (
-                <p style={{ color: 'red' }}>{`* ${passwordNotice}`}</p>
+                <p
+                    style={{
+                        color: 'red',
+                    }}
+                >{`* ${passwordNotice}`}</p>
             )}
             <Input
                 label="Confirm Password*"
                 type="password"
                 placeholder="••••••••"
-                name="passwordRepeat"
+                onChange={setIsPasswordRepeat}
                 disabled
                 required
             />
@@ -78,11 +92,11 @@ const FirstSectionRegForm = (prop) => {
                 label="Phone*"
                 type="number"
                 placeholder="+62 8xxxxxxx"
-                name="phoneNumber"
+                onChange={setIsPhone}
                 disabled
                 required
             />
-        </>
+        </div>
     );
 };
 
@@ -156,11 +170,10 @@ const SecondSectionRegForm = (prop) => {
 
 export default function RegisterForm(prop) {
     const [isFile, setIsFile] = useState(null);
-    const [isImageUrl, setIsImageUrl] = useState('');
     const { onSubmit, isLoading, passwordNotice, api } = prop;
     const [isSection, setIsSection] = useState(1);
     const { uploadImage } = useAccount();
-
+    const dispatch = useDispatch();
     const handleFile = (e) => {
         const file = e.target.files[0];
         if (file.size < 1000000) {
@@ -179,14 +192,13 @@ export default function RegisterForm(prop) {
 
         try {
             const res = await uploadImage(newForm);
-            setIsImageUrl(res?.data?.url);
+            dispatch(imageUrl(res?.data?.url));
             if (res?.status === 200) {
                 api['success']({
                     message: 'Upload Success',
                     description: 'Image uploaded',
                 });
             }
-            return { isImageUrl };
         } catch (err) {
             api['error']({
                 message: 'Upload Failed',
@@ -204,9 +216,14 @@ export default function RegisterForm(prop) {
             <form onSubmit={onSubmit}>
                 {isSection === 1 ? (
                     <FirstSectionRegForm
-                        onSubmit={onSubmit}
                         isLoading={isLoading}
                         passwordNotice={passwordNotice}
+                        setIsName={prop.setIsName}
+                        setIsEmail={prop.setIsEmail}
+                        setIsPassword={prop.setIsPassword}
+                        setIsPasswordRepeat={prop.setIsPasswordRepeat}
+                        setIsUsername={prop.setIsUsername}
+                        setIsPhone={prop.setIsPhone}
                     />
                 ) : (
                     <SecondSectionRegForm
@@ -215,7 +232,7 @@ export default function RegisterForm(prop) {
                         onChange={handleFile}
                         saveButton={handleUploadImage}
                         clearButton={() => {
-                            setIsFile(null);
+                            dispatch(clearImageUrl()) && setIsFile(null);
                             api['success']({
                                 message: 'Image has been cleared',
                             });
@@ -226,14 +243,20 @@ export default function RegisterForm(prop) {
                     <button
                         type="button"
                         onClick={() => {
-                            setIsSection(!1);
+                            setIsSection(2);
                         }}
                     >
                         Next
                     </button>
                 ) : (
                     <div className="register-button">
-                        <button onClick={() => setIsSection(1)}>Back</button>
+                        <button
+                            onClick={(e) =>
+                                e.preventDefault() || setIsSection(1)
+                            }
+                        >
+                            Back
+                        </button>
                         <button type="submit">Submit</button>
                     </div>
                 )}

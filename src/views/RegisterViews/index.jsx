@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import './index.css';
 import useAuth from '../../hooks/auth/useAuth';
 import { notification } from 'antd';
+import { useSelector } from 'react-redux';
 
 export default function RegisterViews() {
     const navigate = useNavigate();
@@ -13,22 +14,28 @@ export default function RegisterViews() {
     const { authRegister } = useAuth();
     const [passwordNotice, setPasswordNotice] = useState('');
     const pw = document.getElementById('password');
-
+    const isImageUrl = useSelector((state) => state?.reg?.imageUrl);
+    const [isName, setIsName] = useState('');
+    const [isUsername, setIsUsername] = useState('');
+    const [isEmail, setIsEmail] = useState('');
+    const [IsPassword, setIsPassword] = useState('');
+    const [isPasswordRepeat, setIsPasswordRepeat] = useState('');
+    const [isPhoneNumber, setIsPhoneNumber] = useState('');
     const handleRegister = async (e) => {
         e.preventDefault();
 
         const payload = {
-            name: e?.target?.name?.value,
-            username: e?.target?.username?.value,
-            email: e?.target?.email?.value,
-            password: e?.target?.password?.value,
-            passwordRepeat: e?.target?.passwordRepeat?.value,
-            profilePictureUrl: '',
-            phoneNumber: e?.target?.phoneNumber?.value,
-            bio: '',
-            website: '',
+            name: isName,
+            username: isUsername,
+            email: isEmail,
+            phoneNumber: isPhoneNumber,
+            password: IsPassword,
+            passwordRepeat: isPasswordRepeat,
+            bio: e.target.bio.value,
+            website: e.target.website.value,
+            profilePictureUrl: isImageUrl,
         };
-
+        console.log(e?.target?.name?.value, 'name');
         if (payload.password !== payload.passwordRepeat) {
             api['error']({ message: 'Password should be same !' });
             setTimeout(() => {
@@ -90,7 +97,16 @@ export default function RegisterViews() {
                         onSubmit={handleRegister}
                         passwordNotice={passwordNotice}
                         api={api}
-                        isImageUrl
+                        setIsName={(e) => setIsName(e.target.value)}
+                        setIsUsername={(e) => setIsUsername(e.target.value)}
+                        setIsPassword={(e) => setIsPassword(e.target.value)}
+                        setIsPasswordRepeat={(e) =>
+                            setIsPasswordRepeat(e.target.value)
+                        }
+                        setIsEmail={(e) => setIsEmail(e.target.value)}
+                        setIsPhoneNumber={(e) =>
+                            setIsPhoneNumber(e.target.value)
+                        }
                     />
                     <Otherside />
                 </div>

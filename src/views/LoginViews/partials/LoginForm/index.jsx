@@ -43,6 +43,7 @@ export default function LoginForm(prop) {
                         name="email"
                         placeholder="Email"
                         onChange={prop.onChangeEmail}
+                        disabled
                         style={{ marginBottom: '20px' }}
                     />
                     <Input
@@ -50,6 +51,7 @@ export default function LoginForm(prop) {
                         type="password"
                         name="password"
                         placeholder="Password"
+                        disabled
                         onChange={prop.onChangePassword}
                     />
                 </form>

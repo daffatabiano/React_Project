@@ -10,7 +10,6 @@ export default function BaseLayout(prop) {
     const { children } = prop;
     const [isData, setIsData] = useState([]);
     const { getLogUser } = useAccount();
-    console.log(md);
     const disableFootSide = [
         '/profile',
         '/login',
