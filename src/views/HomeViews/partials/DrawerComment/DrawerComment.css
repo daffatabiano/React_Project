@@ -21,25 +21,25 @@
     margin-right: 10px;
 }
 
-.comments .profile .content h4 {
+.comments .profile .content-drawer h4 {
     font-weight: bold;
     font-size: 14px;
 }
 
-.comments .profile .content {
+.comments .profile .content-drawer {
     width: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.comments .profile .content::after {
+.comments .profile .content-drawer::after {
     content: '';
     width: 100%;
     display: block;
     border: 0.5px solid rgba(146, 143, 143, 0.5);
 }
 
-.comments .profile .content h4 span {
+.comments .profile .content-drawer h4 span {
     font-weight: 300;
     font-style: italic;
 }

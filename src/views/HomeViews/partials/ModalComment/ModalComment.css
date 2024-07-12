@@ -62,10 +62,16 @@
 
 .modal-comment .modal-content .comments .profile {
     display: flex;
-    padding: 0;
+    justify-content: space-between;
+    width: 100%;
 }
 
-.modal-comment .modal-content .comments .profile img {
+.modal-comment .modal-content .comments .profile .content {
+    display: flex;
+    flex-direction: row;
+}
+
+.modal-comment .modal-content .comments .profile .content img {
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -74,7 +80,7 @@
     margin-right: 10px;
 }
 
-.modal-comment .modal-content .comments .profile p span {
+.modal-comment .modal-content .comments .profile .content p span {
     font-weight: bold;
     margin-right: 5px;
 }

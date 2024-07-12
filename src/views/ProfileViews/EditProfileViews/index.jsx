@@ -15,6 +15,7 @@ import useAccount from '../../../hooks/user/useAccount';
 import { CheckCircleFilled, LoadingOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const CustomInput = (prop) => {
     const { isData, label, type = 'text', ...rest } = prop;
@@ -42,7 +43,6 @@ const CustomInput = (prop) => {
 export default function EditProfileViews() {
     const [api, contextHolder] = notification.useNotification();
     const { md } = useBreakpoint();
-    const [isData, setIsData] = useState([]);
     const [isFile, setIsFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isSection, setIsSection] = useState(1);
@@ -50,7 +50,8 @@ export default function EditProfileViews() {
     const [isShowModal, setIsShowModal] = useState(false);
     const [isSectionPage, setIsSectionPage] = useState(1);
     const navigate = useNavigate();
-    const { editUser, getLogUser, uploadImage } = useAccount();
+    const { editUser, uploadImage } = useAccount();
+    const isData = useSelector((state) => state?.inventory?.user[0]);
 
     const fileChange = (e) => {
         const file = e.target.files[0];
@@ -63,19 +64,6 @@ export default function EditProfileViews() {
         } else {
             setIsFile(file);
         }
-    };
-
-    const getDataUser = async () => {
-        setIsLoading(true);
-        await getLogUser('user')
-            .then((res) => {
-                setIsData(res?.data?.data);
-                setIsLoading(false);
-            })
-            .catch((err) => {
-                setIsLoading(false);
-                console.log(err);
-            });
     };
 
     const handleChangeImage = async (e) => {
@@ -143,10 +131,6 @@ export default function EditProfileViews() {
                 console.log(err);
             });
     };
-
-    useEffect(() => {
-        getDataUser();
-    }, []);
 
     return (
         <BaseLayout>

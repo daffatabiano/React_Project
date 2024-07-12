@@ -1,7 +1,9 @@
+import { DeleteOutlined } from '@ant-design/icons';
 import { SUB_IMAGE, SUB_POST_IMAGE } from '../../../../hooks/service/services';
 import './ModalComment.css';
 
 export default function ModalComment(prop) {
+    
     console.log(prop?.comments);
     return (
         <div className="modal-comment">
@@ -39,21 +41,34 @@ export default function ModalComment(prop) {
                     <div className="comments">
                         {prop?.comments?.map((item) => (
                             <div key={item.id} className="profile">
-                                <img
-                                    src={
-                                        item?.user?.profilePictureUrl?.length <
-                                        20
-                                            ? SUB_IMAGE
-                                            : item?.user?.profilePictureUrl
-                                    }
-                                    alt={`profile of ${
-                                        item?.user?.username || 'unknown'
-                                    }`}
-                                />
-                                <p>
-                                    <span>{item?.user?.username}</span>
-                                    {item?.comment}
-                                </p>
+                                <div className="content">
+                                    <img
+                                        src={
+                                            item?.user?.profilePictureUrl
+                                                ?.length < 20
+                                                ? SUB_IMAGE
+                                                : item?.user?.profilePictureUrl
+                                        }
+                                        alt={`profile of ${
+                                            item?.user?.username || 'unknown'
+                                        }`}
+                                    />
+                                    <p>
+                                        {item?.comment?.length === 0 ? (
+                                            <h4>Be the first to comment</h4>
+                                        ) : (
+                                            <>
+                                                <span>
+                                                    {item?.user?.username}
+                                                </span>
+                                                {item?.comment}
+                                            </>
+                                        )}
+                                    </p>
+                                </div>
+                                <button>
+                                    <DeleteOutlined />
+                                </button>
                             </div>
                         ))}
                     </div>

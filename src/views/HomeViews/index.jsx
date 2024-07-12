@@ -69,18 +69,20 @@ export default function HomeViews() {
             postId: isShowDetail?.isId,
             comment: isComment,
         };
-        await commentPost(data).then((res) => {
-            if (res?.status === 200) {
-                api['success']({
-                    message: 'Success',
-                    description: res?.data?.message,
-                });
-                setTimeout(() => {
-                    setIsComment('');
-                    window?.location?.reload();
-                }, 1000);
-            }
-        });
+        if (isComment) {
+            await commentPost(data).then((res) => {
+                if (res?.status === 200) {
+                    api['success']({
+                        message: 'Success',
+                        description: res?.data?.message,
+                    });
+                    setTimeout(() => {
+                        setIsComment('');
+                        window?.location?.reload();
+                    }, 1000);
+                }
+            });
+        }
     };
 
     useEffect(() => {
@@ -89,7 +91,6 @@ export default function HomeViews() {
     useEffect(() => {
         getPostDetail();
     }, [isShowDetail?.isId]);
-    console.log(isDetailPost);
 
     const dispatch = useDispatch();
     const { md } = useBreakpoint();
@@ -146,7 +147,10 @@ export default function HomeViews() {
                                             setIsComment(e.target.value)
                                         }
                                     />
-                                    <button style={{ width: '10%' }}>
+                                    <button
+                                        style={{ width: '10%' }}
+                                        onClick={handleComment}
+                                    >
                                         <SendOutlined />
                                     </button>
                                 </div>

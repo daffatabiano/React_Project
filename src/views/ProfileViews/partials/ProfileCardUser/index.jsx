@@ -4,18 +4,13 @@ import useAccount from '../../../../hooks/user/useAccount';
 import { useEffect, useState } from 'react';
 import { notification } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function ProfileCardUser() {
-    const [isData, setIsData] = useState({});
-    const { getLogUser, editUser } = useAccount();
+    const { editUser } = useAccount();
     const [api, contextHolder] = notification.useNotification();
     const navigate = useNavigate();
-
-    const getDataUser = async () => {
-        await getLogUser('user').then((res) => {
-            setIsData(res?.data?.data);
-        });
-    };
+    const isData = useSelector((state) => state?.inventory?.user[0]);
 
     const handleEditUser = async (e) => {
         e.preventDefault();
@@ -41,10 +36,6 @@ export default function ProfileCardUser() {
             });
         }
     };
-
-    useEffect(() => {
-        getDataUser();
-    }, []);
 
     return (
         <div>

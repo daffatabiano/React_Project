@@ -59,7 +59,7 @@ export default function DrawerComment(prop) {
                         }
                         alt={`profile of ${item?.user?.username || 'unknown'}`}
                     />
-                    <div className="content">
+                    <div className="content-drawer">
                         <h4>
                             {item?.user?.username} <span>{`• ${result}`}</span>
                         </h4>

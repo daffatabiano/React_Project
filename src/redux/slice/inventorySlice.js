@@ -2,13 +2,16 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const useInventory = createSlice({
     name: 'inventory',
-    initialState: [],
+    initialState: {
+        user: [],
+    },
     reducers: {
-        getInventory: (state, action) => {
-            return action.payload;
+        userLogData: (state, action) => {
+            state.user.push(action.payload);
+            return state;
         },
     },
 });
 
-export const { getInventory } = useInventory.actions;
+export const { userLogData } = useInventory.actions;
 export default useInventory.reducer;

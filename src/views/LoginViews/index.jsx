@@ -4,8 +4,10 @@ import { useState } from 'react';
 import { notification } from 'antd';
 import LoginForm from './partials/LoginForm';
 import useAuth from '../../hooks/auth/useAuth';
+import { useDispatch } from 'react-redux';
+import { userLogData } from '../../redux/slice/inventorySlice';
+
 export default function LoginViews() {
-    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -33,10 +35,9 @@ export default function LoginViews() {
                 description: res?.data?.message,
             });
             localStorage.setItem('token', `Bearer ${res?.data?.token}`);
-            navigate('/');
             setLoading(false);
             setTimeout(() => {
-                window.location.reload();
+                window.location.href = '/';
             }, 1000);
         } else {
             setLoading(false);
