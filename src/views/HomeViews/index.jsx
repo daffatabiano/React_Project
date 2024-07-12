@@ -4,17 +4,24 @@ import Postcard from '../../components/Fragments/Cards';
 import { useEffect, useState } from 'react';
 import './HomeViews.css';
 import useGetPost from '../../hooks/post/useGet';
-import { SUB_IMAGE } from '../../hooks/service/services';
-import { notification, Skeleton } from 'antd';
-import SkeletonHomeViews from './SkeletonHomeViews';
+import { Modal, notification } from 'antd';
+import SkeletonHomeViews from './partials/SkeletonHomeViews';
+import { useDispatch, useSelector } from 'react-redux';
+import ModalComment from './partials/ModalComment';
+import { clearIsShow } from '../../redux/slice/postSlice';
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
+import { SendOutlined } from '@ant-design/icons';
 
 export default function HomeViews() {
     const [isPosts, setIsPosts] = useState([]);
     const [isTotalItem, setIsTotalItem] = useState(0);
-    const { getPost } = useGetPost();
+    const { getPost, getDetailPosts } = useGetPost();
     const updated = isTotalItem.toString();
     const [isLoading, setIsLoading] = useState(false);
     const [api, contextHolder] = notification.useNotification();
+    const isShowDetail = useSelector((state) => state?.post);
+    const [isShowModal, setIsShowModal] = useState(false);
+    const [isDetailPost, setIsDetailPost] = useState([]);
 
     const getTotalItems = async () => {
         const res = await getPost('size=10&page=1');
@@ -45,17 +52,61 @@ export default function HomeViews() {
             });
     };
 
+    const getPostDetail = async () => {
+        const res = await getDetailPosts(isShowDetail?.isId);
+        if (res?.status === 200) {
+            setIsShowModal(isShowDetail?.isShow);
+            setIsDetailPost(res?.data?.data);
+        }
+    };
+
     useEffect(() => {
         getDataExplore();
     }, [isTotalItem]);
+    useEffect(() => {
+        getPostDetail();
+    }, [isShowDetail?.isId]);
+    console.log(isDetailPost);
 
-    console.log(isPosts, 'isPossts');
-
+    const dispatch = useDispatch();
+    const { md } = useBreakpoint();
     return (
         <BaseLayout>
             {contextHolder}
+            <Modal
+                open={isShowDetail?.isShow}
+                onClose={() => dispatch(clearIsShow())}
+                footer={[
+                    <div
+                        style={{
+                            display: 'flex',
+                            width: '100%',
+                            justifyContent: 'end',
+                        }}
+                        key={isShowDetail?.isId}
+                    >
+                        <input
+                            type="text"
+                            placeholder="Add a comment..."
+                            style={{
+                                width: '42%',
+                                border: 'none',
+                                borderTop: '1px solid rgb(255, 255, 255, 0.5)',
+                            }}
+                        />
+                        <button style={{ width: '5%' }}>
+                            <SendOutlined />
+                        </button>
+                    </div>,
+                ]}
+                onCancel={() => dispatch(clearIsShow())}
+                width={md && 1000}
+                centered
+            >
+                <ModalComment {...isDetailPost} />
+            </Modal>
             <div className="home">
-                <StoryUpdated {...isPosts} />
+                <StoryUpdated {...[isPosts]} />
                 {isPosts?.length === 0 || isLoading ? (
                     <SkeletonHomeViews />
                 ) : (

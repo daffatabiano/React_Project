@@ -16,6 +16,7 @@ export default function BaseLayout(prop) {
         '/register',
         '/edit-profile',
     ];
+    const disableAside = ['/edit-profile'];
     const pathname = window.location.pathname;
 
     const getUser = async () => {
@@ -36,7 +37,8 @@ export default function BaseLayout(prop) {
             <nav className="text-center pt-2">
                 {!disableFootSide.includes(pathname) && <Logo />}
             </nav>
-            <Aside {...isData} />
+            {!disableAside.includes(pathname) ? <Aside {...isData} /> : null}
+            {/* <Aside {...isData} /> */}
             <div>{children}</div>
             {!disableFootSide.includes(pathname) && md ? (
                 <FootSide {...isData} />

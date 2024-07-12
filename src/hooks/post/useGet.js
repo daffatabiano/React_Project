@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { BASE_URL } from '../service/services';
 import { Headers } from '../user/useAccount';
-import { useState } from 'react';
 
 const useGetPost = () => {
     const getPost = async (end) => {
@@ -14,7 +13,18 @@ const useGetPost = () => {
             return err;
         }
     };
-    return { getPost };
+    const getDetailPosts = async (id) => {
+        try {
+            const res = await axios.get(`${BASE_URL}/post/${id}`, {
+                headers: Headers,
+            });
+            return res;
+        } catch (err) {
+            return err;
+        }
+    };
+
+    return { getPost, getDetailPosts };
 };
 
 export default useGetPost;

@@ -45,7 +45,6 @@ export default function ProfileCardUser() {
     useEffect(() => {
         getDataUser();
     }, []);
-    console.log(isData);
 
     return (
         <div>

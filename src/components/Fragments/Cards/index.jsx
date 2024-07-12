@@ -6,6 +6,8 @@ import {
     UserOutlined,
 } from '@ant-design/icons';
 import { SUB_IMAGE, SUB_POST_IMAGE } from '../../../hooks/service/services';
+import { useDispatch } from 'react-redux';
+import { setIsShow } from '../../../redux/slice/postSlice';
 
 const LikeProfile = () => {
     return (
@@ -27,7 +29,31 @@ const LikeProfile = () => {
 };
 
 export default function Postcard(prop) {
-    const apiCreatedAt = prop?.createdAt.split('T')[0];
+    const apiCreatedAt = prop?.createdAt?.split('T')[0];
+    const splitter = apiCreatedAt?.split('-')?.join('');
+    const date = new Date()?.toISOString()?.split('T')[0]?.split('-')?.join('');
+    const time = (Number(date) - Number(splitter)) / 24;
+    const minutes = ((Number(date) - Number(splitter)) / 24) * 60;
+    let result = '';
+
+    if (time > 24) {
+        result = `${Math.floor(time / 24)} days ago`;
+    } else if (minutes > 60 && time < 24) {
+        result = `${Math.floor(time)} hours ago`;
+    } else {
+        result = `${Math.floor(minutes)} minutes ago`;
+    }
+
+    const dispatch = useDispatch();
+    // const { getDetailPosts } = useGetPost();
+
+    // const handlerGetPostDetail = async () => {
+    //     const res = await getDetailPosts(prop?.id);
+    //     if (res?.status === 200) {
+    //         dispatch()
+    //     }
+    // };
+
     return (
         <div className="card-posting">
             <div className="head">
@@ -38,7 +64,7 @@ export default function Postcard(prop) {
                     />
                     <p>
                         {prop?.user?.username || 'unknown'}{' '}
-                        <em>•{apiCreatedAt}</em>
+                        <em>•{' ' + result}</em>
                     </p>
                 </div>
                 <div className="head-action">
@@ -46,7 +72,14 @@ export default function Postcard(prop) {
                 </div>
             </div>
             <div className="body">
-                <img src={prop?.imageUrl || SUB_POST_IMAGE} alt="" />
+                <img
+                    src={
+                        prop?.imageUrl?.length < 20
+                            ? SUB_POST_IMAGE
+                            : prop?.imageUrl
+                    }
+                    alt=""
+                />
             </div>
             <div className="foot">
                 <div className="action">
@@ -81,8 +114,11 @@ export default function Postcard(prop) {
                         <span>{prop?.caption}</span>
                     </h6>
                 </div>
-                <div className="comments-total">
-                    <em>{'View all 1,000 comments'}</em>
+                <div
+                    className="comments-total"
+                    onClick={() => dispatch(setIsShow(prop?.id))}
+                >
+                    <em>{'View all comments'}</em>
                 </div>
                 <div className="foot-comment">
                     <input type="text" placeholder="Add a comment..." />

@@ -1,0 +1,81 @@
+.modal-comment {
+    display: flex;
+}
+
+.modal-comment .modal-picture {
+    width: 50%;
+    max-height: 100vh;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.modal-comment .modal-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.modal-comment .modal-content {
+    width: 50%;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.modal-comment .modal-content .uploaded {
+    width: 100%;
+    display: flex;
+}
+
+.modal-comment .modal-content .uploaded img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    margin-right: 10px;
+}
+
+.modal-comment .modal-content .uploaded p span {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.modal-comment .modal-content hr {
+    border: 0;
+    border-style: solid;
+    border-color: #111111;
+    border-width: 2px 0 0 0;
+    margin: 10px 15px;
+}
+
+.modal-comment .modal-content .comments {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: start;
+    align-items: start;
+    height: 100%;
+    margin: 0 15px;
+}
+
+.modal-comment .modal-content .comments .profile {
+    display: flex;
+    padding: 0;
+}
+
+.modal-comment .modal-content .comments .profile img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    margin-right: 10px;
+}
+
+.modal-comment .modal-content .comments .profile p span {
+    font-weight: bold;
+    margin-right: 5px;
+}

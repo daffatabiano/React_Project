@@ -14,6 +14,7 @@ import {
 import useAccount from '../../../hooks/user/useAccount';
 import { CheckCircleFilled, LoadingOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
+import { useNavigate } from 'react-router-dom';
 
 const CustomInput = (prop) => {
     const { isData, label, type = 'text', ...rest } = prop;
@@ -40,6 +41,7 @@ const CustomInput = (prop) => {
 
 export default function EditProfileViews() {
     const [api, contextHolder] = notification.useNotification();
+    const { md } = useBreakpoint();
     const [isData, setIsData] = useState([]);
     const [isFile, setIsFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -47,6 +49,7 @@ export default function EditProfileViews() {
     const [isImageUrl, setIsImageUrl] = useState('');
     const [isShowModal, setIsShowModal] = useState(false);
     const [isSectionPage, setIsSectionPage] = useState(1);
+    const navigate = useNavigate();
     const { editUser, getLogUser, uploadImage } = useAccount();
 
     const fileChange = (e) => {
@@ -144,8 +147,6 @@ export default function EditProfileViews() {
     useEffect(() => {
         getDataUser();
     }, []);
-
-    const { md } = useBreakpoint();
 
     return (
         <BaseLayout>
@@ -384,26 +385,57 @@ export default function EditProfileViews() {
                                         maxLength={250}
                                     />
                                 </label>
-                                <Button
-                                    style={{
-                                        backgroundColor: '#ffff',
-                                        color: '#010101',
-                                        width: '100%',
-                                        borderRadius: '15px',
-                                    }}
-                                    size="large"
-                                    onClick={() => setIsSectionPage(2)}
-                                >
-                                    Submit Change
-                                </Button>
+                                {!md ? (
+                                    <div
+                                        style={{ display: 'flex', gap: '10px' }}
+                                    >
+                                        <Button
+                                            style={{
+                                                backgroundColor: '#ffff',
+                                                color: '#010101',
+                                                width: '100%',
+                                                borderRadius: '15px',
+                                            }}
+                                            size="large"
+                                            onClick={() => setIsSectionPage(2)}
+                                        >
+                                            Back
+                                        </Button>
+                                        <Button
+                                            style={{
+                                                backgroundColor: '#ffff',
+                                                color: '#010101',
+                                                width: '100%',
+                                                borderRadius: '15px',
+                                            }}
+                                            size="large"
+                                            onClick={() => setIsSectionPage(2)}
+                                        >
+                                            Submit Change
+                                        </Button>
+                                    </div>
+                                ) : (
+                                    <Button
+                                        style={{
+                                            backgroundColor: '#ffff',
+                                            color: '#010101',
+                                            width: '100%',
+                                            borderRadius: '15px',
+                                        }}
+                                        size="large"
+                                        onClick={() => setIsSectionPage(2)}
+                                    >
+                                        Submit Change
+                                    </Button>
+                                )}
                             </form>
                         </>
                     ) : (
                         <div
                             style={{
                                 margin: 'auto',
-                                height: '600px',
-                                width: '600px',
+                                height: md ? '600px' : '320px',
+                                width: md ? '600px' : '320px',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -442,6 +474,7 @@ export default function EditProfileViews() {
                                             outline: 'none',
                                             color: '#ffff',
                                         }}
+                                        onClick={() => navigate('/')}
                                     >
                                         Go to home
                                     </Button>

@@ -1,12 +1,10 @@
 import { Skeleton } from 'antd';
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
 export default function SkeletonHomeViews() {
+    const { md } = useBreakpoint();
     return (
-        <div
-            style={{
-                padding: '20px',
-            }}
-        >
+        <div className="skeleton">
             <Skeleton
                 avatar
                 active
@@ -23,8 +21,8 @@ export default function SkeletonHomeViews() {
             <Skeleton.Image
                 active
                 style={{
-                    width: '600px',
-                    height: '600px',
+                    width: md ? '600px' : '300px',
+                    height: md ? '600px' : '300px',
                     margin: '15px auto',
                     backgroundColor: 'var(--skeleton)',
                     borderRadius: '20px',
@@ -36,7 +34,7 @@ export default function SkeletonHomeViews() {
                 style={{
                     borderRadius: '20px',
                     padding: '20px',
-                    width: '600px',
+                    width: md ? '600px' : '300px',
                     backgroundColor: 'var(--skeleton)',
                 }}
             />

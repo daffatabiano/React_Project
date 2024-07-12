@@ -35,7 +35,6 @@ export default function RegisterViews() {
             website: e.target.website.value,
             profilePictureUrl: isImageUrl,
         };
-        console.log(e?.target?.name?.value, 'name');
         if (payload.password !== payload.passwordRepeat) {
             api['error']({ message: 'Password should be same !' });
             setTimeout(() => {
