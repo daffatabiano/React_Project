@@ -1,34 +1,39 @@
-const baseIcons = 'bi bi';
+const BASE_ICONS = 'bi bi';
 
 export const asideData = [
     {
         to: '/',
-        icon: `${baseIcons}-house`,
+        icon: `${BASE_ICONS}-house`,
         title: 'Home',
     },
     {
         to: '/friends',
-        icon: `${baseIcons}-people`,
+        icon: `${BASE_ICONS}-people`,
         title: 'Friends',
     },
     {
         to: '/explore',
-        icon: `${baseIcons}-compass`,
+        icon: `${BASE_ICONS}-compass`,
         title: 'Explore',
     },
     {
+        to: '',
+        icon: `${BASE_ICONS}-plus-circle-fill`,
+        title: 'Post',
+    },
+    {
         to: '/messages',
-        icon: `${baseIcons}-envelope`,
+        icon: `${BASE_ICONS}-envelope`,
         title: 'Messages',
     },
     {
         to: '/notifications',
-        icon: `${baseIcons}-bell`,
+        icon: `${BASE_ICONS}-bell`,
         title: 'Notifications',
     },
     {
         to: '/profile',
-        icon: `${baseIcons}-person`,
+        icon: `${BASE_ICONS}-person`,
         title: 'Profile',
     },
 ];

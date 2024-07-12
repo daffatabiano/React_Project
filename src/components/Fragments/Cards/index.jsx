@@ -122,7 +122,11 @@ export default function Postcard(prop) {
                     <em>{'View all comments'}</em>
                 </div>
                 <div className="foot-comment">
-                    <input type="text" placeholder="Add a comment..." />
+                    <input
+                        onClick={() => dispatch(setIsShow(prop?.id))}
+                        type="text"
+                        placeholder="Add a comment..."
+                    />
                     <button>
                         <SendOutlined
                             style={{ color: 'white', fontSize: '20px' }}

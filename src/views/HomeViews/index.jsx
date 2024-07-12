@@ -4,13 +4,15 @@ import Postcard from '../../components/Fragments/Cards';
 import { useEffect, useState } from 'react';
 import './HomeViews.css';
 import useGetPost from '../../hooks/post/useGet';
-import { Drawer, Modal, notification } from 'antd';
+import { Button, Drawer, Modal, notification } from 'antd';
 import SkeletonHomeViews from './partials/SkeletonHomeViews';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalComment from './partials/ModalComment';
 import { clearIsShow } from '../../redux/slice/postSlice';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { SendOutlined } from '@ant-design/icons';
+import DrawerComment from './partials/DrawerComment';
+import usePost from '../../hooks/post/usePost';
 
 export default function HomeViews() {
     const [isPosts, setIsPosts] = useState([]);
@@ -56,6 +58,29 @@ export default function HomeViews() {
         if (res?.status === 200) {
             setIsDetailPost(res?.data?.data);
         }
+    };
+
+    const { commentPost } = usePost();
+    const [isComment, setIsComment] = useState('');
+
+    const handleComment = async (e) => {
+        e.preventDefault();
+        const data = {
+            postId: isShowDetail?.isId,
+            comment: isComment,
+        };
+        await commentPost(data).then((res) => {
+            if (res?.status === 200) {
+                api['success']({
+                    message: 'Success',
+                    description: res?.data?.message,
+                });
+                setTimeout(() => {
+                    setIsComment('');
+                    window?.location?.reload();
+                }, 1000);
+            }
+        });
     };
 
     useEffect(() => {
@@ -117,6 +142,9 @@ export default function HomeViews() {
                                                 '1px solid rgb(255, 255, 255, 0.5)',
                                             outline: 'none',
                                         }}
+                                        onChange={(e) =>
+                                            setIsComment(e.target.value)
+                                        }
                                     />
                                     <button style={{ width: '10%' }}>
                                         <SendOutlined />
@@ -134,7 +162,7 @@ export default function HomeViews() {
                 </Modal>
             ) : (
                 <Drawer
-                    title="Basic Drawer"
+                    title="Comments"
                     placement={'bottom'}
                     closable={false}
                     open={isShowDetail?.isShow}
@@ -142,12 +170,19 @@ export default function HomeViews() {
                     style={{
                         borderTopLeftRadius: '20px',
                         borderTopRightRadius: '20px',
+                        padding: '0px',
                     }}
-                    height={600}
+                    height={'100vh'}
+                    extra={
+                        <Button
+                            type="secondary"
+                            onClick={() => dispatch(clearIsShow())}
+                        >
+                            Close
+                        </Button>
+                    }
                 >
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
+                    <DrawerComment {...isDetailPost} />
                 </Drawer>
             )}
             <div className="home">

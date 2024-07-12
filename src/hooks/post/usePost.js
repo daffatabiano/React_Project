@@ -5,7 +5,7 @@ import { BASE_URL } from '../service/services';
 const usePost = () => {
     const commentPost = async (body) => {
         try {
-            const res = await axios.post(`${BASE_URL}/comment`, body, {
+            const res = await axios.post(`${BASE_URL}/create-comment`, body, {
                 headers: Headers,
             });
             return res;
