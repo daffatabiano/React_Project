@@ -1,6 +1,5 @@
 import Slider from 'react-slick';
 import './storyUpdated.css';
-import { friendList } from '../../Layout/Headers/partials/FootSide.jsx';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint.js';
 import { SUB_IMAGE } from '../../../hooks/service/services.js';
 

@@ -30,29 +30,29 @@ const LikeProfile = () => {
 
 export default function Postcard(prop) {
     const apiCreatedAt = prop?.createdAt?.split('T')[0];
-    const splitter = apiCreatedAt?.split('-')?.join('');
-    const date = new Date()?.toISOString()?.split('T')[0]?.split('-')?.join('');
-    const time = (Number(date) - Number(splitter)) / 24;
-    const minutes = ((Number(date) - Number(splitter)) / 24) * 60;
-    let result = '';
 
-    if (time > 24) {
-        result = `${Math.floor(time / 24)} days ago`;
-    } else if (minutes > 60 && time < 24) {
-        result = `${Math.floor(time)} hours ago`;
+    const apiDate = new Date(apiCreatedAt);
+    const date = new Date();
+    const diffMlsec = date - apiDate;
+    const diffDay = Math.floor(diffMlsec / (1000 * 60 * 60 * 24));
+    let result = '';
+    if (diffDay > 30) {
+        result = Math.floor(diffDay / 30) + ' month ago';
+        const month = Math.floor(diffDay / 30);
+        if (month > 12) {
+            result = Math.floor(diffDay / 30 / 12) + ' year ago';
+        }
+    } else if (diffDay > 7) {
+        result = Math.floor(diffDay / 7) + ' week ago';
+    } else if (diffDay) {
+        result = Math.floor(diffDay) + ' day ago';
+    } else if (diffDay * 24 > 24) {
+        result = Math.floor((diffDay * 24) / 24) + ' hour ago';
     } else {
-        result = `${Math.floor(minutes)} minutes ago`;
+        result = Math.floor((diffDay * 24 * 60) / 60) + ' minute ago';
     }
 
     const dispatch = useDispatch();
-    // const { getDetailPosts } = useGetPost();
-
-    // const handlerGetPostDetail = async () => {
-    //     const res = await getDetailPosts(prop?.id);
-    //     if (res?.status === 200) {
-    //         dispatch()
-    //     }
-    // };
 
     return (
         <div className="card-posting">
@@ -74,7 +74,8 @@ export default function Postcard(prop) {
             <div className="body">
                 <img
                     src={
-                        prop?.imageUrl?.length < 20
+                        prop?.imageUrl?.length < 20 ||
+                        prop?.imageUrl?.includes('fakepath')
                             ? SUB_POST_IMAGE
                             : prop?.imageUrl
                     }
@@ -91,7 +92,7 @@ export default function Postcard(prop) {
                                 }`}
                             />
                         </button>
-                        <button>
+                        <button onClick={() => dispatch(setIsShow(prop?.id))}>
                             <i className="bi bi-chat" />
                         </button>
                         <button>

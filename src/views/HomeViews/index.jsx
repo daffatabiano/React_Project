@@ -4,7 +4,7 @@ import Postcard from '../../components/Fragments/Cards';
 import { useEffect, useState } from 'react';
 import './HomeViews.css';
 import useGetPost from '../../hooks/post/useGet';
-import { Modal, notification } from 'antd';
+import { Drawer, Modal, notification } from 'antd';
 import SkeletonHomeViews from './partials/SkeletonHomeViews';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalComment from './partials/ModalComment';
@@ -20,7 +20,6 @@ export default function HomeViews() {
     const [isLoading, setIsLoading] = useState(false);
     const [api, contextHolder] = notification.useNotification();
     const isShowDetail = useSelector((state) => state?.post);
-    const [isShowModal, setIsShowModal] = useState(false);
     const [isDetailPost, setIsDetailPost] = useState([]);
 
     const getTotalItems = async () => {
@@ -55,7 +54,6 @@ export default function HomeViews() {
     const getPostDetail = async () => {
         const res = await getDetailPosts(isShowDetail?.isId);
         if (res?.status === 200) {
-            setIsShowModal(isShowDetail?.isShow);
             setIsDetailPost(res?.data?.data);
         }
     };
@@ -73,38 +71,85 @@ export default function HomeViews() {
     return (
         <BaseLayout>
             {contextHolder}
-            <Modal
-                open={isShowDetail?.isShow}
-                onClose={() => dispatch(clearIsShow())}
-                footer={[
-                    <div
-                        style={{
-                            display: 'flex',
-                            width: '100%',
-                            justifyContent: 'end',
-                        }}
-                        key={isShowDetail?.isId}
-                    >
-                        <input
-                            type="text"
-                            placeholder="Add a comment..."
-                            style={{
-                                width: '42%',
-                                border: 'none',
-                                borderTop: '1px solid rgb(255, 255, 255, 0.5)',
-                            }}
-                        />
-                        <button style={{ width: '5%' }}>
-                            <SendOutlined />
-                        </button>
-                    </div>,
-                ]}
-                onCancel={() => dispatch(clearIsShow())}
-                width={md && 1000}
-                centered
-            >
-                <ModalComment {...isDetailPost} />
-            </Modal>
+            {md ? (
+                <Modal
+                    open={isShowDetail?.isShow}
+                    onClose={() => dispatch(clearIsShow())}
+                    footer={[
+                        <>
+                            <div className="footer">
+                                <div className="action">
+                                    <div className="action-item">
+                                        <button>
+                                            <i
+                                                className={`bi bi-heart
+                                    `}
+                                            />
+                                        </button>
+                                        <button>
+                                            <i className="bi bi-send" />
+                                        </button>
+                                    </div>
+                                    <div className="action-item2">
+                                        <button>
+                                            <i className="bi bi-bookmark" />
+                                        </button>
+                                    </div>
+                                </div>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        width: '50%',
+                                        justifyContent: 'end',
+                                    }}
+                                    key={isShowDetail?.isId}
+                                >
+                                    <input
+                                        type="text"
+                                        placeholder="Add a comment..."
+                                        style={{
+                                            width: '100%',
+                                            padding: '10px',
+                                            borderBottom: 'none',
+                                            borderLeft: 'none',
+                                            borderRight: 'none',
+                                            borderTop:
+                                                '1px solid rgb(255, 255, 255, 0.5)',
+                                            outline: 'none',
+                                        }}
+                                    />
+                                    <button style={{ width: '10%' }}>
+                                        <SendOutlined />
+                                    </button>
+                                </div>
+                            </div>
+                        </>,
+                    ]}
+                    onCancel={() => dispatch(clearIsShow())}
+                    width={md && 1000}
+                    height={md && 500}
+                    centered
+                >
+                    <ModalComment {...isDetailPost} />
+                </Modal>
+            ) : (
+                <Drawer
+                    title="Basic Drawer"
+                    placement={'bottom'}
+                    closable={false}
+                    open={isShowDetail?.isShow}
+                    onClose={() => dispatch(clearIsShow())}
+                    style={{
+                        borderTopLeftRadius: '20px',
+                        borderTopRightRadius: '20px',
+                    }}
+                    height={600}
+                >
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                </Drawer>
+            )}
             <div className="home">
                 <StoryUpdated {...[isPosts]} />
                 {isPosts?.length === 0 || isLoading ? (

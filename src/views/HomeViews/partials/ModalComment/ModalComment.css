@@ -4,9 +4,7 @@
 
 .modal-comment .modal-picture {
     width: 50%;
-    max-height: 100vh;
-    background-color: red;
-    border-radius: 50%;
+    max-height: 400px;
 }
 
 .modal-comment .modal-picture img {
@@ -14,6 +12,7 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+    border-radius: 10px;
 }
 
 .modal-comment .modal-content {
@@ -58,7 +57,7 @@
     justify-content: start;
     align-items: start;
     height: 100%;
-    margin: 0 15px;
+    margin: 10px 15px;
 }
 
 .modal-comment .modal-content .comments .profile {

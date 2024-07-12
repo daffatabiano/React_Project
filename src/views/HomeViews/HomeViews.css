@@ -2,6 +2,38 @@
     padding: 0 25% 0 25%;
 }
 
+.footer {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.footer .action {
+    display: flex;
+    justify-content: space-between;
+    text-align: end;
+    width: 50%;
+    padding-bottom: 5px;
+}
+
+.footer .action .action-item {
+    display: flex;
+    gap: 10px;
+}
+
+.footer .action .action-item button,
+.footer .action .action-item2 button {
+    background-color: transparent;
+    border: none;
+}
+
+.action .action-item button i,
+.action .action-item2 button i {
+    cursor: pointer;
+    font-size: 20px;
+    color: #010101;
+}
+
 @media (max-width: 1072px) {
     .home {
         padding: 0 10% 0 40%;
