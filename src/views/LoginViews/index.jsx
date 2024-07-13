@@ -1,11 +1,8 @@
 import './index.css';
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { notification } from 'antd';
 import LoginForm from './partials/LoginForm';
 import useAuth from '../../hooks/auth/useAuth';
-import { useDispatch } from 'react-redux';
-import { userLogData } from '../../redux/slice/inventorySlice';
 
 export default function LoginViews() {
     const [email, setEmail] = useState('');
