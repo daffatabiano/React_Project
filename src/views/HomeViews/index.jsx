@@ -21,6 +21,7 @@ import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { SendOutlined } from '@ant-design/icons';
 import DrawerComment from './partials/DrawerComment';
 import usePost from '../../hooks/post/usePost';
+import { useNavigate } from 'react-router-dom';
 
 export default function HomeViews() {
     const [isPosts, setIsPosts] = useState([]);
@@ -33,6 +34,7 @@ export default function HomeViews() {
     const istotalFollowing = useSelector(
         (state) => state?.inventory?.user[0]?.totalFollowing
     );
+    const navigate = useNavigate();
 
     // GET TOTAL DATA UPDATED
 
@@ -124,7 +126,7 @@ export default function HomeViews() {
         getDataExplore();
     }, [isTotalItem]);
     useEffect(() => {
-        getPostDetail();
+        if (isShowDetail?.isShow) getPostDetail();
     }, [isShowDetail?.isId]);
 
     const dispatch = useDispatch();
@@ -255,7 +257,12 @@ export default function HomeViews() {
                                 gap: '10px',
                             }}
                         >
-                            <Button type="primary">Go to Explore</Button>
+                            <Button
+                                type="primary"
+                                onClick={() => navigate('/explore')}
+                            >
+                                Go to Explore
+                            </Button>
                         </Empty>
                     </div>
                 )}

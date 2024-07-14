@@ -6,6 +6,7 @@ import Profile from '../page/Profile';
 import UserDetail from '../page/personal-profile/[id]';
 import Register from '../page/Register';
 import ProtectRouted from './ProtectedRouted';
+import Explore from '../page/Explore';
 
 export const routeList = [
     {
@@ -45,6 +46,14 @@ export const routeList = [
         element: (
             <ProtectRouted>
                 <PostDetailPerson />
+            </ProtectRouted>
+        ),
+    },
+    {
+        path: '/explore',
+        element: (
+            <ProtectRouted>
+                <Explore />
             </ProtectRouted>
         ),
     },

@@ -58,6 +58,7 @@
     align-items: start;
     height: 100%;
     margin: 10px 15px;
+    overflow: auto;
 }
 
 .modal-comment .modal-content .comments .profile {

@@ -40,7 +40,12 @@ export default function ModalComment(prop) {
             </div>
             <div className="modal-content">
                 <div className="content">
-                    <div className="uploaded">
+                    <div
+                        className="uploaded"
+                        onClick={() =>
+                            (window.location.href = `/personal-profile/${prop?.userId}`)
+                        }
+                    >
                         <img
                             src={
                                 prop?.user?.profilePictureUrl?.length < 20 ||
@@ -66,7 +71,7 @@ export default function ModalComment(prop) {
                             <div key={item.id} className="profile">
                                 <div className="content">
                                     {item?.comment?.length === '' ? (
-                                        <h4>hello</h4>
+                                        <h4>hello, Be the first to comment</h4>
                                     ) : (
                                         <>
                                             <img

@@ -1,0 +1,41 @@
+.explore {
+    padding: 0 2% 0 24%;
+    max-width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(3, auto);
+    grid-gap: 5px;
+}
+
+.explore .explore-img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.explore .explore-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.explore .explore-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: 35px;
+    gap: 10px;
+    width: 100% !important;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: fit-content;
+    opacity: 0;
+}
+
+.explore .explore-layout:hover {
+    opacity: 1;
+}

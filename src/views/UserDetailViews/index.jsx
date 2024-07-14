@@ -6,7 +6,7 @@ import Aside from '../../components/Layout/Headers/partials/Aside';
 import PostDetailCard from './partials/PostDetailCard';
 import './UserDetailViews.css';
 import { SendOutlined } from '@ant-design/icons';
-import { Modal } from 'antd';
+import { Modal, notification } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearIsShow } from '../../redux/slice/postSlice';
 import ModalComment from '../HomeViews/partials/ModalComment';
@@ -25,6 +25,8 @@ export default function UserDetailViews(prop) {
     const dispatch = useDispatch();
     const { md } = useBreakpoint();
     const { followPost } = usePost();
+    const id = prop?.isId?.split('/')[1];
+    const [api, contextHolder] = notification.useNotification();
 
     console.log(prop?.isId);
 
@@ -45,21 +47,21 @@ export default function UserDetailViews(prop) {
         }
     };
 
-    const handleFollow = async () => {
-        const id = prop?.isId?.split('/')[1];
+    const handleFollow = async (e) => {
+        e.preventDefault();
 
         const body = {
             userIdFollow: id,
         };
         const res = await followPost(body);
         if (res?.status === 200) {
-            window.location.href = '/profile';
-            prop?.api['success']({
+            window.location.reload();
+            api['success']({
                 message: 'Success',
                 description: res?.data?.message,
             });
         } else {
-            prop?.api['error']({
+            api['error']({
                 message: 'Error',
                 description: res?.response?.data?.message,
             });
@@ -77,6 +79,7 @@ export default function UserDetailViews(prop) {
 
     return (
         <>
+            {contextHolder}
             <Modal
                 open={isShowDetailPosts?.isShow}
                 onClose={() => dispatch(clearIsShow())}

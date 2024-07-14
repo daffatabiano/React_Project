@@ -3,7 +3,7 @@ import { BASE_URL } from '../service/services';
 import { Headers } from '../user/useAccount';
 
 const useGetPost = () => {
-    const getPost = async (end) => {
+    const getExplore = async (end) => {
         try {
             const res = await axios.get(`${BASE_URL}/explore-post?${end}`, {
                 headers: Headers,
@@ -57,7 +57,7 @@ const useGetPost = () => {
     };
 
     return {
-        getPost,
+        getExplore,
         getDetailPosts,
         getMyFollowingPosts,
         getMyFollowing,

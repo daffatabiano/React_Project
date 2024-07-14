@@ -16,6 +16,7 @@ export default function BaseLayout(prop) {
         '/login',
         '/register',
         '/edit-profile',
+        '/explore',
     ];
     const disableAside = ['/edit-profile'];
     const dispatch = useDispatch();
