@@ -4,7 +4,7 @@ import Postcard from '../../components/Fragments/Cards';
 import { useEffect, useState } from 'react';
 import './HomeViews.css';
 import useGetPost from '../../hooks/post/useGet';
-import { Button, Drawer, Modal, notification } from 'antd';
+import { Button, Drawer, Modal, notification, Skeleton } from 'antd';
 import SkeletonHomeViews from './partials/SkeletonHomeViews';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalComment from './partials/ModalComment';
@@ -18,11 +18,12 @@ export default function HomeViews() {
     const [isPosts, setIsPosts] = useState([]);
     const [isTotalItem, setIsTotalItem] = useState(0);
     const { getPost, getDetailPosts } = useGetPost();
-    const updated = isTotalItem.toString();
     const [isLoading, setIsLoading] = useState(false);
     const [api, contextHolder] = notification.useNotification();
     const isShowDetail = useSelector((state) => state?.post);
     const [isDetailPost, setIsDetailPost] = useState([]);
+
+    // GET TOTAL DATA UPDATED
 
     const getTotalItems = async () => {
         const res = await getPost('size=10&page=1');
@@ -32,6 +33,9 @@ export default function HomeViews() {
         getTotalItems();
     }, []);
 
+    // DATA EXPLORE POSTS FIELDS
+
+    const updated = isTotalItem.toLocaleString();
     const getDataExplore = async () => {
         await getPost(`size=${updated ? updated : '200'}&page=1`)
             .then((res) => {
@@ -60,30 +64,50 @@ export default function HomeViews() {
         }
     };
 
+    // COMMENTS FEATURES FIELDS
     const { commentPost } = usePost();
-    const [isComment, setIsComment] = useState('');
 
     const handleComment = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
+
+        const comment = e.target;
+
         const data = {
             postId: isShowDetail?.isId,
-            comment: isComment,
+            comment: comment?.comment?.value,
         };
-        if (isComment) {
+
+        if (data?.comment) {
             await commentPost(data).then((res) => {
                 if (res?.status === 200) {
+                    setIsLoading(false);
                     api['success']({
                         message: 'Success',
                         description: res?.data?.message,
                     });
                     setTimeout(() => {
-                        setIsComment('');
-                        window?.location?.reload();
+                        getPostDetail();
+                        data.comment = '';
                     }, 1000);
+                } else {
+                    setIsLoading(false);
+                    api['error']({
+                        message: 'Error',
+                        description: res?.response?.data?.message,
+                    });
                 }
+            });
+        } else {
+            setIsLoading(false);
+            api['error']({
+                message: 'Error',
+                description: 'Comment cannot be empty',
             });
         }
     };
+
+    // USE EFFECT FIELDS
 
     useEffect(() => {
         getDataExplore();
@@ -130,29 +154,35 @@ export default function HomeViews() {
                                     }}
                                     key={isShowDetail?.isId}
                                 >
-                                    <input
-                                        type="text"
-                                        placeholder="Add a comment..."
+                                    <form
                                         style={{
                                             width: '100%',
-                                            padding: '10px',
-                                            borderBottom: 'none',
-                                            borderLeft: 'none',
-                                            borderRight: 'none',
-                                            borderTop:
-                                                '1px solid rgb(255, 255, 255, 0.5)',
-                                            outline: 'none',
+                                            display: 'flex',
                                         }}
-                                        onChange={(e) =>
-                                            setIsComment(e.target.value)
-                                        }
-                                    />
-                                    <button
-                                        style={{ width: '10%' }}
-                                        onClick={handleComment}
+                                        onSubmit={handleComment}
                                     >
-                                        <SendOutlined />
-                                    </button>
+                                        <input
+                                            type="text"
+                                            placeholder="Add a comment..."
+                                            style={{
+                                                width: '100%',
+                                                padding: '10px',
+                                                borderBottom: 'none',
+                                                borderLeft: 'none',
+                                                borderRight: 'none',
+                                                borderTop: '1px solid #222222',
+                                                borderRadius: '10px',
+                                                outline: 'none',
+                                            }}
+                                            name="comment"
+                                        />
+                                        <button
+                                            style={{ width: '10%' }}
+                                            type="submit"
+                                        >
+                                            <SendOutlined />
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </>,
@@ -162,7 +192,11 @@ export default function HomeViews() {
                     height={md && 500}
                     centered
                 >
-                    <ModalComment {...isDetailPost} />
+                    {isLoading ? (
+                        <Skeleton />
+                    ) : (
+                        <ModalComment {...isDetailPost} api={api} />
+                    )}
                 </Modal>
             ) : (
                 <Drawer

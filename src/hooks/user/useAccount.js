@@ -22,16 +22,20 @@ function useAccount() {
         }
     };
 
+    const getLogUserByID = async (end) => {
+        try {
+            const res = await axios.get(`${BASE_URL}/user${end}`, {
+                headers: Headers,
+            });
+            return res;
+        } catch (err) {
+            return err;
+        }
+    };
     const editUser = async (body) => {
         try {
             const res = await axios.post(`${BASE_URL}/update-profile`, body, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                    apiKey: apiKey,
-                    Authorization: `${token}`,
-                    'Accept-Encoding': 'gzip, deflate, br',
-                },
+                headers: Headers,
             });
             return res;
         } catch (err) {
@@ -56,7 +60,7 @@ function useAccount() {
         }
     };
 
-    return { getLogUser, editUser, uploadImage };
+    return { getLogUser, editUser, uploadImage, getLogUserByID };
 }
 
 export default useAccount;

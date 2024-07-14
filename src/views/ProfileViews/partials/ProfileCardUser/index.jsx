@@ -3,7 +3,7 @@ import './ProfileCardUser.css';
 import useAccount from '../../../../hooks/user/useAccount';
 import { useEffect, useState } from 'react';
 import { notification } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 export default function ProfileCardUser() {
@@ -70,6 +70,15 @@ export default function ProfileCardUser() {
                     <div className="info-desc">
                         <h6>{isData?.username}</h6>
                         <p>{isData?.bio}</p>
+                        <Link
+                            to={`${
+                                isData?.website?.includes('https' || 'http')
+                                    ? isData?.website
+                                    : `https://${isData?.website}`
+                            }`}
+                        >
+                            {isData?.website}
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -5,6 +5,7 @@ const postSlice = createSlice({
     initialState: {
         isShow: false,
         isId: '',
+        isLike: false,
     },
     reducers: {
         setIsShow: (state, action) => {

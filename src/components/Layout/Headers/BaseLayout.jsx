@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Logo from '../../Elements/Logo';
 import Aside from './partials/Aside';
 import FootSide from './partials/FootSide.jsx';

@@ -1,13 +1,21 @@
-import { Avatar, Tooltip } from 'antd';
+import { Avatar, Popover, Tooltip, Tour } from 'antd';
 import './CardPosting.css';
 import {
     AntDesignOutlined,
     SendOutlined,
     UserOutlined,
 } from '@ant-design/icons';
-import { SUB_IMAGE, SUB_POST_IMAGE } from '../../../hooks/service/services';
+import {
+    BASE_URL,
+    SUB_IMAGE,
+    SUB_POST_IMAGE,
+} from '../../../hooks/service/services';
 import { useDispatch } from 'react-redux';
 import { setIsShow } from '../../../redux/slice/postSlice';
+import usePost from '../../../hooks/post/usePost';
+import { useRef, useState } from 'react';
+import usePostByUserId from '../../../hooks/post/usePostbyUserId';
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
 const LikeProfile = () => {
     return (
@@ -53,11 +61,104 @@ export default function Postcard(prop) {
     }
 
     const dispatch = useDispatch();
+    const [isLike, seIsLike] = useState(false);
+    const { likePost } = usePost();
+    const { getPostByUserId } = usePostByUserId();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const { md } = useBreakpoint();
+
+    // const handleLike = async (id) => {
+    //     const body = {
+    //         postId: id,
+    //     };
+    //     const res = await likePost(body);
+    //     if (res?.status === 200) {
+    //         seIsLike(!isLike);
+    //     }
+    //     console.log(res);
+    //     // dispatch(setIsLike({ isId: id, isLike: res?.data?.isLike }));
+    // };
+    const [isOpen, setIsOpen] = useState(false);
+    const ref1 = useRef(null);
+    const steps = [
+        {
+            cover: (
+                <div
+                    style={{
+                        display: 'flex',
+                        gap: '10px',
+                        justifyContent: 'flex-start',
+                    }}
+                >
+                    <img
+                        alt="tour.png"
+                        src={
+                            'https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0='
+                        }
+                        style={{
+                            width: '65px',
+                            height: '65px',
+                            borderRadius: '50%',
+                            objectFit: 'cover',
+                            objectPosition: 'center',
+                        }}
+                    />
+                    <p
+                        style={{
+                            fontSize: '20px',
+                            fontWeight: '400',
+                            display: 'flex',
+                            flexDirection: 'column',
+                        }}
+                    >
+                        {'JohnDoe'}
+                        <span
+                            style={{
+                                fontSize: '10px',
+                                fontStyle: 'italic',
+                                fontWeight: '200',
+                            }}
+                        >
+                            {'@johndoe'}
+                        </span>
+                    </p>
+                </div>
+            ),
+            target: () => ref1.current,
+            nextButtonProps: {
+                children: (
+                    <button
+                        onClick={() =>
+                            (window.location.href = `/${prop?.user?.id}`)
+                        }
+                        style={{
+                            width: '100px',
+                            backgroundColor: 'var(--primary)',
+                        }}
+                    >
+                        Visit
+                    </button>
+                ),
+            },
+        },
+    ];
 
     return (
         <div className="card-posting">
             <div className="head">
-                <div className="head-profile">
+                <Tour
+                    open={isOpen}
+                    onClose={() => setIsOpen(false)}
+                    steps={steps}
+                    arrow
+                    mask={false}
+                />
+                <div
+                    onClick={() => setIsOpen(true)}
+                    style={{ cursor: 'pointer' }}
+                    className="head-profile"
+                >
                     <img
                         src={prop?.user?.profilePictureUrl || SUB_IMAGE}
                         alt={`${prop?.user?.username} profile picture`}
@@ -88,7 +189,7 @@ export default function Postcard(prop) {
                         <button>
                             <i
                                 className={`bi bi-${
-                                    prop?.isLike ? 'heart-fill' : 'heart'
+                                    isLike ? 'heart-fill' : 'heart'
                                 }`}
                             />
                         </button>

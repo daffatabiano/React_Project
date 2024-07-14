@@ -2,7 +2,6 @@
     display: flex;
     width: 100%;
     justify-content: space-around;
-    align-items: center;
     gap: 1px;
     padding: 0;
 }
@@ -81,10 +80,13 @@
     font-size: 15px;
     font-weight: bold;
 }
+.profile-card .card-info .info-desc a {
+    font-style: italic;
+}
 
 @media (max-width: 1500px) {
     .profile-card {
-        margin-left: 10%;
+        padding-left: 10%;
     }
     .profile-card .card-img img {
         width: 180px;
@@ -104,7 +106,6 @@
 
 @media (max-width: 768px) {
     .profile-card {
-        margin-left: 0;
         padding: 10px 0 0 20px;
     }
     .profile-card .card-img img {
@@ -112,6 +113,14 @@
         height: 120px;
     }
     .profile-card .card-info .info-title {
+        width: 85%;
+    }
+
+    .profile-card .card-info .info-content {
+        width: 85%;
+    }
+
+    .profile-card .card-info .info-desc {
         width: 85%;
     }
 
@@ -144,6 +153,14 @@
         width: 100%;
     }
 
+    .profile-card .card-info .info-content {
+        width: 100%;
+    }
+
+    .profile-card .card-info .info-desc {
+        width: 100%;
+    }
+
     .profile-card .card-info .info-title p {
         font-size: 12px;
     }
@@ -154,8 +171,8 @@
     }
 
     .profile-card .card-img img {
-        width: 100px;
-        height: 100px;
+        width: 85px;
+        height: 85px;
     }
 
     .profile-card .card-info .info-content {
@@ -164,5 +181,9 @@
 
     .profile-card .card-info .info-content p {
         font-size: 12px;
+    }
+    .profile-card .card-info .info-desc a {
+        font-size: 12px;
+        font-style: italic;
     }
 }
