@@ -24,7 +24,45 @@ const useGetPost = () => {
         }
     };
 
-    return { getPost, getDetailPosts };
+    const getMyFollowing = async (end) => {
+        try {
+            const res = await axios.get(`${BASE_URL}/my-following?${end}`, {
+                headers: Headers,
+            });
+            return res;
+        } catch (err) {
+            return err;
+        }
+    };
+    const getMyFollowers = async (end) => {
+        try {
+            const res = await axios.get(`${BASE_URL}/my-followers?${end}`, {
+                headers: Headers,
+            });
+            return res;
+        } catch (err) {
+            return err;
+        }
+    };
+
+    const getMyFollowingPosts = async (end) => {
+        try {
+            const res = await axios.get(`${BASE_URL}/following-post?${end}`, {
+                headers: Headers,
+            });
+            return res;
+        } catch (err) {
+            return err;
+        }
+    };
+
+    return {
+        getPost,
+        getDetailPosts,
+        getMyFollowingPosts,
+        getMyFollowing,
+        getMyFollowers,
+    };
 };
 
 export default useGetPost;

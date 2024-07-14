@@ -37,6 +37,7 @@ const LikeProfile = () => {
 };
 
 export default function Postcard(prop) {
+    console.log(prop);
     const apiCreatedAt = prop?.createdAt?.split('T')[0];
 
     const apiDate = new Date(apiCreatedAt);
@@ -130,7 +131,7 @@ export default function Postcard(prop) {
                 children: (
                     <button
                         onClick={() =>
-                            (window.location.href = `/${prop?.user?.id}`)
+                            (window.location.href = `/personal-profile/${prop?.user?.id}`)
                         }
                         style={{
                             width: '100px',

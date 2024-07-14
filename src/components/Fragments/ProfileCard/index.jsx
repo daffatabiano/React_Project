@@ -13,6 +13,7 @@ export default function ProfileCard(prop) {
                         fontSize: '15px',
                         padding: 0,
                     }}
+                    onClick={prop?.onFollow}
                 >
                     Follow
                 </p>

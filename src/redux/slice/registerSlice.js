@@ -4,17 +4,6 @@ const registerSlice = createSlice({
     name: 'reg',
     initialState: {
         imageUrl: '',
-        regPayload: {
-            name: '',
-            username: '',
-            email: '',
-            password: '',
-            passwordRepeat: '',
-            profilePictureUrl: '',
-            phoneNumber: '',
-            bio: '',
-            website: '',
-        },
     },
     reducers: {
         imageUrl: (state, action) => {

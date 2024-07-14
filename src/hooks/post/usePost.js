@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Headers } from '../user/useAccount';
-import { apiKey, BASE_URL } from '../service/services';
+import { BASE_URL } from '../service/services';
 
 const usePost = () => {
     const commentPost = async (body) => {
@@ -46,7 +46,36 @@ const usePost = () => {
         }
     };
 
-    return { commentPost, commentDelete, likePost, unlikePost };
+    const followPost = async (body) => {
+        try {
+            const res = await axios.post(`${BASE_URL}/follow`, body, {
+                headers: Headers,
+            });
+            return res;
+        } catch (err) {
+            return err;
+        }
+    };
+
+    const unfollowPost = async (id) => {
+        try {
+            const res = await axios.delete(`${BASE_URL}/unfollow/${id}`, {
+                headers: Headers,
+            });
+            return res;
+        } catch (err) {
+            return err;
+        }
+    };
+
+    return {
+        commentPost,
+        commentDelete,
+        likePost,
+        unlikePost,
+        followPost,
+        unfollowPost,
+    };
 };
 
 export default usePost;

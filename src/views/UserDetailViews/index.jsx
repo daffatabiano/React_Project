@@ -12,6 +12,7 @@ import { clearIsShow } from '../../redux/slice/postSlice';
 import ModalComment from '../HomeViews/partials/ModalComment';
 import useGetPost from '../../hooks/post/useGet';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
+import usePost from '../../hooks/post/usePost';
 
 export default function UserDetailViews(prop) {
     const { getPostByUserId } = usePostByUserId();
@@ -23,9 +24,12 @@ export default function UserDetailViews(prop) {
     const { getDetailPosts } = useGetPost();
     const dispatch = useDispatch();
     const { md } = useBreakpoint();
+    const { followPost } = usePost();
+
+    console.log(prop?.isId);
 
     const getDetail = async () => {
-        const res = await getPostByUserId(`${prop?.isId}?size=10&page=1`);
+        const res = await getPostByUserId(`${prop?.isId}?size=1000&page=1`);
         setIsPosts(res?.data?.data);
     };
 
@@ -38,6 +42,27 @@ export default function UserDetailViews(prop) {
         const res = await getDetailPosts(isShowDetailPosts?.isId);
         if (res?.status === 200) {
             setIsDetailPost(res?.data?.data);
+        }
+    };
+
+    const handleFollow = async () => {
+        const id = prop?.isId?.split('/')[1];
+
+        const body = {
+            userIdFollow: id,
+        };
+        const res = await followPost(body);
+        if (res?.status === 200) {
+            window.location.href = '/profile';
+            prop?.api['success']({
+                message: 'Success',
+                description: res?.data?.message,
+            });
+        } else {
+            prop?.api['error']({
+                message: 'Error',
+                description: res?.response?.data?.message,
+            });
         }
     };
 
@@ -125,7 +150,11 @@ export default function UserDetailViews(prop) {
             <Aside />
             <div className="user-content-profile">
                 <div>
-                    <ProfileCard {...isData} totalPosts={isPosts?.totalItems} />
+                    <ProfileCard
+                        {...isData}
+                        totalPosts={isPosts?.totalItems}
+                        onFollow={handleFollow}
+                    />
                 </div>
                 <div>
                     <PostDetailCard {...isPosts} />

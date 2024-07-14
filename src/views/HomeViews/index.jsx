@@ -4,7 +4,15 @@ import Postcard from '../../components/Fragments/Cards';
 import { useEffect, useState } from 'react';
 import './HomeViews.css';
 import useGetPost from '../../hooks/post/useGet';
-import { Button, Drawer, Modal, notification, Skeleton } from 'antd';
+import {
+    Button,
+    Drawer,
+    Empty,
+    Modal,
+    notification,
+    Skeleton,
+    Typography,
+} from 'antd';
 import SkeletonHomeViews from './partials/SkeletonHomeViews';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalComment from './partials/ModalComment';
@@ -17,16 +25,19 @@ import usePost from '../../hooks/post/usePost';
 export default function HomeViews() {
     const [isPosts, setIsPosts] = useState([]);
     const [isTotalItem, setIsTotalItem] = useState(0);
-    const { getPost, getDetailPosts } = useGetPost();
+    const { getDetailPosts, getMyFollowingPosts } = useGetPost();
     const [isLoading, setIsLoading] = useState(false);
     const [api, contextHolder] = notification.useNotification();
     const isShowDetail = useSelector((state) => state?.post);
     const [isDetailPost, setIsDetailPost] = useState([]);
+    const istotalFollowing = useSelector(
+        (state) => state?.inventory?.user[0]?.totalFollowing
+    );
 
     // GET TOTAL DATA UPDATED
 
     const getTotalItems = async () => {
-        const res = await getPost('size=10&page=1');
+        const res = await getMyFollowingPosts('size=10&page=1');
         setIsTotalItem(res?.data?.data?.totalItems);
     };
     useEffect(() => {
@@ -37,7 +48,7 @@ export default function HomeViews() {
 
     const updated = isTotalItem.toLocaleString();
     const getDataExplore = async () => {
-        await getPost(`size=${updated ? updated : '200'}&page=1`)
+        await getMyFollowingPosts(`size=${updated ? updated : '200'}&page=1`)
             .then((res) => {
                 setIsLoading(true);
                 if (res?.status === 200) {
@@ -224,14 +235,39 @@ export default function HomeViews() {
                 </Drawer>
             )}
             <div className="home">
-                <StoryUpdated {...[isPosts]} />
-                {isPosts?.length === 0 || isLoading ? (
-                    <SkeletonHomeViews />
-                ) : (
-                    isPosts?.map((item) => (
-                        <Postcard key={item?.id} {...item} />
-                    ))
+                {istotalFollowing === 0 && (
+                    <div style={{}}>
+                        <Empty
+                            image="/img/sapiens.svg"
+                            imageStyle={{ height: 300 }}
+                            description={
+                                <Typography.Text style={{ color: 'white' }}>
+                                    Connect with your friends and{' '}
+                                    <a href="#API">Explore more</a>
+                                </Typography.Text>
+                            }
+                            style={{
+                                height: '80vh',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                gap: '10px',
+                            }}
+                        >
+                            <Button type="primary">Go to Explore</Button>
+                        </Empty>
+                    </div>
                 )}
+                {istotalFollowing !== 0 && <StoryUpdated {...[isPosts]} />}
+                {istotalFollowing !== 0 &&
+                    (isPosts?.length === 0 || isLoading ? (
+                        <SkeletonHomeViews />
+                    ) : (
+                        isPosts?.map((item) => (
+                            <Postcard key={item?.id} {...item} />
+                        ))
+                    ))}
             </div>
         </BaseLayout>
     );

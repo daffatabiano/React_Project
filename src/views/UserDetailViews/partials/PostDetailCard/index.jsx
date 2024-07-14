@@ -2,6 +2,8 @@ import { Col, Row, Tabs } from 'antd';
 import './PostDetailCard.css';
 import { useDispatch } from 'react-redux';
 import { setIsShow } from '../../../../redux/slice/postSlice';
+import { SUB_POST_IMAGE } from '../../../../hooks/service/services';
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
 const cardPosts = (prop) => {
     return <div id="container">hello World!</div>;
@@ -17,6 +19,7 @@ export default function PostDetailCard(prop) {
         return <p style={{ color: 'white' }}>{text}</p>;
     };
     const dispatch = useDispatch();
+    const { md } = useBreakpoint();
 
     const items = [
         {
@@ -31,10 +34,21 @@ export default function PostDetailCard(prop) {
                                 <div
                                     className="post-image"
                                     onClick={() =>
-                                        dispatch(setIsShow(item?.id))
+                                        md
+                                            ? dispatch(setIsShow(item?.id))
+                                            : (window.location.href = `/personal-post-detail/${item?.id}`)
                                     }
                                 >
-                                    <img src={item?.imageUrl} alt="image" />
+                                    <img
+                                        src={
+                                            item?.imageUrl?.includes(
+                                                'fakepath'
+                                            ) || item?.imageUrl?.length < 15
+                                                ? SUB_POST_IMAGE
+                                                : item?.imageUrl
+                                        }
+                                        alt="image"
+                                    />
                                 </div>
                             </Col>
                         ))}
@@ -56,7 +70,16 @@ export default function PostDetailCard(prop) {
                                         dispatch(setIsShow(item?.id))
                                     }
                                 >
-                                    <img src={item?.imageUrl} alt="image" />
+                                    <img
+                                        src={
+                                            item?.imageUrl?.includes(
+                                                'fakepath'
+                                            ) || item?.imageUrl?.length < 15
+                                                ? SUB_POST_IMAGE
+                                                : item?.imageUrl
+                                        }
+                                        alt="image"
+                                    />
                                 </div>
                             </Col>
                         ))}
@@ -76,7 +99,16 @@ export default function PostDetailCard(prop) {
                         .map((item) => (
                             <Col span={8} key={item.id}>
                                 <div className="post-image">
-                                    <img src={item?.imageUrl} alt="image" />
+                                    <img
+                                        src={
+                                            item?.imageUrl?.includes(
+                                                'fakepath'
+                                            ) || item?.imageUrl?.length < 15
+                                                ? SUB_POST_IMAGE
+                                                : item?.imageUrl
+                                        }
+                                        alt="image"
+                                    />
                                 </div>
                             </Col>
                         ))}
