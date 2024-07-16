@@ -34,20 +34,31 @@ export const routeList = [
         ),
     },
     {
-        path: '/personal-profile/:id',
-        element: (
-            <ProtectRouted>
-                <UserDetail />
-            </ProtectRouted>
-        ),
+        path: '/personal-profile',
+        children: [
+            {
+                path: '/post-detail/:id',
+                element: (
+                    <ProtectRouted>
+                        <UserDetail />
+                    </ProtectRouted>
+                ),
+            },
+        ],
     },
     {
-        path: '/personal-post-detail/:id',
-        element: (
-            <ProtectRouted>
-                <PostDetailPerson />
-            </ProtectRouted>
-        ),
+        path: '/personal-post-detail',
+
+        children: [
+            {
+                path: '/personal-post-detail/:id',
+                element: (
+                    <ProtectRouted>
+                        <PostDetailPerson />
+                    </ProtectRouted>
+                ),
+            },
+        ],
     },
     {
         path: '/explore',
