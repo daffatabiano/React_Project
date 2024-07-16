@@ -37,7 +37,7 @@ export const routeList = [
         path: '/personal-profile',
         children: [
             {
-                path: '/post-detail/:id',
+                path: '/personal-profile/:id',
                 element: (
                     <ProtectRouted>
                         <UserDetail />
@@ -48,7 +48,6 @@ export const routeList = [
     },
     {
         path: '/personal-post-detail',
-
         children: [
             {
                 path: '/personal-post-detail/:id',
