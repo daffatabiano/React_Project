@@ -40,7 +40,6 @@ export default function ProfileCardUser() {
         handleGetFollowing();
         handleGetFollowers();
     }, []);
-    console.log(isFollowing);
 
     return (
         <div>
@@ -65,7 +64,7 @@ export default function ProfileCardUser() {
                         color: '#0101010',
                     }}
                 >
-                    {isFollowers?.totalItems === 0 &&
+                    {isFollowers?.totalItems === 0 ||
                     isFollowers?.totalItems > 0 ? (
                         <div
                             style={{
@@ -159,8 +158,7 @@ export default function ProfileCardUser() {
                         color: '#0101010',
                     }}
                 >
-                    {isFollowing?.totalItems === 0 &&
-                    isFollowing?.totalItems > 0 ? (
+                    {isFollowing?.totalItems === 0 ? (
                         <div
                             style={{
                                 display: 'flex',
@@ -251,7 +249,7 @@ export default function ProfileCardUser() {
                     </div>
                     <div className="info-content">
                         <p>
-                            <span>{'4'}</span> Post
+                            <span>{'0'}</span> Post
                         </p>
                         <p
                             onClick={() =>

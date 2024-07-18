@@ -17,7 +17,7 @@ export const asideData = [
         title: 'Explore',
     },
     {
-        to: '',
+        to: '/post',
         icon: `${BASE_ICONS}-plus-circle-fill`,
         title: 'Post',
     },

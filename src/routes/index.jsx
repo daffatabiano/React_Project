@@ -7,6 +7,7 @@ import UserDetail from '../page/personal-profile/[id]';
 import Register from '../page/Register';
 import ProtectRouted from './ProtectedRouted';
 import Explore from '../page/Explore';
+import Post from '../page/post';
 
 export const routeList = [
     {
@@ -16,6 +17,19 @@ export const routeList = [
                 <Home />
             </ProtectRouted>
         ),
+    },
+    {
+        path: '/personal-profile',
+        children: [
+            {
+                path: '/personal-profile/:id',
+                element: (
+                    <ProtectRouted>
+                        <UserDetail />
+                    </ProtectRouted>
+                ),
+            },
+        ],
     },
     {
         path: '/profile',
@@ -34,17 +48,12 @@ export const routeList = [
         ),
     },
     {
-        path: '/personal-profile',
-        children: [
-            {
-                path: '/personal-profile/:id',
-                element: (
-                    <ProtectRouted>
-                        <UserDetail />
-                    </ProtectRouted>
-                ),
-            },
-        ],
+        path: '/post',
+        element: (
+            <ProtectRouted>
+                <Post />
+            </ProtectRouted>
+        ),
     },
     {
         path: '/personal-post-detail',

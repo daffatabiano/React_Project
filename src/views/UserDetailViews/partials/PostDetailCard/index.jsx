@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { setIsShow } from '../../../../redux/slice/postSlice';
 import { SUB_POST_IMAGE } from '../../../../hooks/service/services';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
+import { useNavigate } from 'react-router-dom';
 
 const cardPosts = (prop) => {
     return <div id="container">hello World!</div>;
@@ -20,6 +21,7 @@ export default function PostDetailCard(prop) {
     };
     const dispatch = useDispatch();
     const { md } = useBreakpoint();
+    const navigate = useNavigate();
 
     const items = [
         {
@@ -36,7 +38,9 @@ export default function PostDetailCard(prop) {
                                     onClick={() =>
                                         md
                                             ? dispatch(setIsShow(item?.id))
-                                            : (window.location.href = `/personal-post-detail/${item?.id}`)
+                                            : navigate(
+                                                  `/personal-post-detail/${item?.id}`
+                                              )
                                     }
                                 >
                                     <img

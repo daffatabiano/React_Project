@@ -27,6 +27,7 @@ export default function UserDetailViews(prop) {
     const { followPost } = usePost();
     const id = prop?.isId?.split('/')[1];
     const [api, contextHolder] = notification.useNotification();
+    const [isTextButtonFollow, setIsTextButtonFollow] = useState('follow');
 
     console.log(prop?.isId);
 
@@ -54,12 +55,9 @@ export default function UserDetailViews(prop) {
             userIdFollow: id,
         };
         const res = await followPost(body);
+        console.log(res);
         if (res?.status === 200) {
-            window.location.reload();
-            api['success']({
-                message: 'Success',
-                description: res?.data?.message,
-            });
+            setIsTextButtonFollow('unfollow');
         } else {
             api['error']({
                 message: 'Error',
@@ -157,6 +155,7 @@ export default function UserDetailViews(prop) {
                         {...isData}
                         totalPosts={isPosts?.totalItems}
                         onFollow={handleFollow}
+                        buttonFollow={isTextButtonFollow}
                     />
                 </div>
                 <div>

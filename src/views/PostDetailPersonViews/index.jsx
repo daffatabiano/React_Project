@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Postcard from '../../components/Fragments/Cards';
 import { useEffect, useState } from 'react';
 import useGetPost from '../../hooks/post/useGet';
@@ -11,6 +11,7 @@ export default function PostDetailPersonViews() {
     console.log(isId);
     const { getDetailPosts } = useGetPost();
     const [isPosts, setIsPosts] = useState([]);
+    const navigate = useNavigate();
 
     const getDetail = async () => {
         const res = await getDetailPosts(isId);
@@ -22,7 +23,5 @@ export default function PostDetailPersonViews() {
     }, [isId]);
 
     const { md } = useBreakpoint();
-    return (
-        <>{!md ? <Postcard {...isPosts} /> : (window.location.href = '/')}</>
-    );
+    return <>{!md ? <Postcard {...isPosts} /> : navigate('/')}</>;
 }

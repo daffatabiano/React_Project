@@ -16,6 +16,7 @@ import usePost from '../../../hooks/post/usePost';
 import { useRef, useState } from 'react';
 import usePostByUserId from '../../../hooks/post/usePostbyUserId';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
+import { Link } from 'react-router-dom';
 
 const LikeProfile = () => {
     return (
@@ -129,17 +130,15 @@ export default function Postcard(prop) {
             target: () => ref1.current,
             nextButtonProps: {
                 children: (
-                    <button
-                        onClick={() =>
-                            (window.location.href = `/personal-profile/${prop?.user?.id}`)
-                        }
+                    <Link
+                        to={`/personal-profile/${prop?.user?.id}`}
                         style={{
                             width: '100px',
                             backgroundColor: 'var(--primary)',
                         }}
                     >
                         Visit
-                    </button>
+                    </Link>
                 ),
             },
         },

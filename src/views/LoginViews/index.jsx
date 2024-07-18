@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { notification } from 'antd';
 import LoginForm from './partials/LoginForm';
 import useAuth from '../../hooks/auth/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginViews() {
     const [email, setEmail] = useState('');
@@ -10,6 +11,7 @@ export default function LoginViews() {
     const [loading, setLoading] = useState(false);
     const [api, contextHolder] = notification.useNotification();
     const { authLogin } = useAuth();
+    const navigate = useNavigate();
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -34,7 +36,7 @@ export default function LoginViews() {
             localStorage.setItem('token', `Bearer ${res?.data?.token}`);
             setLoading(false);
             setTimeout(() => {
-                window.location.href = '/';
+                navigate('/');
             }, 1000);
         } else {
             setLoading(false);

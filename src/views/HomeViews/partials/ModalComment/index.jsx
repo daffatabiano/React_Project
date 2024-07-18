@@ -4,9 +4,12 @@ import './ModalComment.css';
 import { useSelector } from 'react-redux';
 import usePost from '../../../../hooks/post/usePost';
 import { Button, Popconfirm } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 export default function ModalComment(prop) {
     const { commentDelete } = usePost();
+
+    const navigate = useNavigate();
 
     const idUserCommented = useSelector(
         (state) => state?.inventory?.user[0]?.id
@@ -20,7 +23,7 @@ export default function ModalComment(prop) {
                 description: res?.data?.message,
             });
             setTimeout(() => {
-                window.location.href = '/';
+                navigate('/');
             }, 1000);
         }
     };
@@ -43,7 +46,7 @@ export default function ModalComment(prop) {
                     <div
                         className="uploaded"
                         onClick={() =>
-                            (window.location.href = `/personal-profile/${prop?.userId}`)
+                            navigate(`/personal-profile/${prop?.userId}`)
                         }
                     >
                         <img
