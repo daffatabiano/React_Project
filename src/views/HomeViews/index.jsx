@@ -21,7 +21,9 @@ import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { SendOutlined } from '@ant-design/icons';
 import DrawerComment from './partials/DrawerComment';
 import usePost from '../../hooks/post/usePost';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { SUB_EMPTY_DATA } from '../../hooks/service/services';
+import useAccount from '../../hooks/user/useAccount';
 
 export default function HomeViews() {
     const [isPosts, setIsPosts] = useState([]);
@@ -31,10 +33,14 @@ export default function HomeViews() {
     const [api, contextHolder] = notification.useNotification();
     const isShowDetail = useSelector((state) => state?.post);
     const [isDetailPost, setIsDetailPost] = useState([]);
-    const istotalFollowing = useSelector(
-        (state) => state?.inventory?.user[0]?.totalFollowing
-    );
     const navigate = useNavigate();
+    const { getLogUser } = useAccount();
+    const [istotalFollowing, setIstotalFollowing] = useState(0);
+
+    const getData = async () => {
+        const res = await getLogUser('user');
+        setIstotalFollowing(res?.data?.data?.totalFollowing);
+    };
 
     // GET TOTAL DATA UPDATED
 
@@ -123,8 +129,13 @@ export default function HomeViews() {
     // USE EFFECT FIELDS
 
     useEffect(() => {
+        getData();
+    }, []);
+
+    useEffect(() => {
         getDataExplore();
     }, [isTotalItem]);
+
     useEffect(() => {
         if (isShowDetail?.isShow) getPostDetail();
     }, [isShowDetail?.isId]);
@@ -240,12 +251,12 @@ export default function HomeViews() {
                 {istotalFollowing === 0 && (
                     <div style={{}}>
                         <Empty
-                            image="/img/sapiens.svg"
+                            image={'/img/sapiens.svg' || SUB_EMPTY_DATA}
                             imageStyle={{ height: 300 }}
                             description={
                                 <Typography.Text style={{ color: 'white' }}>
                                     Connect with your friends and{' '}
-                                    <a href="#API">Explore more</a>
+                                    <Link to="/explore">Explore more</Link>
                                 </Typography.Text>
                             }
                             style={{

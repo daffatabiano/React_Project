@@ -13,6 +13,8 @@ import ModalComment from '../HomeViews/partials/ModalComment';
 import useGetPost from '../../hooks/post/useGet';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import usePost from '../../hooks/post/usePost';
+import { userLogData } from '../../redux/slice/inventorySlice';
+import { useParams } from 'react-router-dom';
 
 export default function UserDetailViews(prop) {
     const { getPostByUserId } = usePostByUserId();
@@ -25,11 +27,10 @@ export default function UserDetailViews(prop) {
     const dispatch = useDispatch();
     const { md } = useBreakpoint();
     const { followPost } = usePost();
-    const id = prop?.isId?.split('/')[1];
     const [api, contextHolder] = notification.useNotification();
     const [isTextButtonFollow, setIsTextButtonFollow] = useState('follow');
-
-    console.log(prop?.isId);
+    const isFollowState = useSelector((state) => state?.inventory?.user[0]);
+    const params = useParams();
 
     const getDetail = async () => {
         const res = await getPostByUserId(`${prop?.isId}?size=1000&page=1`);
@@ -48,14 +49,11 @@ export default function UserDetailViews(prop) {
         }
     };
 
-    const handleFollow = async (e) => {
-        e.preventDefault();
-
+    const handleFollow = async () => {
         const body = {
-            userIdFollow: id,
+            userIdFollow: params?.id,
         };
         const res = await followPost(body);
-        console.log(res);
         if (res?.status === 200) {
             setIsTextButtonFollow('unfollow');
         } else {

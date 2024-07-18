@@ -3,31 +3,29 @@
     height: 300px;
 }
 
-.post-image::before {
-    content: '👁';
-    font-size: 50px;
-    position: absolute;
-    display: 'none';
-    opacity: 0;
-}
-
-.post-image:hover::before {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 91.5%;
-    height: 100%;
-    opacity: 1;
-    cursor: pointer;
-}
-
-.post-image img:hover {
-    cursor: pointer;
-    opacity: 0.5;
-}
-
 .post-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.explore-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: 35px;
+    gap: 15px;
+    width: 100% !important;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: fit-content;
+    opacity: 0;
+}
+
+.explore-layout:hover {
+    opacity: 1;
 }

@@ -33,7 +33,6 @@ export default function ExploreViews() {
     const getPostsDetail = async () => {
         setIsLoading(true);
         const res = await getDetailPosts(isShowDetail?.isId);
-        console.log(res);
         if (res?.status === 200) {
             setIsLoading(false);
             setIsDetailPost(res?.data?.data);
@@ -56,8 +55,6 @@ export default function ExploreViews() {
     const [randomHeight, setRandomHeight] = useState(
         Math.floor(Math.random() * 4) + 1
     );
-
-    console.log(isExplore, 'isExplore');
 
     return (
         <>
@@ -213,14 +210,7 @@ export default function ExploreViews() {
                         </Row>
                     )}
                     {isExplore?.posts?.map((item) => (
-                        <div
-                            key={item.id}
-                            className="explore-img"
-                            // style={{
-                            //     gridColumn: `span ${randomWidth}`,
-                            //     gridRow: `span ${randomHeight}`,
-                            // }}
-                        >
+                        <div key={item.id} className="explore-img">
                             <img
                                 src={
                                     item?.imageUrl?.length < 15 ||
@@ -237,13 +227,13 @@ export default function ExploreViews() {
                                 className="explore-layout"
                                 onClick={() => dispatch(setIsShow(item?.id))}
                             >
-                                <HeartOutlined
-                                    style={{ cursor: 'pointer' }}
-                                    onClick={() => alert('like')}
-                                />
-                                <CommentOutlined
-                                    style={{ cursor: 'pointer' }}
-                                />
+                                    <HeartOutlined
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() => alert('like')}
+                                    />
+                                    <CommentOutlined
+                                        style={{ cursor: 'pointer' }}
+                                    />
                             </div>
                         </div>
                     ))}

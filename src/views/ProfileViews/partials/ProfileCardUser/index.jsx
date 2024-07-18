@@ -1,29 +1,45 @@
 import { SettingOutlined } from '@ant-design/icons';
 import './ProfileCardUser.css';
 import { useEffect, useState } from 'react';
-import { Divider, Modal, notification } from 'antd';
+import { Divider, Dropdown, Modal, notification } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import useGetPost from '../../../../hooks/post/useGet';
 import usePost from '../../../../hooks/post/usePost';
+import useAccount from '../../../../hooks/user/useAccount';
+import useAuth from '../../../../hooks/auth/useAuth';
 
 export default function ProfileCardUser() {
     const [api, contextHolder] = notification.useNotification();
     const [isShowModalFollowing, setIsShowModalFollowing] = useState(false);
     const [isShowModalFollowers, setIsShowModalFollowers] = useState(false);
     const navigate = useNavigate();
-    const isData = useSelector((state) => state?.inventory?.user[0]);
+    const [isData, setIsData] = useState([]);
     const { md } = useBreakpoint();
     const { getMyFollowing, getMyFollowers } = useGetPost();
     const { unfollowPost } = usePost();
     const [isFollowing, setIsFollowing] = useState([]);
     const [isFollowers, setIsFollowers] = useState([]);
+    const { getLogUser } = useAccount();
+    const { authLogout } = useAuth();
+    const token = localStorage.getItem('token');
+
+    const getLogUserData = async () => {
+        const res = await getLogUser('user');
+        setIsData(res?.data?.data);
+    };
+    useEffect(() => {
+        getLogUserData();
+    }, []);
 
     const handleGetFollowing = async () => {
         const res = await getMyFollowing('size=9999&page=1');
-        setIsFollowing(res?.data?.data);
+        if (res?.status === 200) {
+            setIsFollowing(res?.data?.data);
+        }
     };
+    console.log(isFollowing);
     const handleGetFollowers = async () => {
         const res = await getMyFollowers('size=9999&page=1');
         setIsFollowers(res?.data?.data);
@@ -35,6 +51,41 @@ export default function ProfileCardUser() {
             handleGetFollowing();
         }
     };
+
+    const handleLogout = async () => {
+        const res = await authLogout(token);
+        if (res?.status === 200) {
+            api['success'] = {
+                message: 'Logout success',
+                description: res?.data?.message,
+            };
+            navigate('/login');
+        } else {
+            api['error'] = {
+                message: 'Logout Failed',
+                description: res?.response?.data?.message,
+            };
+        }
+    };
+
+    const items = [
+        {
+            key: '1',
+            label: (
+                <p style={{ color: 'red' }} onClick={() => handleLogout}>
+                    Logout
+                </p>
+            ),
+        },
+        {
+            key: '2',
+            label: (
+                <p style={{ color: 'red' }} onClick={() => handleLogout}>
+                    Logout 2
+                </p>
+            ),
+        },
+    ];
 
     useEffect(() => {
         handleGetFollowing();
@@ -64,8 +115,7 @@ export default function ProfileCardUser() {
                         color: '#0101010',
                     }}
                 >
-                    {isFollowers?.totalItems === 0 ||
-                    isFollowers?.totalItems > 0 ? (
+                    {isFollowers?.totalItems === 0 ? (
                         <div
                             style={{
                                 display: 'flex',
@@ -245,7 +295,9 @@ export default function ProfileCardUser() {
                             Edit profile
                         </button>
                         <button>View archive</button>
-                        <SettingOutlined />
+                        <Dropdown placement="right" arrow item={ items }>
+                            <SettingOutlined />
+                        </Dropdown>
                     </div>
                     <div className="info-content">
                         <p>

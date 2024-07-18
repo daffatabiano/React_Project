@@ -8,7 +8,6 @@ const useInventory = createSlice({
     reducers: {
         userLogData: (state, action) => {
             state.user.push(action.payload);
-            return state;
         },
 
         clearUser: (state) => {
