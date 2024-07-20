@@ -134,111 +134,107 @@ export default function ExploreViews() {
                     <ModalComment {...isDetailPost} api={api} />
                 )}
             </Modal>
-            <BaseLayout>
-                <div className="explore">
-                    {isExplore?.length === 0 && (
-                        <Row gutter={[8, 16]}>
-                            <Col span={24}>
-                                <SkeletonImage
-                                    style={{
-                                        width: '300px',
-                                        height: '300px',
-                                        marginRight: '15px',
-                                    }}
-                                />
-                                <SkeletonImage
-                                    style={{
-                                        width: '300px',
-                                        height: '300px',
-                                        marginRight: '15px',
-                                    }}
-                                />
-                                <SkeletonImage
-                                    style={{
-                                        width: '300px',
-                                        height: '300px',
-                                        marginRight: '15px',
-                                    }}
-                                />
-                            </Col>
-                            <Col span={24}>
-                                <SkeletonImage
-                                    style={{
-                                        width: '300px',
-                                        height: '300px',
-                                        marginRight: '15px',
-                                    }}
-                                />
-                                <SkeletonImage
-                                    style={{
-                                        width: '300px',
-                                        height: '300px',
-                                        marginRight: '15px',
-                                    }}
-                                />
-                                <SkeletonImage
-                                    style={{
-                                        width: '300px',
-                                        height: '300px',
-                                        marginRight: '15px',
-                                    }}
-                                />
-                            </Col>
-                            <Col span={24}>
-                                <SkeletonImage
-                                    style={{
-                                        width: '300px',
-                                        height: '300px',
-                                        marginRight: '15px',
-                                    }}
-                                />
-                                <SkeletonImage
-                                    style={{
-                                        width: '300px',
-                                        height: '300px',
-                                        marginRight: '15px',
-                                    }}
-                                />
-                                <SkeletonImage
-                                    style={{
-                                        width: '300px',
-                                        height: '300px',
-                                        marginRight: '15px',
-                                    }}
-                                />
-                            </Col>
-                        </Row>
-                    )}
-                    {isExplore?.posts?.map((item) => (
-                        <div key={item.id} className="explore-img">
-                            <img
-                                src={
-                                    item?.imageUrl?.length < 15 ||
-                                    item?.imageUrl?.includes('fakepath')
-                                        ? SUB_POST_IMAGE
-                                        : item?.imageUrl
-                                }
-                                alt={`image of ${
-                                    item?.user?.username || 'unknown'
-                                }`}
+            <div className="explore">
+                {isExplore?.length === 0 && (
+                    <Row gutter={[8, 16]}>
+                        <Col span={24}>
+                            <SkeletonImage
+                                style={{
+                                    width: '300px',
+                                    height: '300px',
+                                    marginRight: '15px',
+                                }}
                             />
-                            <div
-                                style={{ display: 'flex' }}
-                                className="explore-layout"
-                                onClick={() => dispatch(setIsShow(item?.id))}
-                            >
-                                    <HeartOutlined
-                                        style={{ cursor: 'pointer' }}
-                                        onClick={() => alert('like')}
-                                    />
-                                    <CommentOutlined
-                                        style={{ cursor: 'pointer' }}
-                                    />
-                            </div>
+                            <SkeletonImage
+                                style={{
+                                    width: '300px',
+                                    height: '300px',
+                                    marginRight: '15px',
+                                }}
+                            />
+                            <SkeletonImage
+                                style={{
+                                    width: '300px',
+                                    height: '300px',
+                                    marginRight: '15px',
+                                }}
+                            />
+                        </Col>
+                        <Col span={24}>
+                            <SkeletonImage
+                                style={{
+                                    width: '300px',
+                                    height: '300px',
+                                    marginRight: '15px',
+                                }}
+                            />
+                            <SkeletonImage
+                                style={{
+                                    width: '300px',
+                                    height: '300px',
+                                    marginRight: '15px',
+                                }}
+                            />
+                            <SkeletonImage
+                                style={{
+                                    width: '300px',
+                                    height: '300px',
+                                    marginRight: '15px',
+                                }}
+                            />
+                        </Col>
+                        <Col span={24}>
+                            <SkeletonImage
+                                style={{
+                                    width: '300px',
+                                    height: '300px',
+                                    marginRight: '15px',
+                                }}
+                            />
+                            <SkeletonImage
+                                style={{
+                                    width: '300px',
+                                    height: '300px',
+                                    marginRight: '15px',
+                                }}
+                            />
+                            <SkeletonImage
+                                style={{
+                                    width: '300px',
+                                    height: '300px',
+                                    marginRight: '15px',
+                                }}
+                            />
+                        </Col>
+                    </Row>
+                )}
+                {isExplore?.posts?.map((item) => (
+                    <div key={item.id} className="explore-img">
+                        <img
+                            src={
+                                item?.imageUrl?.length < 15 ||
+                                item?.imageUrl?.includes('fakepath')
+                                    ? SUB_POST_IMAGE
+                                    : item?.imageUrl
+                            }
+                            alt={`image of ${
+                                item?.user?.username || 'unknown'
+                            }`}
+                        />
+                        <div
+                            style={{ display: 'flex' }}
+                            className="explore-layout"
+                            onClick={() => dispatch(setIsShow(item?.id))}
+                        >
+                            <HeartOutlined
+                                style={{ cursor: 'pointer' }}
+                                onClick={() => alert('like')}
+                            />
+                            <CommentOutlined style={{ cursor: 'pointer' }} />
                         </div>
-                    ))}
-                </div>
-            </BaseLayout>
+                    </div>
+                ))}
+            </div>
         </>
     );
 }

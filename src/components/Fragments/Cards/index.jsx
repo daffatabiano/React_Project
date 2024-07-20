@@ -38,7 +38,6 @@ const LikeProfile = () => {
 };
 
 export default function Postcard(prop) {
-    console.log(prop);
     const apiCreatedAt = prop?.createdAt?.split('T')[0];
 
     const apiDate = new Date(apiCreatedAt);

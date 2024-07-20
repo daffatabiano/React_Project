@@ -8,7 +8,6 @@ export default function PostDetailPersonViews() {
     const location = useLocation();
     const p = location?.pathname;
     const isId = p?.split('/')[2];
-    console.log(isId);
     const { getDetailPosts } = useGetPost();
     const [isPosts, setIsPosts] = useState([]);
     const navigate = useNavigate();

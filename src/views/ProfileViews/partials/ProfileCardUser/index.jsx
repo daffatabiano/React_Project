@@ -39,7 +39,6 @@ export default function ProfileCardUser() {
             setIsFollowing(res?.data?.data);
         }
     };
-    console.log(isFollowing);
     const handleGetFollowers = async () => {
         const res = await getMyFollowers('size=9999&page=1');
         setIsFollowers(res?.data?.data);

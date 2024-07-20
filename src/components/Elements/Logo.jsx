@@ -1,6 +1,7 @@
+import './Logo.css';
 const Logo = () => {
     return (
-        <div>
+        <div className="logo-sociall">
             <h1
                 style={{
                     fontFamily: 'Homemade Apple',

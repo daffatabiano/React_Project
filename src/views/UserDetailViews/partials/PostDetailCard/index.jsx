@@ -1,4 +1,4 @@
-import { Col, Empty, Row, Tabs, Typography } from 'antd';
+import { Button, Col, Empty, Row, Tabs, Typography } from 'antd';
 import './PostDetailCard.css';
 import { useDispatch } from 'react-redux';
 import { setIsShow } from '../../../../redux/slice/postSlice';
@@ -17,12 +17,22 @@ export default function PostDetailCard(prop) {
     //     return { ...item, popular };
     // });
 
-    const Label = ({ text }) => {
-        return <p style={{ color: 'white' }}>{text}</p>;
-    };
     const dispatch = useDispatch();
     const { md } = useBreakpoint();
     const navigate = useNavigate();
+    const Label = ({ text }) => {
+        return (
+            <p
+                style={{
+                    color: 'white',
+                    fontWeight: 'bold',
+                    fontSize: md ? '16px' : '12px',
+                }}
+            >
+                {text}
+            </p>
+        );
+    };
     const items = [
         {
             key: '1',
@@ -109,6 +119,21 @@ export default function PostDetailCard(prop) {
             label: <Label text="All Posts" />,
             children: (
                 <Row gutter={[8, 32]}>
+                    {!prop?.totalItems && (
+                        <Col span={24}>
+                            <Empty
+                                description={
+                                    <Typography.Text style={{ color: 'white' }}>
+                                        You don&apos;t have any post yet
+                                    </Typography.Text>
+                                }
+                            >
+                                <Button onClick={() => navigate('/post')}>
+                                    Post Now
+                                </Button>
+                            </Empty>
+                        </Col>
+                    )}
                     {prop?.posts
                         ?.filter((item) => item?.totalLikes >= 0)
                         .map((item) => (
@@ -180,6 +205,21 @@ export default function PostDetailCard(prop) {
             label: <Label text="Less Popular Posts" />,
             children: (
                 <Row gutter={[8, 32]}>
+                    {!prop?.totalItems && (
+                        <Col span={24}>
+                            <Empty
+                                description={
+                                    <Typography.Text style={{ color: 'white' }}>
+                                        You don&apos;t have any post yet
+                                    </Typography.Text>
+                                }
+                            >
+                                <Button onClick={() => navigate('/post')}>
+                                    Post Now
+                                </Button>
+                            </Empty>
+                        </Col>
+                    )}
                     {prop?.posts
                         ?.filter(
                             (item) =>

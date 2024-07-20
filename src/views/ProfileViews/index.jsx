@@ -5,11 +5,11 @@ import './ProfileViews.css';
 
 export default function ProfileViews() {
     return (
-        <BaseLayout>
-            <div className="profile">
-                <ProfileCardUser />
+        <div className="profile">
+            <ProfileCardUser />
+            <div className="profile-posting">
                 <PostDetailCard />
             </div>
-        </BaseLayout>
+        </div>
     );
 }

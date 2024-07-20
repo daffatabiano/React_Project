@@ -98,9 +98,20 @@
     }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
+    .profile-card .card-img img {
+        width: 120px;
+        height: 120px;
+    }
+
     .profile-card .card-info .info-title {
-        width: 80%;
+        width: 100%;
+        padding-right: 20px;
+    }
+
+      .profile-card .card-info .info-content {
+        width: 100%;
+        padding-right: 20px;
     }
 }
 

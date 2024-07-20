@@ -24,6 +24,7 @@ import usePost from '../../hooks/post/usePost';
 import { Link, useNavigate } from 'react-router-dom';
 import { SUB_EMPTY_DATA } from '../../hooks/service/services';
 import useAccount from '../../hooks/user/useAccount';
+import FootSide from '../../components/Layout/Headers/partials/FootSide.jsx';
 
 export default function HomeViews() {
     const [isPosts, setIsPosts] = useState([]);
@@ -48,13 +49,14 @@ export default function HomeViews() {
         const res = await getMyFollowingPosts('size=10&page=1');
         setIsTotalItem(res?.data?.data?.totalItems);
     };
+
     useEffect(() => {
         getTotalItems();
     }, []);
+    const updated = isTotalItem.toString();
 
     // DATA EXPLORE POSTS FIELDS
 
-    const updated = isTotalItem.toLocaleString();
     const getDataExplore = async () => {
         await getMyFollowingPosts(`size=${updated ? updated : '200'}&page=1`)
             .then((res) => {
@@ -140,10 +142,26 @@ export default function HomeViews() {
         if (isShowDetail?.isShow) getPostDetail();
     }, [isShowDetail?.isId]);
 
+    const [isData, setIsData] = useState([]);
+
+    const getUser = async () => {
+        await getLogUser('user')
+            .then((res) => {
+                setIsData(res.data.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    useEffect(() => {
+        getUser();
+    }, []);
+
     const dispatch = useDispatch();
     const { md } = useBreakpoint();
     return (
-        <BaseLayout>
+        <>
             {contextHolder}
             {md ? (
                 <Modal
@@ -287,6 +305,7 @@ export default function HomeViews() {
                         ))
                     ))}
             </div>
-        </BaseLayout>
+            <FootSide {...isData} />
+        </>
     );
 }
