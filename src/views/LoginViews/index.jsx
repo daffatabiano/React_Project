@@ -32,11 +32,13 @@ export default function LoginViews() {
             api['success']({
                 message: 'Login Success',
                 description: res?.data?.message,
+                duration: 1,
             });
             localStorage.setItem('token', `Bearer ${res?.data?.token}`);
             setLoading(false);
             setTimeout(() => {
                 navigate('/');
+                window.location.reload();
             }, 1000);
         } else {
             setLoading(false);

@@ -122,6 +122,12 @@
         width: 100%;
         justify-content: center;
     }
+
+    .aside ul li.active,
+    .aside ul li.active a {
+        border-radius: 0px;
+    }
+
     .aside ul li:first-child.active,
     .aside ul li:first-child a:hover {
         border-top-left-radius: 15px;

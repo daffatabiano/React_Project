@@ -14,8 +14,10 @@ export default function BaseLayout(prop) {
         '/register',
         '/edit-profile',
         '/explore',
+        '/login',
+        '/register',
     ];
-    const disableAside = ['/edit-profile'];
+    const disableAside = ['/edit-profile', '/login', '/register'];
     const pathname = window.location.pathname;
     const [isData, setIsData] = useState([]);
 

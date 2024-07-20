@@ -1,16 +1,43 @@
 import { SettingOutlined } from '@ant-design/icons';
 import './ProfileCardUser.css';
-import { Divider, Dropdown, Modal } from 'antd';
+import { Divider, Dropdown, Modal, notification } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
+import useAuth from '../../../../hooks/auth/useAuth';
 
 export default function ProfileCardUser(prop) {
     const { md } = useBreakpoint();
     const navigate = useNavigate();
 
+    const { authLogout } = useAuth();
+    const token = localStorage.getItem('token');
+    const [api, contextHolder] = notification.useNotification();
+
+    const handleLogout = async () => {
+        await authLogout(token).then((res) => {
+            if (res?.status === 200) {
+                api['success']({
+                    message: 'Logout Success',
+                    description: res?.data?.message,
+                });
+                setTimeout(() => {
+                    localStorage.clear();
+                    localStorage.removeItem('token');
+                    window.location.reload();
+                }, 2000);
+            } else {
+                api['error']({
+                    message: 'Logout Failed',
+                    description: res?.response?.data?.message,
+                });
+            }
+        });
+    };
+
     console.log(prop[0]);
     return (
         <div>
+            {contextHolder}
             {md ? (
                 <Modal
                     title="Followers"
@@ -212,9 +239,29 @@ export default function ProfileCardUser(prop) {
                         </button>
                         <button>View archive</button>
                         <Dropdown
-                            placement="right"
-                            arrow
-                            item={prop?.itemsDropDown}
+                            trigger={['click', 'hover']}
+                            placement="bottom"
+                            menu={{
+                                items: [
+                                    {
+                                        key: '1',
+                                        label: (
+                                            <button
+                                                style={{
+                                                    width: '100%',
+                                                    backgroundColor:
+                                                        'transparent',
+                                                    color: 'red',
+                                                }}
+                                                onClick={handleLogout}
+                                            >
+                                                Logout
+                                            </button>
+                                        ),
+                                    },
+                                ],
+                            }}
+                            arrow={{ pointAtCenter: true }}
                         >
                             <SettingOutlined />
                         </Dropdown>
