@@ -7,8 +7,8 @@ import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 export default function ProfileCardUser(prop) {
     const { md } = useBreakpoint();
     const navigate = useNavigate();
-    
-    
+
+    console.log(prop[0]);
     return (
         <div>
             {md ? (
@@ -124,7 +124,7 @@ export default function ProfileCardUser(prop) {
                         color: '#0101010',
                     }}
                 >
-                    {prop?.isFollowing?.totalItems === 0 ? (
+                    {prop[0].totalItems === 0 ? (
                         <div
                             style={{
                                 display: 'flex',
@@ -143,7 +143,7 @@ export default function ProfileCardUser(prop) {
                             </p>
                         </div>
                     ) : (
-                        prop?.isFollowing?.users?.map((item) => (
+                        prop[0]?.users?.map((item) => (
                             <div key={item?.id}>
                                 <div
                                     style={{

@@ -40,6 +40,7 @@ export default function ProfileViews() {
             setIsFollowing(res?.data?.data);
         }
     };
+    console.log(isFollowing);
     const handleGetFollowers = async () => {
         const res = await getMyFollowers('size=9999&page=1');
         setIsFollowers(res?.data?.data);
@@ -84,6 +85,8 @@ export default function ProfileViews() {
                 handleUnfollow={handleUnfollow}
                 itemsDropDown
                 {...isData}
+                {...[isFollowing]}
+                {...isFollowers}
             />
             <div className="profile-posting">
                 <PostDetailCard />
