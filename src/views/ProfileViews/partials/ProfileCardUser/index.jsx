@@ -1,106 +1,23 @@
 import { SettingOutlined } from '@ant-design/icons';
 import './ProfileCardUser.css';
-import { useEffect, useState } from 'react';
-import { Divider, Dropdown, Modal, notification } from 'antd';
+import { Divider, Dropdown, Modal } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
-import useGetPost from '../../../../hooks/post/useGet';
-import usePost from '../../../../hooks/post/usePost';
-import useAccount from '../../../../hooks/user/useAccount';
-import useAuth from '../../../../hooks/auth/useAuth';
 
-export default function ProfileCardUser() {
-    const [api, contextHolder] = notification.useNotification();
-    const [isShowModalFollowing, setIsShowModalFollowing] = useState(false);
-    const [isShowModalFollowers, setIsShowModalFollowers] = useState(false);
-    const navigate = useNavigate();
-    const [isData, setIsData] = useState([]);
+export default function ProfileCardUser(prop) {
     const { md } = useBreakpoint();
-    const { getMyFollowing, getMyFollowers } = useGetPost();
-    const { unfollowPost } = usePost();
-    const [isFollowing, setIsFollowing] = useState([]);
-    const [isFollowers, setIsFollowers] = useState([]);
-    const { getLogUser } = useAccount();
-    const { authLogout } = useAuth();
-    const token = localStorage.getItem('token');
-
-    const getLogUserData = async () => {
-        const res = await getLogUser('user');
-        setIsData(res?.data?.data);
-    };
-    useEffect(() => {
-        getLogUserData();
-    }, []);
-
-    const handleGetFollowing = async () => {
-        const res = await getMyFollowing('size=9999&page=1');
-        if (res?.status === 200) {
-            setIsFollowing(res?.data?.data);
-        }
-    };
-    const handleGetFollowers = async () => {
-        const res = await getMyFollowers('size=9999&page=1');
-        setIsFollowers(res?.data?.data);
-    };
-
-    const handleUnfollow = async (id) => {
-        const res = await unfollowPost(id);
-        if (res?.status === 200) {
-            handleGetFollowing();
-        }
-    };
-
-    const handleLogout = async () => {
-        const res = await authLogout(token);
-        if (res?.status === 200) {
-            api['success'] = {
-                message: 'Logout success',
-                description: res?.data?.message,
-            };
-            navigate('/login');
-        } else {
-            api['error'] = {
-                message: 'Logout Failed',
-                description: res?.response?.data?.message,
-            };
-        }
-    };
-
-    const items = [
-        {
-            key: '1',
-            label: (
-                <p style={{ color: 'red' }} onClick={() => handleLogout}>
-                    Logout
-                </p>
-            ),
-        },
-        {
-            key: '2',
-            label: (
-                <p style={{ color: 'red' }} onClick={() => handleLogout}>
-                    Logout 2
-                </p>
-            ),
-        },
-    ];
-
-    useEffect(() => {
-        handleGetFollowing();
-        handleGetFollowers();
-    }, []);
-
+    const navigate = useNavigate();
+    
+    
     return (
         <div>
-            {contextHolder}
             {md ? (
                 <Modal
                     title="Followers"
                     centered
-                    open={isShowModalFollowers}
-                    onOk={() => setIsShowModalFollowers(false)}
-                    onCancel={() => setIsShowModalFollowers(false)}
+                    open={prop?.isShowModalFollowers}
+                    onOk={() => prop?.setIsShowModalFollowers(false)}
+                    onCancel={() => prop?.setIsShowModalFollowers(false)}
                     width={650}
                     style={{
                         maxHeight: '80vh',
@@ -114,7 +31,7 @@ export default function ProfileCardUser() {
                         color: '#0101010',
                     }}
                 >
-                    {isFollowers?.totalItems === 0 ? (
+                    {prop?.isFollowers?.totalItems === 0 ? (
                         <div
                             style={{
                                 display: 'flex',
@@ -133,7 +50,7 @@ export default function ProfileCardUser() {
                             </p>
                         </div>
                     ) : (
-                        isFollowers?.users?.map((item) => (
+                        prop?.isFollowers?.users?.map((item) => (
                             <div key={item?.id}>
                                 <div
                                     style={{
@@ -189,10 +106,10 @@ export default function ProfileCardUser() {
                 <Modal
                     title="Following"
                     centered
-                    open={isShowModalFollowing}
-                    onOk={() => setIsShowModalFollowing(false)}
-                    onCancel={() => setIsShowModalFollowing(false)}
-                    onClose={() => setIsShowModalFollowing(false)}
+                    open={prop?.isShowModalFollowing}
+                    onOk={() => prop?.setIsShowModalFollowing(false)}
+                    onCancel={() => prop?.setIsShowModalFollowing(false)}
+                    onClose={() => prop?.setIsShowModalFollowing(false)}
                     width={650}
                     footer={null}
                     style={{
@@ -207,7 +124,7 @@ export default function ProfileCardUser() {
                         color: '#0101010',
                     }}
                 >
-                    {isFollowing?.totalItems === 0 ? (
+                    {prop?.isFollowing?.totalItems === 0 ? (
                         <div
                             style={{
                                 display: 'flex',
@@ -226,7 +143,7 @@ export default function ProfileCardUser() {
                             </p>
                         </div>
                     ) : (
-                        isFollowing?.users?.map((item) => (
+                        prop?.isFollowing?.users?.map((item) => (
                             <div key={item?.id}>
                                 <div
                                     style={{
@@ -269,7 +186,7 @@ export default function ProfileCardUser() {
                                             color: 'white',
                                             borderRadius: '10px',
                                         }}
-                                        onClick={handleUnfollow(item?.id)}
+                                        onClick={prop?.handleUnfollow(item?.id)}
                                     >
                                         Unfollow
                                     </button>
@@ -282,11 +199,11 @@ export default function ProfileCardUser() {
             ) : null}
             <div className="profile-card">
                 <div className="card-img">
-                    <img src={isData?.profilePictureUrl} alt="" />
+                    <img src={prop?.profilePictureUrl} alt="" />
                 </div>
                 <div className="card-info">
                     <div className="info-title">
-                        <p>{isData?.name}</p>
+                        <p>{prop?.name}</p>
                         <button
                             type="button"
                             onClick={() => navigate('/edit-profile')}
@@ -294,46 +211,50 @@ export default function ProfileCardUser() {
                             Edit profile
                         </button>
                         <button>View archive</button>
-                        <Dropdown placement="right" arrow item={ items }>
+                        <Dropdown
+                            placement="right"
+                            arrow
+                            item={prop?.itemsDropDown}
+                        >
                             <SettingOutlined />
                         </Dropdown>
                     </div>
                     <div className="info-content">
                         <p>
-                            <span>{'0'}</span> Post
+                            <span>{prop?.totalPost || 0}</span> Post
                         </p>
                         <p
                             onClick={() =>
                                 md
-                                    ? setIsShowModalFollowers(true)
+                                    ? prop?.setIsShowModalFollowers(true)
                                     : navigate('/profile/followers')
                             }
                             style={{ cursor: 'pointer' }}
                         >
-                            <span>{isData?.totalFollowers}</span> Followers
+                            <span>{prop?.totalFollowers || 0}</span> Followers
                         </p>
                         <p
                             onClick={() =>
                                 md
-                                    ? setIsShowModalFollowing(true)
+                                    ? prop?.setIsShowModalFollowing(true)
                                     : navigate('/profile/following')
                             }
                             style={{ cursor: 'pointer' }}
                         >
-                            <span>{isData?.totalFollowing}</span> Following
+                            <span>{prop?.totalFollowing || 0}</span> Following
                         </p>
                     </div>
                     <div className="info-desc">
-                        <h6>{isData?.username}</h6>
-                        <p>{isData?.bio}</p>
+                        <h6>{prop?.username}</h6>
+                        <p>{prop?.bio}</p>
                         <Link
                             to={`${
-                                isData?.website?.includes('https' || 'http')
-                                    ? isData?.website
-                                    : `https://${isData?.website}`
+                                prop?.website?.includes('https' || 'http')
+                                    ? prop?.website
+                                    : `https://${prop?.website}`
                             }`}
                         >
-                            {isData?.website}
+                            {prop?.website}
                         </Link>
                     </div>
                 </div>

@@ -6,3 +6,5 @@ export const SUB_IMAGE =
 export const SUB_POST_IMAGE = 'https://lpmpp.ulm.ac.id/image/desain/empty.jpg';
 export const SUB_EMPTY_DATA =
     'https://cdni.iconscout.com/illustration/premium/thumb/search-not-found-8291000-6632131.png';
+export const SUB_POST_IMAGE_DARK =
+    'https://linda-hoang.com/wp-content/uploads/2014/10/img-placeholder-dark.jpg';

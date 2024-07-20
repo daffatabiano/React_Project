@@ -4,19 +4,19 @@ import {
     UploadOutlined,
 } from '@ant-design/icons';
 import { Button, Divider, message, notification, Upload } from 'antd';
-import {
-    BASE_URL,
-    SUB_EMPTY_DATA,
-    SUB_POST_IMAGE,
-} from '../../hooks/service/services';
+import { SUB_POST_IMAGE_DARK } from '../../hooks/service/services';
 import useAccount from '../../hooks/user/useAccount';
 import { useState } from 'react';
 import './PostViews.css';
+import usePost from '../../hooks/post/usePost';
 
 export default function PostViews() {
     const { uploadImage } = useAccount();
     const [isFile, setIsFile] = useState(null);
     const [api, contextHolder] = notification.useNotification();
+    const [isCaption, setIsCaption] = useState('');
+    const [isImageUrl, setIsImageUrl] = useState('');
+    const { createPost } = usePost();
     const handleFile = (e) => {
         const file = e.target.files[0];
         if (file.size < 1000000) {
@@ -36,6 +36,7 @@ export default function PostViews() {
         try {
             const res = await uploadImage(newForm);
             if (res?.status === 200) {
+                setIsImageUrl(res?.data?.url);
                 api['success']({
                     message: 'Upload Success',
                     description: 'Image uploaded',
@@ -49,8 +50,32 @@ export default function PostViews() {
         }
     };
 
+    const handlePost = async (e) => {
+        e.preventDefault();
+        const body = {
+            imageUrl: isImageUrl,
+            caption: isCaption,
+        };
+
+        try {
+            const res = await createPost(body);
+            if (res?.status === 200) {
+                api['success']({
+                    message: 'Post Success',
+                    description: 'Your post has been created',
+                });
+            }
+        } catch (err) {
+            api['error']({
+                message: 'Post Failed',
+                description: err?.response?.data?.message,
+            });
+        }
+    };
+
     return (
         <div className="post">
+            {contextHolder}
             <div className="post-header">
                 <Divider
                     style={{ color: 'white', borderColor: 'white' }}
@@ -73,29 +98,54 @@ export default function PostViews() {
             <div className="card-post">
                 <div className="post-img">
                     <div className="img">
-                        <img src={SUB_POST_IMAGE} alt="" />
-                        <div className="act">
-                            <button>
-                                <CloseCircleOutlined
-                                    style={{ color: 'red', opacity: 0.5 }}
-                                />
-                            </button>
-                            <button>
-                                <CheckCircleOutlined
-                                    style={{ color: 'green', opacity: 0.5 }}
-                                />
-                            </button>
-                        </div>
+                        <img
+                            src={
+                                isFile?.name
+                                    ? URL.createObjectURL(isFile)
+                                    : SUB_POST_IMAGE_DARK
+                            }
+                            alt=""
+                        />
+                        {isFile && (
+                            <div className="act">
+                                <button
+                                    onClick={() => {
+                                        setIsFile(null);
+                                        setIsImageUrl('');
+                                        api['success']({
+                                            message: 'Delete Success',
+                                            description: 'Image deleted',
+                                            duration: 1,
+                                        });
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2000);
+                                    }}
+                                >
+                                    <CloseCircleOutlined
+                                        style={{ color: 'red', opacity: 0.5 }}
+                                    />
+                                </button>
+                                <button onClick={handleUploadImage}>
+                                    <CheckCircleOutlined
+                                        style={{ color: 'green', opacity: 0.5 }}
+                                    />
+                                </button>
+                            </div>
+                        )}
                     </div>
-                    <input type="file" />
+                    <input type="file" onChange={handleFile} />
                 </div>
                 <div className="post-caption">
-                    <label htmlFor="caption"> Caption</label>
-                    <textarea name="" id="" placeholder="Add caption" />
+                    <label htmlFor="caption">Caption</label>
+                    <textarea
+                        onChange={(e) => setIsCaption(e.target.value)}
+                        placeholder="Add caption"
+                    />
                 </div>
             </div>
             <div className="post-action">
-                <button>Create Post</button>
+                <button onClick={handlePost}>Create Post</button>
             </div>
         </div>
     );

@@ -68,6 +68,43 @@ const usePost = () => {
         }
     };
 
+    const createPost = async (body) => {
+        try {
+            const res = await axios.post(`${BASE_URL}/create-post`, body, {
+                headers: Headers,
+            });
+            return res;
+        } catch (err) {
+            return err;
+        }
+    };
+
+    const updatePost = async (id, body) => {
+        try {
+            const res = await axios.post(
+                `${BASE_URL}/update-post/${id}`,
+                body,
+                {
+                    headers: Headers,
+                }
+            );
+            return res;
+        } catch (err) {
+            return err;
+        }
+    };
+
+    const deletePost = async (id) => {
+        try {
+            const res = await axios.delete(`${BASE_URL}/delete-post/${id}`, {
+                headers: Headers,
+            });
+            return res;
+        } catch (error) {
+            return error;
+        }
+    };
+
     return {
         commentPost,
         commentDelete,
@@ -75,6 +112,9 @@ const usePost = () => {
         unlikePost,
         followPost,
         unfollowPost,
+        createPost,
+        updatePost,
+        deletePost,
     };
 };
 
