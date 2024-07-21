@@ -43,18 +43,9 @@ export default function ProfileCard(prop) {
             <div className="card-info">
                 <div className="info-title">
                     <p>{prop?.name}</p>
-                    {/* <Dropdown
-                        trigger={['click']}
-                        menu={{
-                            items,
-                        }}
-                        placement="bottomRight"
-                        arrow
-                    > */}
                     <Button onClick={prop?.onFollow}>
                         {prop?.buttonFollow}
                     </Button>
-                    {/* </Dropdown> */}
                     <button>
                         <UserAddOutlined />
                     </button>

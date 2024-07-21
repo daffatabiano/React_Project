@@ -13,7 +13,6 @@ import ModalComment from '../HomeViews/partials/ModalComment';
 import useGetPost from '../../hooks/post/useGet';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import usePost from '../../hooks/post/usePost';
-import { userLogData } from '../../redux/slice/inventorySlice';
 import { useParams } from 'react-router-dom';
 
 export default function UserDetailViews(prop) {
@@ -26,10 +25,9 @@ export default function UserDetailViews(prop) {
     const { getDetailPosts } = useGetPost();
     const dispatch = useDispatch();
     const { md } = useBreakpoint();
-    const { followPost } = usePost();
+    const { followPost, unfollowPost } = usePost();
     const [api, contextHolder] = notification.useNotification();
     const [isTextButtonFollow, setIsTextButtonFollow] = useState('follow');
-    const isFollowState = useSelector((state) => state?.inventory?.user[0]);
     const params = useParams();
 
     const getDetail = async () => {
@@ -49,13 +47,34 @@ export default function UserDetailViews(prop) {
         }
     };
 
-    const handleFollow = async () => {
-        const body = {
-            userIdFollow: params?.id,
-        };
-        const res = await followPost(body);
+    const handleFollow = async (e) => {
+        try {
+            const body = {
+                userIdFollow: params?.id,
+            };
+            const res = await followPost(body);
+            if (res?.status === 200) {
+                setIsTextButtonFollow('unfollow');
+            } else {
+                api['error']({
+                    message: 'Error',
+                    description: res?.response?.data?.message,
+                });
+            }
+        } catch (err) {
+            api['error']({
+                message: 'Error',
+                description: err?.response?.data?.message,
+            });
+        }
+    };
+
+    const handleUnfollow = async (e) => {
+        e.preventDefault();
+
+        const res = await unfollowPost(params?.id);
         if (res?.status === 200) {
-            setIsTextButtonFollow('unfollow');
+            setIsTextButtonFollow('follow');
         } else {
             api['error']({
                 message: 'Error',
@@ -152,7 +171,11 @@ export default function UserDetailViews(prop) {
                     <ProfileCard
                         {...isData}
                         totalPosts={isPosts?.totalItems}
-                        onFollow={handleFollow}
+                        onFollow={() =>
+                            isTextButtonFollow === 'follow'
+                                ? handleFollow()
+                                : handleUnfollow()
+                        }
                         buttonFollow={isTextButtonFollow}
                     />
                 </div>
