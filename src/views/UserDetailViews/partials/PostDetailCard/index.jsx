@@ -24,7 +24,6 @@ export default function PostDetailCard(prop) {
             </p>
         );
     };
-    console.log(prop?.posts?.filter((item) => item?.totalLikes > 3));
 
     const items = [
         {

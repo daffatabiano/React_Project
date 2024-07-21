@@ -47,7 +47,7 @@ export default function UserDetailViews(prop) {
         }
     };
 
-    const handleFollow = async (e) => {
+    const handleFollow = async () => {
         try {
             const body = {
                 userIdFollow: params?.id,
@@ -69,16 +69,21 @@ export default function UserDetailViews(prop) {
         }
     };
 
-    const handleUnfollow = async (e) => {
-        e.preventDefault();
-
-        const res = await unfollowPost(params?.id);
-        if (res?.status === 200) {
-            setIsTextButtonFollow('follow');
-        } else {
+    const handleUnfollow = async () => {
+        try {
+            const res = await unfollowPost(params?.id);
+            if (res?.status === 200) {
+                setIsTextButtonFollow('follow');
+            } else {
+                api['error']({
+                    message: 'Error',
+                    description: res?.response?.data?.message,
+                });
+            }
+        } catch (err) {
             api['error']({
                 message: 'Error',
-                description: res?.response?.data?.message,
+                description: err?.response?.data?.message,
             });
         }
     };

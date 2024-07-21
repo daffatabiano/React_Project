@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import BaseLayout from '../../components/Layout/Headers/BaseLayout';
 import PostDetailCard from '../UserDetailViews/partials/PostDetailCard';
 import ProfileCardUser from './partials/ProfileCardUser';
 import './ProfileViews.css';
@@ -13,7 +12,6 @@ import { Modal, notification } from 'antd';
 import { SendOutlined } from '@ant-design/icons';
 import { clearIsShow } from '../../redux/slice/postSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import useSelection from 'antd/es/table/hooks/useSelection';
 import ModalComment from '../HomeViews/partials/ModalComment';
 
 export default function ProfileViews() {

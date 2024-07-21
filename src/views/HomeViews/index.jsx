@@ -169,8 +169,6 @@ export default function HomeViews() {
         getOwnMypost();
     }, [isData?.id]);
 
-    console.log(isPosts);
-
     const dispatch = useDispatch();
     const { md } = useBreakpoint();
     return (
