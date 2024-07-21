@@ -1,5 +1,4 @@
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
-import BaseLayout from '../../components/Layout/Headers/BaseLayout';
 import './ExploreViews.css';
 import useGetPost from '../../hooks/post/useGet';
 import { useEffect, useState } from 'react';
@@ -11,10 +10,9 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { clearIsShow, setIsShow } from '../../redux/slice/postSlice';
 import ModalComment from '../HomeViews/partials/ModalComment';
-import { Col, Modal, notification, Row, Skeleton } from 'antd';
-import SkeletonImage from 'antd/es/skeleton/Image';
+import { Modal, notification, Skeleton } from 'antd';
 import { SUB_POST_IMAGE } from '../../hooks/service/services';
-import ExploreViewsSkeleton from './ExploreViews.skeleton';
+import ExploreViewsSkeleton from './ExploreViewsSkeleton';
 
 export default function ExploreViews() {
     const { md } = useBreakpoint();
@@ -52,6 +50,7 @@ export default function ExploreViews() {
 
     return (
         <>
+            {contextHolder}
             <Modal
                 open={isShowDetail?.isShow}
                 onClose={() => dispatch(clearIsShow())}

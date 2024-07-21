@@ -6,8 +6,9 @@
     align-items: end;
     position: absolute;
     right: 0;
+    height: fit-content;
     top: 70px;
-    /* width: min-content; */
+    width: fit-content;
 }
 
 .footer-side .profile {
@@ -16,7 +17,7 @@
     justify-content: space-between;
     padding: 10px 20px;
     border-radius: 10px;
-    width: 300px;
+    width: 100%;
 }
 
 .profile-img {
@@ -39,7 +40,7 @@
     font-weight: 300;
 }
 
-.profile-img img {
+.footer-side .profile-img img {
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -54,8 +55,16 @@
     color: var(--txt);
 }
 
-.friends {
-    width: 300px;
+.footer-side .friends {
+    width: fit-content + 20px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-side .friends ul {
+    width: 100%;
+    height: 100%;
 }
 
 .friends ul .title,
@@ -63,6 +72,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .friends ul li a {
