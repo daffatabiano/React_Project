@@ -1,0 +1,57 @@
+.friends {
+    padding: 0 0 0 25%;
+    /* background-color: yellowgreen; */
+    width: 100%;
+    height: 100vh;
+}
+
+.friends .contain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+.friends .contain .ant-table {
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+.friends .contain .ant-table-thead .ant-table-cell {
+    background-color: transparent;
+    color: white;
+}
+
+.friends .contain .ant-table-tbody .ant-table-cell {
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.5);
+}
+
+.friends .contain .pagination.ant-pagination {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.friends .contain .pagination.ant-pagination .ant-pagination-item {
+    color: white;
+}
+
+.friends .contain .pagination.ant-pagination .ant-pagination-item i {
+    color: white;
+}
+
+.friends .contain .pagination.ant-pagination .ant-pagination-item-active {
+    margin-left: 5px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid rgb(255, 255, 255, 0.5);
+}
+
+@media (max-width : 768px) {
+    .friends{
+            padding: 2% 0 8% 0;
+    }
+}

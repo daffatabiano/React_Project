@@ -8,6 +8,7 @@ import Register from '../page/Register';
 import ProtectRouted from './ProtectedRouted';
 import Explore from '../page/Explore';
 import Post from '../page/post';
+import Friends from '../page/friends';
 
 export const routeList = [
     {
@@ -52,6 +53,14 @@ export const routeList = [
         element: (
             <ProtectRouted>
                 <Post />
+            </ProtectRouted>
+        ),
+    },
+    {
+        path: '/friends',
+        element: (
+            <ProtectRouted>
+                <Friends />
             </ProtectRouted>
         ),
     },

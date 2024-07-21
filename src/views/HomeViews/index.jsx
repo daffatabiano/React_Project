@@ -1,4 +1,3 @@
-import BaseLayout from '../../components/Layout/Headers/BaseLayout';
 import StoryUpdated from '../../components/Fragments/StoryUpdated';
 import Postcard from '../../components/Fragments/Cards';
 import { useEffect, useState } from 'react';
@@ -29,7 +28,8 @@ import FootSide from '../../components/Layout/Headers/partials/FootSide.jsx';
 export default function HomeViews() {
     const [isPosts, setIsPosts] = useState([]);
     const [isTotalItem, setIsTotalItem] = useState(0);
-    const { getDetailPosts, getMyFollowingPosts } = useGetPost();
+    const { getDetailPosts, getMyFollowingPosts, getPostsByPerson } =
+        useGetPost();
     const [isLoading, setIsLoading] = useState(false);
     const [api, contextHolder] = notification.useNotification();
     const isShowDetail = useSelector((state) => state?.post);
@@ -158,6 +158,19 @@ export default function HomeViews() {
         getUser();
     }, []);
 
+    const [isMyPost, setIsMyPost] = useState([]);
+    const getOwnMypost = async () => {
+        const res = await getPostsByPerson(isData?.id);
+        setIsMyPost(res?.data?.data);
+        console.log(res);
+    };
+
+    useEffect(() => {
+        getOwnMypost();
+    }, [isData?.id]);
+
+    console.log(isPosts);
+
     const dispatch = useDispatch();
     const { md } = useBreakpoint();
     return (
@@ -266,44 +279,51 @@ export default function HomeViews() {
                 </Drawer>
             )}
             <div className="home">
-                {istotalFollowing === 0 && (
-                    <div style={{}}>
-                        <Empty
-                            image={'/img/sapiens.svg' || SUB_EMPTY_DATA}
-                            imageStyle={{ height: 300 }}
-                            description={
-                                <Typography.Text style={{ color: 'white' }}>
-                                    Connect with your friends and{' '}
-                                    <Link to="/explore">Explore more</Link>
-                                </Typography.Text>
-                            }
-                            style={{
-                                height: '80vh',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                gap: '10px',
-                            }}
-                        >
-                            <Button
-                                type="primary"
-                                onClick={() => navigate('/explore')}
+                {istotalFollowing === 0 ||
+                    (isMyPost?.totalItems === 0 && (
+                        <div style={{}}>
+                            <Empty
+                                image={'/img/sapiens.svg' || SUB_EMPTY_DATA}
+                                imageStyle={{ height: 300 }}
+                                description={
+                                    <Typography.Text style={{ color: 'white' }}>
+                                        Connect with your friends and{' '}
+                                        <Link to="/explore">Explore more</Link>
+                                    </Typography.Text>
+                                }
+                                style={{
+                                    height: '80vh',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    gap: '10px',
+                                }}
                             >
-                                Go to Explore
-                            </Button>
-                        </Empty>
-                    </div>
-                )}
-                {istotalFollowing !== 0 && <StoryUpdated {...[isPosts]} />}
-                {istotalFollowing !== 0 &&
-                    (isPosts?.length === 0 || isLoading ? (
-                        <SkeletonHomeViews />
-                    ) : (
-                        isPosts?.map((item) => (
-                            <Postcard key={item?.id} {...item} />
-                        ))
+                                <Button
+                                    type="primary"
+                                    onClick={() => navigate('/explore')}
+                                >
+                                    Go to Explore
+                                </Button>
+                            </Empty>
+                        </div>
                     ))}
+                {istotalFollowing !== 0 && <StoryUpdated {...[isPosts]} />}
+                {isPosts?.length === 0 || isLoading ? (
+                    <SkeletonHomeViews />
+                ) : (
+                    isPosts?.map((item) => (
+                        <Postcard key={item?.id} {...item} />
+                    ))
+                )}
+                {isMyPost?.length === 0 || isLoading ? (
+                    <SkeletonHomeViews />
+                ) : (
+                    isMyPost?.posts?.map((item) => (
+                        <Postcard key={item?.id} {...item} />
+                    ))
+                )}
             </div>
             <FootSide {...isData} />
         </>
