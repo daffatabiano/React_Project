@@ -138,7 +138,11 @@ export default function PostDetailCard(prop) {
                                 <div
                                     className="post-image"
                                     onClick={() =>
-                                        dispatch(setIsShow(item?.id))
+                                        md
+                                            ? dispatch(setIsShow(item?.id))
+                                            : navigate(
+                                                  `/personal-post-detail/${item?.id}`
+                                              )
                                     }
                                 >
                                     <img
@@ -154,9 +158,6 @@ export default function PostDetailCard(prop) {
                                     <div
                                         style={{ display: 'flex' }}
                                         className="explore-layout"
-                                        onClick={() =>
-                                            dispatch(setIsShow(item?.id))
-                                        }
                                     >
                                         <div
                                             style={{
@@ -239,7 +240,16 @@ export default function PostDetailCard(prop) {
                         )
                         .map((item) => (
                             <Col span={8} key={item.id}>
-                                <div className="post-image">
+                                <div
+                                    className="post-image"
+                                    onClick={() =>
+                                        md
+                                            ? dispatch(setIsShow(item?.id))
+                                            : navigate(
+                                                  `/personal-post-detail/${item?.id}`
+                                              )
+                                    }
+                                >
                                     <img
                                         src={
                                             item?.imageUrl?.includes(
