@@ -14,6 +14,7 @@ import ModalComment from '../HomeViews/partials/ModalComment';
 import { Col, Modal, notification, Row, Skeleton } from 'antd';
 import SkeletonImage from 'antd/es/skeleton/Image';
 import { SUB_POST_IMAGE } from '../../hooks/service/services';
+import ExploreViewsSkeleton from './ExploreViews.skeleton';
 
 export default function ExploreViews() {
     const { md } = useBreakpoint();
@@ -48,13 +49,6 @@ export default function ExploreViews() {
     useEffect(() => {
         getPostsDetail();
     }, [isShowDetail?.isId]);
-
-    const [randomWidth, setRandomWidth] = useState(
-        Math.floor(Math.random() * 3) + 1
-    );
-    const [randomHeight, setRandomHeight] = useState(
-        Math.floor(Math.random() * 4) + 1
-    );
 
     return (
         <>
@@ -135,79 +129,7 @@ export default function ExploreViews() {
                 )}
             </Modal>
             <div className="explore">
-                {isExplore?.length === 0 && (
-                    <Row gutter={[8, 16]}>
-                        <Col span={24}>
-                            <SkeletonImage
-                                style={{
-                                    width: '300px',
-                                    height: '300px',
-                                    marginRight: '15px',
-                                }}
-                            />
-                            <SkeletonImage
-                                style={{
-                                    width: '300px',
-                                    height: '300px',
-                                    marginRight: '15px',
-                                }}
-                            />
-                            <SkeletonImage
-                                style={{
-                                    width: '300px',
-                                    height: '300px',
-                                    marginRight: '15px',
-                                }}
-                            />
-                        </Col>
-                        <Col span={24}>
-                            <SkeletonImage
-                                style={{
-                                    width: '300px',
-                                    height: '300px',
-                                    marginRight: '15px',
-                                }}
-                            />
-                            <SkeletonImage
-                                style={{
-                                    width: '300px',
-                                    height: '300px',
-                                    marginRight: '15px',
-                                }}
-                            />
-                            <SkeletonImage
-                                style={{
-                                    width: '300px',
-                                    height: '300px',
-                                    marginRight: '15px',
-                                }}
-                            />
-                        </Col>
-                        <Col span={24}>
-                            <SkeletonImage
-                                style={{
-                                    width: '300px',
-                                    height: '300px',
-                                    marginRight: '15px',
-                                }}
-                            />
-                            <SkeletonImage
-                                style={{
-                                    width: '300px',
-                                    height: '300px',
-                                    marginRight: '15px',
-                                }}
-                            />
-                            <SkeletonImage
-                                style={{
-                                    width: '300px',
-                                    height: '300px',
-                                    marginRight: '15px',
-                                }}
-                            />
-                        </Col>
-                    </Row>
-                )}
+                {isExplore?.length === 0 && <ExploreViewsSkeleton />}
                 {isExplore?.posts?.map((item) => (
                     <div key={item.id} className="explore-img">
                         <img
