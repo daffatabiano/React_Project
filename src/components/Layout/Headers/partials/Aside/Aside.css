@@ -129,6 +129,7 @@
     }
 
     .aside ul li:first-child.active,
+    .aside ul li:first-child.active a,
     .aside ul li:first-child a:hover {
         border-top-left-radius: 15px;
         border-bottom-left-radius: 0px;
@@ -137,6 +138,7 @@
         transform: translateX(0px);
     }
 
+    .aside ul li:last-child.active,
     .aside ul li:last-child.active a,
     .aside ul li:last-child a:hover {
         border-top-left-radius: 0px;

@@ -34,7 +34,6 @@ export default function ProfileCardUser(prop) {
         });
     };
 
-    console.log(prop[0]);
     return (
         <div>
             {contextHolder}
@@ -77,6 +76,55 @@ export default function ProfileCardUser(prop) {
                             </p>
                         </div>
                     ) : (
+                        prop?.users?.map((item) => (
+                            <div key={item?.id}>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        width: '100%',
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            gap: '15px',
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <img
+                                            style={{
+                                                width: 50,
+                                                height: 50,
+                                                objectFit: 'cover',
+                                                borderRadius: '50%',
+                                                objectPosition: 'center',
+                                            }}
+                                            src={item?.profilePictureUrl}
+                                            alt=""
+                                        />
+                                        <p
+                                            style={{
+                                                margin: 0,
+                                                fontWeight: 'bold',
+                                                color: 'black',
+                                            }}
+                                        >
+                                            {item?.username}
+                                        </p>
+                                    </div>
+                                    <button
+                                        style={{
+                                            color: 'white',
+                                            borderRadius: '10px',
+                                        }}
+                                    >
+                                        visit
+                                    </button>
+                                </div>
+                                <Divider />
+                            </div>
+                        )) ||
                         prop?.isFollowers?.users?.map((item) => (
                             <div key={item?.id}>
                                 <div
@@ -151,7 +199,7 @@ export default function ProfileCardUser(prop) {
                         color: '#0101010',
                     }}
                 >
-                    {prop[0].totalItems === 0 ? (
+                    {prop[0]?.totalItems === 0 ? (
                         <div
                             style={{
                                 display: 'flex',
@@ -268,7 +316,7 @@ export default function ProfileCardUser(prop) {
                     </div>
                     <div className="info-content">
                         <p>
-                            <span>{prop?.totalPost || 0}</span> Post
+                            <span>{prop?.posts?.length || 0}</span> Post
                         </p>
                         <p
                             onClick={() =>

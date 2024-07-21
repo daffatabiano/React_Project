@@ -39,3 +39,9 @@
 .explore .explore-layout:hover {
     opacity: 1;
 }
+
+@media (max-width: 768px) {
+    .explore {
+        padding: 0 2% 0 2%;
+    }
+}

@@ -56,12 +56,27 @@ const useGetPost = () => {
         }
     };
 
+    const getPostsByPerson = async (id) => {
+        try {
+            const res = await axios.get(
+                `${BASE_URL}/users-post/${id}?size=999&page=1`,
+                {
+                    headers: Headers,
+                }
+            );
+            return res;
+        } catch (err) {
+            return err;
+        }
+    };
+
     return {
         getExplore,
         getDetailPosts,
         getMyFollowingPosts,
         getMyFollowing,
         getMyFollowers,
+        getPostsByPerson,
     };
 };
 

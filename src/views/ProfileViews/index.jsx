@@ -18,13 +18,14 @@ export default function ProfileViews() {
     const navigate = useNavigate();
     const [isData, setIsData] = useState([]);
     const { md } = useBreakpoint();
-    const { getMyFollowing, getMyFollowers } = useGetPost();
+    const { getMyFollowing, getMyFollowers, getPostsByPerson } = useGetPost();
     const { unfollowPost } = usePost();
     const [isFollowing, setIsFollowing] = useState([]);
     const [isFollowers, setIsFollowers] = useState([]);
     const { getLogUser } = useAccount();
     const { authLogout } = useAuth();
     const token = localStorage.getItem('token');
+    const [isMyPosts, setIsMyPosts] = useState([]);
 
     const getLogUserData = async () => {
         const res = await getLogUser('user');
@@ -40,7 +41,9 @@ export default function ProfileViews() {
             setIsFollowing(res?.data?.data);
         }
     };
-    console.log(isFollowing);
+
+    console.log(isFollowing, 'isFollowing');
+
     const handleGetFollowers = async () => {
         const res = await getMyFollowers('size=9999&page=1');
         setIsFollowers(res?.data?.data);
@@ -74,6 +77,15 @@ export default function ProfileViews() {
         handleGetFollowers();
     }, []);
 
+    const getPostsProfile = async () => {
+        const res = await getPostsByPerson(isData?.id);
+        setIsMyPosts(res?.data?.data);
+    };
+
+    useEffect(() => {
+        getPostsProfile();
+    }, [isData?.id]);
+
     return (
         <div className="profile">
             {contextHolder}
@@ -83,13 +95,12 @@ export default function ProfileViews() {
                 isShowModalFollowing={isShowModalFollowing}
                 setIsShowModalFollowing={setIsShowModalFollowing}
                 handleUnfollow={handleUnfollow}
-                itemsDropDown
+                {...isFollowing}
                 {...isData}
-                {...[isFollowing]}
-                {...isFollowers}
+                {...isMyPosts}
             />
             <div className="profile-posting">
-                <PostDetailCard />
+                <PostDetailCard {...isMyPosts} />
             </div>
         </div>
     );
