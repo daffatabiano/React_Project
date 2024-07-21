@@ -9,6 +9,7 @@ import ProtectRouted from './ProtectedRouted';
 import Explore from '../page/Explore';
 import Post from '../page/post';
 import Friends from '../page/friends';
+import Notifications from '../page/notifications';
 
 export const routeList = [
     {
@@ -61,6 +62,14 @@ export const routeList = [
         element: (
             <ProtectRouted>
                 <Friends />
+            </ProtectRouted>
+        ),
+    },
+    {
+        path: '/notifications',
+        element: (
+            <ProtectRouted>
+                <Notifications />
             </ProtectRouted>
         ),
     },
