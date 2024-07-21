@@ -34,8 +34,6 @@ export default function ProfileCardUser(prop) {
         });
     };
 
-    console.log(prop);
-
     return (
         <div>
             {contextHolder}

@@ -1,8 +1,4 @@
-import {
-    DeleteOutlined,
-    EditOutlined,
-    EllipsisOutlined,
-} from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { SUB_IMAGE, SUB_POST_IMAGE } from '../../../../hooks/service/services';
 import './ModalComment.css';
 import usePost from '../../../../hooks/post/usePost';

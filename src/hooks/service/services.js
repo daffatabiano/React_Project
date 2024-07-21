@@ -8,3 +8,5 @@ export const SUB_EMPTY_DATA =
     'https://cdni.iconscout.com/illustration/premium/thumb/search-not-found-8291000-6632131.png';
 export const SUB_POST_IMAGE_DARK =
     'https://linda-hoang.com/wp-content/uploads/2014/10/img-placeholder-dark.jpg';
+export const IMAGE_UNDER_CONSTRUCTION =
+    'https://media.dev.to/cdn-cgi/image/fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fi%2Fdqp671yvrtnnt7zmzn3z.png';

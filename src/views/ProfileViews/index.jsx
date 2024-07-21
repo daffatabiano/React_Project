@@ -7,7 +7,6 @@ import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import useGetPost from '../../hooks/post/useGet';
 import usePost from '../../hooks/post/usePost';
 import useAccount from '../../hooks/user/useAccount';
-import useAuth from '../../hooks/auth/useAuth';
 import { Modal, notification } from 'antd';
 import { SendOutlined } from '@ant-design/icons';
 import { clearIsShow } from '../../redux/slice/postSlice';
@@ -27,8 +26,6 @@ export default function ProfileViews() {
     const [isFollowing, setIsFollowing] = useState([]);
     const [isFollowers, setIsFollowers] = useState([]);
     const { getLogUser } = useAccount();
-    const { authLogout } = useAuth();
-    const token = localStorage.getItem('token');
     const [isMyPosts, setIsMyPosts] = useState([]);
     const [isDetailPost, setIsDetailPost] = useState([]);
 
@@ -56,22 +53,6 @@ export default function ProfileViews() {
         const res = await unfollowPost(id);
         if (res?.status === 200) {
             handleGetFollowing();
-        }
-    };
-
-    const handleLogout = async () => {
-        const res = await authLogout(token);
-        if (res?.status === 200) {
-            api['success'] = {
-                message: 'Logout success',
-                description: res?.data?.message,
-            };
-            navigate('/login');
-        } else {
-            api['error'] = {
-                message: 'Logout Failed',
-                description: res?.response?.data?.message,
-            };
         }
     };
 

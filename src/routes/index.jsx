@@ -11,6 +11,7 @@ import Post from '../page/post';
 import Friends from '../page/friends';
 import Notifications from '../page/notifications';
 import EditPost from '../page/post/[id]';
+import UnderConstructions from '../components/Fragments/Empty';
 
 export const routeList = [
     {
@@ -102,6 +103,14 @@ export const routeList = [
         element: (
             <ProtectRouted>
                 <Explore />
+            </ProtectRouted>
+        ),
+    },
+    {
+        path: '/messages',
+        element: (
+            <ProtectRouted>
+                <UnderConstructions />
             </ProtectRouted>
         ),
     },
