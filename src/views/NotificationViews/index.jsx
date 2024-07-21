@@ -32,13 +32,20 @@ export default function NotificationsViews() {
 
     return (
         <div className="notif">
-            <List>
+            <List
+                style={{
+                    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                    padding: '25px 10px',
+                    borderRadius: '20px',
+                }}
+            >
                 <VirtualList
                     data={data}
                     height={600}
                     itemHeight={47}
                     itemKey="email"
                     onScroll={onScroll}
+                    styles={{ border: '11px solid #f0f0f0' }}
                 >
                     {(item) => (
                         <List.Item style={{ color: 'white' }} key={item.email}>
@@ -59,7 +66,40 @@ export default function NotificationsViews() {
                                 }
                                 style={{ color: 'white' }}
                             />
-                            <div>Content</div>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    gap: '10px',
+                                    flexDirection: 'column',
+                                }}
+                            >
+                                <button
+                                    style={{
+                                        borderRadius: '20px',
+                                        padding: '10px 20px',
+                                    }}
+                                >
+                                    Mark as read
+                                </button>
+                                <button
+                                    style={{
+                                        borderRadius: '20px',
+                                        padding: '10px 20px',
+                                        color: 'red',
+                                    }}
+                                >
+                                    Delete
+                                </button>
+                                <button
+                                    style={{
+                                        borderRadius: '20px',
+                                        padding: '10px 20px',
+                                        color: '#1890ff',
+                                    }}
+                                >
+                                    Views
+                                </button>
+                            </div>
                         </List.Item>
                     )}
                 </VirtualList>
