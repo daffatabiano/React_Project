@@ -41,15 +41,23 @@ export default function NotificationsViews() {
                     onScroll={onScroll}
                 >
                     {(item) => (
-                        <List.Item key={item.email}>
+                        <List.Item style={{ color: 'white' }} key={item.email}>
                             <List.Item.Meta
                                 avatar={<Avatar src={item.picture.large} />}
                                 title={
-                                    <a href="https://ant.design">
+                                    <a
+                                        style={{ color: 'white' }}
+                                        href="https://ant.design"
+                                    >
                                         {item.name.last}
                                     </a>
                                 }
-                                description={item.email}
+                                description={
+                                    <p style={{ color: 'white' }}>
+                                        {item.email}
+                                    </p>
+                                }
+                                style={{ color: 'white' }}
                             />
                             <div>Content</div>
                         </List.Item>
