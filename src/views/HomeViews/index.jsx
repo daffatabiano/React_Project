@@ -263,7 +263,7 @@ export default function HomeViews() {
                         borderTopRightRadius: '20px',
                         padding: '0px',
                     }}
-                    height={'100vh'}
+                    height={'85vh'}
                     extra={
                         <Button
                             type="secondary"
@@ -308,17 +308,17 @@ export default function HomeViews() {
                         </div>
                     ))}
                 {istotalFollowing !== 0 && <StoryUpdated {...[isPosts]} />}
-                {isPosts?.length === 0 || isLoading ? (
-                    <SkeletonHomeViews />
-                ) : (
-                    isPosts?.map((item) => (
-                        <Postcard key={item?.id} {...item} />
-                    ))
-                )}
                 {isMyPost?.length === 0 || isLoading ? (
                     <SkeletonHomeViews />
                 ) : (
                     isMyPost?.posts?.map((item) => (
+                        <Postcard key={item?.id} {...item} />
+                    ))
+                )}
+                {isPosts?.length === 0 || isLoading ? (
+                    <SkeletonHomeViews />
+                ) : (
+                    isPosts?.map((item) => (
                         <Postcard key={item?.id} {...item} />
                     ))
                 )}

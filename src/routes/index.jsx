@@ -10,6 +10,7 @@ import Explore from '../page/Explore';
 import Post from '../page/post';
 import Friends from '../page/friends';
 import Notifications from '../page/notifications';
+import EditPost from '../page/post/[id]';
 
 export const routeList = [
     {
@@ -56,6 +57,16 @@ export const routeList = [
                 <Post />
             </ProtectRouted>
         ),
+        children: [
+            {
+                path: '/post/:id',
+                element: (
+                    <ProtectRouted>
+                        <EditPost />
+                    </ProtectRouted>
+                ),
+            },
+        ],
     },
     {
         path: '/friends',

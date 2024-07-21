@@ -1,22 +1,47 @@
-import { DeleteOutlined } from '@ant-design/icons';
+import {
+    DeleteOutlined,
+    EditOutlined,
+    EllipsisOutlined,
+} from '@ant-design/icons';
 import { SUB_IMAGE, SUB_POST_IMAGE } from '../../../../hooks/service/services';
 import './ModalComment.css';
-import { useSelector } from 'react-redux';
 import usePost from '../../../../hooks/post/usePost';
-import { Button, Popconfirm } from 'antd';
+import { Button, Dropdown, Popconfirm } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import useAccount from '../../../../hooks/user/useAccount';
+import { useEffect, useState } from 'react';
 
 export default function ModalComment(prop) {
-    const { commentDelete } = usePost();
+    const { commentDelete, deletePost } = usePost();
+    const { getLogUser } = useAccount();
+    const [isMyData, setIsMyData] = useState([]);
+
+    const getLogUserData = async () => {
+        const res = await getLogUser('user');
+        setIsMyData(res?.data?.data);
+    };
+
+    useEffect(() => {
+        getLogUserData();
+    }, []);
 
     const navigate = useNavigate();
 
-    const idUserCommented = useSelector(
-        (state) => state?.inventory?.user[0]?.id
-    );
-
     const handleConfirmDeleted = async (id) => {
         const res = await commentDelete(id);
+        if (res?.status === 200) {
+            prop.api['success']({
+                message: 'Success',
+                description: res?.data?.message,
+            });
+            setTimeout(() => {
+                navigate('/');
+            }, 1000);
+        }
+    };
+
+    const handleDeletePost = async () => {
+        const res = await deletePost(prop?.id);
         if (res?.status === 200) {
             prop.api['success']({
                 message: 'Success',
@@ -43,27 +68,84 @@ export default function ModalComment(prop) {
             </div>
             <div className="modal-content">
                 <div className="content">
-                    <div
-                        className="uploaded"
-                        onClick={() =>
-                            navigate(`/personal-profile/${prop?.userId}`)
-                        }
-                    >
-                        <img
-                            src={
-                                prop?.user?.profilePictureUrl?.length < 20 ||
-                                prop?.user?.profilePictureUrl === undefined
-                                    ? SUB_IMAGE
-                                    : prop?.user?.profilePictureUrl
+                    <div className="uploaded">
+                        <div
+                            className="identity"
+                            onClick={() =>
+                                navigate(`/personal-profile/${prop?.userId}`)
                             }
-                            alt={`profile of ${
-                                prop?.user?.username || 'unknown'
-                            }`}
-                        />
-                        <p>
-                            <span>{prop?.user?.username || 'unknown'}</span>
-                            {prop.caption}
-                        </p>
+                        >
+                            <img
+                                src={
+                                    prop?.user?.profilePictureUrl?.length <
+                                        20 ||
+                                    prop?.user?.profilePictureUrl === undefined
+                                        ? SUB_IMAGE
+                                        : prop?.user?.profilePictureUrl
+                                }
+                                alt={`profile of ${
+                                    prop?.user?.username || 'unknown'
+                                }`}
+                            />
+                            <p>
+                                <span>{prop?.user?.username || 'unknown'}</span>
+                                {prop.caption}
+                            </p>
+                        </div>
+                        <div className="action">
+                            <Dropdown
+                                trigger={['hover']}
+                                placement="bottom"
+                                menu={{
+                                    items: [
+                                        {
+                                            key: '1',
+                                            label: (
+                                                <button
+                                                    style={{
+                                                        width: '100%',
+                                                        backgroundColor:
+                                                            'transparent',
+                                                        color: '#007bff',
+                                                        textAlign: 'left',
+                                                    }}
+                                                    type="button"
+                                                    onClick={() => {
+                                                        navigate(
+                                                            `/post/${prop?.id}`
+                                                        );
+                                                    }}
+                                                >
+                                                    <EditOutlined /> Edit
+                                                </button>
+                                            ),
+                                        },
+                                        {
+                                            key: '2',
+                                            label: (
+                                                <button
+                                                    style={{
+                                                        width: '100%',
+                                                        backgroundColor:
+                                                            'transparent',
+                                                        color: 'red',
+                                                        textAlign: 'left',
+                                                    }}
+                                                    onClick={handleDeletePost}
+                                                >
+                                                    <DeleteOutlined /> Delete
+                                                </button>
+                                            ),
+                                        },
+                                    ],
+                                }}
+                                arrow={{ pointAtCenter: true }}
+                            >
+                                <button type="button">
+                                    <i className="bi bi-three-dots" />
+                                </button>
+                            </Dropdown>
+                        </div>
                     </div>
                     <hr />
                     <div className="comments">
@@ -100,7 +182,7 @@ export default function ModalComment(prop) {
                                         </>
                                     )}
                                 </div>
-                                {item?.user?.id === idUserCommented ? (
+                                {item?.user?.id === isMyData?.id ? (
                                     <Popconfirm
                                         title="Delete the task"
                                         description="Are you sure to delete this task?"

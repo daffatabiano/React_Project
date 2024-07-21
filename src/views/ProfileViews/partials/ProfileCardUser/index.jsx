@@ -34,6 +34,8 @@ export default function ProfileCardUser(prop) {
         });
     };
 
+    console.log(prop);
+
     return (
         <div>
             {contextHolder}
@@ -185,21 +187,21 @@ export default function ProfileCardUser(prop) {
                     onOk={() => prop?.setIsShowModalFollowing(false)}
                     onCancel={() => prop?.setIsShowModalFollowing(false)}
                     onClose={() => prop?.setIsShowModalFollowing(false)}
-                    width={650}
+                    width={500}
                     footer={null}
                     style={{
-                        maxHeight: '80vh',
+                        height: '80vh',
                     }}
                     bodyStyle={{
-                        maxHeight: '80vh',
-                        minHeight: '80vh',
+                        maxHeight: '65vh',
+                        minHeight: '60vh',
                         overflow: 'auto',
                         padding: '10px',
                         backgroundColor: 'transparent',
                         color: '#0101010',
                     }}
                 >
-                    {prop[0]?.totalItems === 0 ? (
+                    {prop?.users?.totalItems === 0 ? (
                         <div
                             style={{
                                 display: 'flex',
@@ -218,7 +220,7 @@ export default function ProfileCardUser(prop) {
                             </p>
                         </div>
                     ) : (
-                        prop[0]?.users?.map((item) => (
+                        prop?.users?.map((item) => (
                             <div key={item?.id}>
                                 <div
                                     style={{
@@ -261,7 +263,8 @@ export default function ProfileCardUser(prop) {
                                             color: 'white',
                                             borderRadius: '10px',
                                         }}
-                                        onClick={prop?.handleUnfollow(item?.id)}
+                                        // type="button"
+                                        // onClick={prop?.handleUnfollow(item?.id)}
                                     >
                                         Unfollow
                                     </button>
