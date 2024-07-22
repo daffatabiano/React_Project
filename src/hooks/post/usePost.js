@@ -24,9 +24,9 @@ const usePost = () => {
         }
     };
 
-    const likePost = async (body) => {
+    const likePost = async (url, body) => {
         try {
-            const res = await axios.post(`${BASE_URL}/like`, body, {
+            const res = await axios.post(`${BASE_URL}/${url}`, body, {
                 headers: Headers,
             });
             return res;
@@ -34,18 +34,6 @@ const usePost = () => {
             return err;
         }
     };
-
-    const unlikePost = async (body) => {
-        try {
-            const res = await axios.post(`${BASE_URL}/unlike`, body, {
-                headers: Headers,
-            });
-            return res;
-        } catch (err) {
-            return err;
-        }
-    };
-
     const followPost = async (body) => {
         try {
             const res = await axios.post(`${BASE_URL}/follow`, body, {
@@ -109,7 +97,6 @@ const usePost = () => {
         commentPost,
         commentDelete,
         likePost,
-        unlikePost,
         followPost,
         unfollowPost,
         createPost,

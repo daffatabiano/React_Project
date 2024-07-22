@@ -170,7 +170,6 @@ export default function UserDetailViews(prop) {
             >
                 <ModalComment {...isDetailPost} />
             </Modal>
-            <Aside />
             <div className="user-content-profile">
                 <div>
                     <ProfileCard

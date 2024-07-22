@@ -148,10 +148,18 @@ export default function ExploreViews() {
                             onClick={() => dispatch(setIsShow(item?.id))}
                         >
                             <HeartOutlined
-                                style={{ cursor: 'pointer' }}
+                                style={{
+                                    cursor: 'pointer',
+                                    fontSize: md ? '30px' : '20px',
+                                }}
                                 onClick={() => alert('like')}
                             />
-                            <CommentOutlined style={{ cursor: 'pointer' }} />
+                            <CommentOutlined
+                                style={{
+                                    cursor: 'pointer',
+                                    fontSize: md ? '30px' : '20px',
+                                }}
+                            />
                         </div>
                     </div>
                 ))}

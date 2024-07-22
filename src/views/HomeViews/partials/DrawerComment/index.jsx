@@ -44,6 +44,8 @@ export default function DrawerComment(prop) {
         });
     };
 
+    console.log(prop, "PROPPPS");
+
     return (
         <div className="comments">
             {prop?.comments?.length === 0 && <h3>Be the first to comment.</h3>}

@@ -34,9 +34,11 @@ export default function NotificationsViews() {
         <div className="notif">
             <List
                 style={{
-                    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                    backgroundColor: 'rgba(250, 250, 250, 0.9)',
                     padding: '25px 10px',
                     borderRadius: '20px',
+                    boxShadow:
+                        '0 0 0 10px rgba(255, 255, 255, 0.09), 0 0 0 20px rgba(255, 255, 255, 0.08), 0 0 0 40px rgba(255, 255, 255, 0.05)',
                 }}
             >
                 <VirtualList
@@ -45,26 +47,25 @@ export default function NotificationsViews() {
                     itemHeight={47}
                     itemKey="email"
                     onScroll={onScroll}
-                    styles={{ border: '11px solid #f0f0f0' }}
                 >
                     {(item) => (
-                        <List.Item style={{ color: 'white' }} key={item.email}>
+                        <List.Item style={{ color: 'black' }} key={item.email}>
                             <List.Item.Meta
                                 avatar={<Avatar src={item.picture.large} />}
                                 title={
                                     <a
-                                        style={{ color: 'white' }}
+                                        style={{ color: 'black' }}
                                         href="https://ant.design"
                                     >
                                         {item.name.last}
                                     </a>
                                 }
                                 description={
-                                    <p style={{ color: 'white' }}>
+                                    <p style={{ color: 'black' }}>
                                         {item.email}
                                     </p>
                                 }
-                                style={{ color: 'white' }}
+                                style={{ color: 'black' }}
                             />
                             <div
                                 style={{

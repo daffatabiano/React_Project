@@ -1,22 +1,17 @@
-import { Avatar, Popover, Tooltip, Tour } from 'antd';
+import { Avatar, Dropdown, Tooltip, Tour } from 'antd';
 import './CardPosting.css';
 import {
     AntDesignOutlined,
+    EyeOutlined,
+    HomeOutlined,
     SendOutlined,
     UserOutlined,
 } from '@ant-design/icons';
-import {
-    BASE_URL,
-    SUB_IMAGE,
-    SUB_POST_IMAGE,
-} from '../../../hooks/service/services';
+import { SUB_IMAGE, SUB_POST_IMAGE } from '../../../hooks/service/services';
 import { useDispatch } from 'react-redux';
 import { setIsShow } from '../../../redux/slice/postSlice';
-import usePost from '../../../hooks/post/usePost';
 import { useRef, useState } from 'react';
-import usePostByUserId from '../../../hooks/post/usePostbyUserId';
-import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LikeProfile = () => {
     return (
@@ -56,30 +51,12 @@ export default function Postcard(prop) {
     } else if (diffDay) {
         result = Math.floor(diffDay) + ' day ago';
     } else if (diffDay * 24 > 24) {
-        result = Math.floor((diffDay * 24) / 24) + ' hour ago';
+        result = Math.floor(diffDay * 24) + ' hour ago';
     } else {
-        result = Math.floor((diffDay * 24 * 60) / 60) + ' minute ago';
+        result = Math.floor(diffDay * 24 * 60) + ' minute ago';
     }
 
     const dispatch = useDispatch();
-    const [isLike, seIsLike] = useState(false);
-    const { likePost } = usePost();
-    const { getPostByUserId } = usePostByUserId();
-    const [isLoading, setIsLoading] = useState(false);
-
-    const { md } = useBreakpoint();
-
-    // const handleLike = async (id) => {
-    //     const body = {
-    //         postId: id,
-    //     };
-    //     const res = await likePost(body);
-    //     if (res?.status === 200) {
-    //         seIsLike(!isLike);
-    //     }
-    //     console.log(res);
-    //     // dispatch(setIsLike({ isId: id, isLike: res?.data?.isLike }));
-    // };
     const [isOpen, setIsOpen] = useState(false);
     const ref1 = useRef(null);
     const steps = [
@@ -94,9 +71,7 @@ export default function Postcard(prop) {
                 >
                     <img
                         alt="tour.png"
-                        src={
-                            'https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0='
-                        }
+                        src={prop?.user?.profilePictureUrl || SUB_IMAGE}
                         style={{
                             width: '65px',
                             height: '65px',
@@ -113,7 +88,7 @@ export default function Postcard(prop) {
                             flexDirection: 'column',
                         }}
                     >
-                        {'JohnDoe'}
+                        {prop?.user?.username || 'unknown'}
                         <span
                             style={{
                                 fontSize: '10px',
@@ -121,7 +96,7 @@ export default function Postcard(prop) {
                                 fontWeight: '200',
                             }}
                         >
-                            {'@johndoe'}
+                            {prop?.user?.email || 'unknown'}
                         </span>
                     </p>
                 </div>
@@ -142,6 +117,7 @@ export default function Postcard(prop) {
             },
         },
     ];
+    const navigate = useNavigate();
 
     return (
         <div className="card-posting">
@@ -167,9 +143,64 @@ export default function Postcard(prop) {
                         <em>•{' ' + result}</em>
                     </p>
                 </div>
-                <div className="head-action">
-                    <i className="bi bi-three-dots"></i>
-                </div>
+                <Dropdown
+                    trigger={['click']}
+                    placement="bottom"
+                    menu={{
+                        items: [
+                            {
+                                key: '1',
+                                label: (
+                                    <button
+                                        style={{
+                                            width: '100%',
+                                            backgroundColor: 'transparent',
+                                            color: '#1677ff',
+                                        }}
+                                        onClick={() =>
+                                            navigate(
+                                                `/personal-profile/${prop?.user?.id}`
+                                            )
+                                        }
+                                    >
+                                        <HomeOutlined /> Visit Profile
+                                    </button>
+                                ),
+                            },
+                            {
+                                key: '2',
+                                label: (
+                                    <button
+                                        style={{
+                                            width: '100%',
+                                            backgroundColor: 'transparent',
+                                            color: '#1677ff',
+                                        }}
+                                        onClick={() =>
+                                            dispatch(setIsShow(prop?.id))
+                                        }
+                                    >
+                                        <EyeOutlined /> View Detail
+                                    </button>
+                                ),
+                            },
+                        ],
+                    }}
+                    arrow={{ pointAtCenter: true }}
+                >
+                    <button
+                        style={{
+                            cursor: 'pointer',
+                            border: 'none',
+                            background: 'transparent',
+                        }}
+                    >
+                        <i
+                            className="bi bi-three-dots"
+                            style={{ fontSize: '20px', color: 'white' }}
+                        />
+                    </button>
+                </Dropdown>
             </div>
             <div className="body">
                 <img
@@ -185,10 +216,10 @@ export default function Postcard(prop) {
             <div className="foot">
                 <div className="action">
                     <div className="action-item">
-                        <button>
+                        <button onClick={prop?.onLike}>
                             <i
                                 className={`bi bi-${
-                                    isLike ? 'heart-fill' : 'heart'
+                                    prop?.isLike ? 'heart-fill' : 'heart'
                                 }`}
                             />
                         </button>

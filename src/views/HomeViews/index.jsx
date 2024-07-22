@@ -162,7 +162,6 @@ export default function HomeViews() {
     const getOwnMypost = async () => {
         const res = await getPostsByPerson(isData?.id);
         setIsMyPost(res?.data?.data);
-        console.log(res);
     };
 
     useEffect(() => {
@@ -171,6 +170,29 @@ export default function HomeViews() {
 
     const dispatch = useDispatch();
     const { md } = useBreakpoint();
+    const { likePost } = usePost();
+
+    console.log(isPosts, 'isPosts');
+
+    const handleLike = async (e) => {
+        console.log(e, 'event handle like dinner');
+        const res = await likePost(e?.isLike ? 'unlike' : 'like', {
+            postId: e.id,
+        });
+        if (res?.status === 200) {
+            getDataExplore();
+            getOwnMypost();
+            api['success']({
+                message: 'Success',
+                description: res?.data?.message,
+            });
+        } else {
+            api['error']({
+                message: 'Error',
+                description: res?.response?.data?.message,
+            });
+        }
+    };
     return (
         <>
             {contextHolder}
@@ -248,7 +270,12 @@ export default function HomeViews() {
                     {isLoading ? (
                         <Skeleton />
                     ) : (
-                        <ModalComment {...isDetailPost} api={api} />
+                        <ModalComment
+                            {...isDetailPost}
+                            api={api}
+                            {...isMyPost}
+                            {...isPosts}
+                        />
                     )}
                 </Modal>
             ) : (
@@ -273,7 +300,11 @@ export default function HomeViews() {
                         </Button>
                     }
                 >
-                    <DrawerComment {...isDetailPost} />
+                    <DrawerComment
+                        {...isDetailPost}
+                        {...isMyPost}
+                        {...isPosts}
+                    />
                 </Drawer>
             )}
             <div className="home">
@@ -312,14 +343,22 @@ export default function HomeViews() {
                     <SkeletonHomeViews />
                 ) : (
                     isMyPost?.posts?.map((item) => (
-                        <Postcard key={item?.id} {...item} />
+                        <Postcard
+                            key={item?.id}
+                            {...item}
+                            onLike={() => handleLike(item)}
+                        />
                     ))
                 )}
                 {isPosts?.length === 0 || isLoading ? (
                     <SkeletonHomeViews />
                 ) : (
                     isPosts?.map((item) => (
-                        <Postcard key={item?.id} {...item} />
+                        <Postcard
+                            key={item?.id}
+                            {...item}
+                            onLike={() => handleLike(item)}
+                        />
                     ))
                 )}
             </div>
