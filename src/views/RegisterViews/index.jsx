@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 import './index.css';
 import useAuth from '../../hooks/auth/useAuth';
 import { notification } from 'antd';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearReg } from '../../redux/slice/registerSlice';
 
 export default function RegisterViews() {
     const navigate = useNavigate();
@@ -15,22 +16,19 @@ export default function RegisterViews() {
     const [passwordNotice, setPasswordNotice] = useState('');
     const pw = document.getElementById('password');
     const isImageUrl = useSelector((state) => state?.reg?.imageUrl);
-    const [isName, setIsName] = useState('');
-    const [isUsername, setIsUsername] = useState('');
-    const [isEmail, setIsEmail] = useState('');
-    const [IsPassword, setIsPassword] = useState('');
-    const [isPasswordRepeat, setIsPasswordRepeat] = useState('');
-    const [isPhoneNumber, setIsPhoneNumber] = useState('');
+    const isDataFirstSection = useSelector((state) => state?.reg?.reg[0]);
+    const dispatch = useDispatch();
+    console.log(isDataFirstSection, 'isDataFirstSection');
     const handleRegister = async (e) => {
         e.preventDefault();
 
         const payload = {
-            name: isName,
-            username: isUsername,
-            email: isEmail,
-            phoneNumber: isPhoneNumber,
-            password: IsPassword,
-            passwordRepeat: isPasswordRepeat,
+            name: isDataFirstSection?.name,
+            username: isDataFirstSection?.username,
+            email: isDataFirstSection?.email,
+            phoneNumber: isDataFirstSection?.phoneNumber,
+            password: isDataFirstSection?.password,
+            passwordRepeat: isDataFirstSection?.passwordRepeat,
             bio: e.target.bio.value,
             website: e.target.website.value,
             profilePictureUrl: isImageUrl,
@@ -52,39 +50,51 @@ export default function RegisterViews() {
             });
             setTimeout(() => {
                 navigate('/login');
+                dispatch(clearReg());
             }, 2000);
         } else {
             setIsLoading(false);
+            console.log(res?.response?.data?.errors[0]?.message, 'EERRRORRO');
             api['error']({
                 message: 'Register Failed',
-                description: res?.response?.data?.message,
+                description:
+                    res?.response?.data?.message ||
+                    res?.response?.data?.errors[0]?.message,
             });
         }
     };
 
     useEffect(() => {
-        pw?.addEventListener('input' || 'change', (e) => {
+        const handleInputChange = (e) => {
             if (e.target.value.length < 8) {
                 setPasswordNotice(
                     'Password must be at least 8 characters long'
                 );
-                return;
             } else if (!/[A-Z]/.test(e.target.value)) {
                 setPasswordNotice(
                     'Password must contain at least one uppercase letter'
                 );
-                return;
             } else if (!/[a-z]/.test(e.target.value)) {
                 setPasswordNotice(
                     'Password must contain at least one lowercase letter'
                 );
-                return;
             } else if (!/\d/.test(e.target.value)) {
                 setPasswordNotice('Password must contain at least one number');
-                return;
+            } else {
+                setPasswordNotice('');
             }
-        });
-    }, []);
+        };
+
+        if (pw) {
+            pw.addEventListener('input', handleInputChange);
+        }
+
+        return () => {
+            if (pw) {
+                pw.removeEventListener('input', handleInputChange);
+            }
+        };
+    }, [isDataFirstSection?.password]);
 
     return (
         <>
@@ -96,16 +106,6 @@ export default function RegisterViews() {
                         onSubmit={handleRegister}
                         passwordNotice={passwordNotice}
                         api={api}
-                        setIsName={(e) => setIsName(e.target.value)}
-                        setIsUsername={(e) => setIsUsername(e.target.value)}
-                        setIsPassword={(e) => setIsPassword(e.target.value)}
-                        setIsPasswordRepeat={(e) =>
-                            setIsPasswordRepeat(e.target.value)
-                        }
-                        setIsEmail={(e) => setIsEmail(e.target.value)}
-                        setIsPhoneNumber={(e) =>
-                            setIsPhoneNumber(e.target.value)
-                        }
                     />
                     <Otherside />
                 </div>

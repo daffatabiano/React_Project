@@ -6,8 +6,6 @@ import { Button, Dropdown, Popconfirm } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import useAccount from '../../../../hooks/user/useAccount';
 import { useEffect, useState } from 'react';
-import { clearIsShow, setIsShow } from '../../../../redux/slice/postSlice';
-import { useDispatch } from 'react-redux';
 
 export default function ModalComment(prop) {
     const { commentDelete, deletePost } = usePost();
@@ -35,6 +33,11 @@ export default function ModalComment(prop) {
             setTimeout(() => {
                 navigate('/');
             }, 1000);
+        } else {
+            prop.api['error']({
+                message: 'Failed',
+                description: res?.response?.data?.message,
+            });
         }
     };
 
@@ -48,9 +51,13 @@ export default function ModalComment(prop) {
             setTimeout(() => {
                 navigate('/');
             }, 1000);
+        } else {
+            prop.api['error']({
+                message: 'Failed',
+                description: res?.response?.data?.message,
+            });
         }
     };
-    const dispatch = useDispatch();
 
     return (
         <div className="modal-comment">
@@ -130,9 +137,7 @@ export default function ModalComment(prop) {
                                                         color: 'red',
                                                         textAlign: 'left',
                                                     }}
-                                                    onClick={() => {
-                                                        handleDeletePost;
-                                                    }}
+                                                    onClick={handleDeletePost}
                                                 >
                                                     <DeleteOutlined /> Delete
                                                 </button>

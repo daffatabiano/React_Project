@@ -1,9 +1,6 @@
 import { Collapse, Table } from 'antd';
 import './FriendsViews.css';
 import { CaretRightOutlined } from '@ant-design/icons';
-import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
-
-const text = `A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.`;
 
 const data = [];
 for (let i = 0; i < 100; i++) {
@@ -44,13 +41,7 @@ const getItems = (panelStyle) => [
                 scroll={{
                     y: 240,
                 }}
-                style={panelStyle}
-                pagination={{
-                    defaultPageSize: 5,
-                    showSizeChanger: true,
-                    pageSizeOptions: ['5', '10', '20', '50'],
-                    className: 'pagination',
-                }}
+                pagination={false}
             />
         ),
         style: panelStyle,
@@ -66,12 +57,7 @@ const getItems = (panelStyle) => [
                     y: 240,
                 }}
                 style={panelStyle}
-                pagination={{
-                    defaultPageSize: 5,
-                    showSizeChanger: true,
-                    pageSizeOptions: ['5', '10', '20', '50'],
-                    className: 'pagination',
-                }}
+                pagination={false}
             />
         ),
         style: panelStyle,
@@ -87,12 +73,7 @@ const getItems = (panelStyle) => [
                     y: 240,
                 }}
                 style={panelStyle}
-                pagination={{
-                    defaultPageSize: 5,
-                    showSizeChanger: true,
-                    pageSizeOptions: ['5', '10', '20', '50'],
-                    className: 'pagination',
-                }}
+                pagination={false}
             />
         ),
         style: panelStyle,

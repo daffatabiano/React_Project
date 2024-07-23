@@ -4,6 +4,7 @@ const registerSlice = createSlice({
     name: 'reg',
     initialState: {
         imageUrl: '',
+        reg: [],
     },
     reducers: {
         imageUrl: (state, action) => {
@@ -15,8 +16,19 @@ const registerSlice = createSlice({
         clearImageUrl: (state) => {
             state.imageUrl = '';
         },
+
+        reg: (state, action) => {
+            if (action.payload) {
+                state.reg.push(action.payload);
+            }
+            console.log(state);
+        },
+
+        clearReg: (state) => {
+            state.reg = [];
+        },
     },
 });
 
-export const { imageUrl, clearImageUrl } = registerSlice.actions;
+export const { imageUrl, clearImageUrl, reg, clearReg } = registerSlice.actions;
 export default registerSlice.reducer;

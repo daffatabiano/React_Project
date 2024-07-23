@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import PostDetailCard from '../UserDetailViews/partials/PostDetailCard';
 import ProfileCardUser from './partials/ProfileCardUser';
 import './ProfileViews.css';
-import { useNavigate } from 'react-router-dom';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import useGetPost from '../../hooks/post/useGet';
 import usePost from '../../hooks/post/usePost';
@@ -17,7 +16,6 @@ export default function ProfileViews() {
     const [api, contextHolder] = notification.useNotification();
     const [isShowModalFollowing, setIsShowModalFollowing] = useState(false);
     const [isShowModalFollowers, setIsShowModalFollowers] = useState(false);
-    const navigate = useNavigate();
     const [isData, setIsData] = useState([]);
     const { md } = useBreakpoint();
     const { getMyFollowing, getMyFollowers, getPostsByPerson, getDetailPosts } =
@@ -84,6 +82,49 @@ export default function ProfileViews() {
         getPostDetail();
     }, [isShowDetailPosts?.isId]);
 
+    const { commentPost } = usePost();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleComment = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        const comment = e.target;
+
+        const data = {
+            postId: isShowDetailPosts?.isId,
+            comment: comment?.comment?.value,
+        };
+
+        if (data?.comment) {
+            await commentPost(data).then((res) => {
+                if (res?.status === 200) {
+                    setIsLoading(false);
+                    api['success']({
+                        message: 'Success',
+                        description: res?.data?.message,
+                    });
+                    setTimeout(() => {
+                        getPostDetail();
+                        data.comment = '';
+                    }, 1000);
+                } else {
+                    setIsLoading(false);
+                    api['error']({
+                        message: 'Error',
+                        description: res?.response?.data?.message,
+                    });
+                }
+            });
+        } else {
+            setIsLoading(false);
+            api['error']({
+                message: 'Error',
+                description: 'Comment cannot be empty',
+            });
+        }
+    };
+
     return (
         <div className="profile">
             <Modal
@@ -125,6 +166,7 @@ export default function ProfileViews() {
                                         width: '100%',
                                         display: 'flex',
                                     }}
+                                    onSubmit={handleComment}
                                 >
                                     <input
                                         type="text"
@@ -140,10 +182,12 @@ export default function ProfileViews() {
                                             outline: 'none',
                                         }}
                                         name="comment"
+                                        disabled={isLoading}
                                     />
                                     <button
                                         style={{ width: '10%' }}
                                         type="submit"
+                                        disabled={isLoading}
                                     >
                                         <SendOutlined />
                                     </button>
@@ -154,7 +198,7 @@ export default function ProfileViews() {
                 ]}
                 centered
             >
-                <ModalComment {...isDetailPost} />
+                <ModalComment {...isDetailPost} api={api} />
             </Modal>
             {contextHolder}
             <ProfileCardUser
@@ -162,8 +206,9 @@ export default function ProfileViews() {
                 setIsShowModalFollowers={setIsShowModalFollowers}
                 isShowModalFollowing={isShowModalFollowing}
                 setIsShowModalFollowing={setIsShowModalFollowing}
-                handleUnfollow={handleUnfollow}
-                {...isFollowing}
+                handleUnfollow={console.log('handleUnfollow')}
+                {...[isFollowing?.users]}
+                {...isFollowers}
                 {...isData}
                 {...isMyPosts}
             />

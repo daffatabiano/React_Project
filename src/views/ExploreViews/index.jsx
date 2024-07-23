@@ -13,6 +13,7 @@ import ModalComment from '../HomeViews/partials/ModalComment';
 import { Modal, notification, Skeleton } from 'antd';
 import { SUB_POST_IMAGE } from '../../hooks/service/services';
 import ExploreViewsSkeleton from './ExploreViewsSkeleton';
+import usePost from '../../hooks/post/usePost';
 
 export default function ExploreViews() {
     const { md } = useBreakpoint();
@@ -47,6 +48,48 @@ export default function ExploreViews() {
     useEffect(() => {
         getPostsDetail();
     }, [isShowDetail?.isId]);
+
+    const { commentPost } = usePost();
+
+    const handleComment = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        const comment = e.target;
+
+        const data = {
+            postId: isShowDetail?.isId,
+            comment: comment?.comment?.value,
+        };
+
+        if (data?.comment) {
+            await commentPost(data).then((res) => {
+                if (res?.status === 200) {
+                    setIsLoading(false);
+                    api['success']({
+                        message: 'Success',
+                        description: res?.data?.message,
+                    });
+                    setTimeout(() => {
+                        getPostsDetail();
+                        data.comment = '';
+                    }, 1000);
+                } else {
+                    setIsLoading(false);
+                    api['error']({
+                        message: 'Error',
+                        description: res?.response?.data?.message,
+                    });
+                }
+            });
+        } else {
+            setIsLoading(false);
+            api['error']({
+                message: 'Error',
+                description: 'Comment cannot be empty',
+            });
+        }
+    };
 
     return (
         <>
@@ -88,7 +131,7 @@ export default function ExploreViews() {
                                         width: '100%',
                                         display: 'flex',
                                     }}
-                                    // onSubmit={handleComment}
+                                    onSubmit={handleComment}
                                 >
                                     <input
                                         type="text"

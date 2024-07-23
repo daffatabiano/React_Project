@@ -97,6 +97,49 @@ export default function UserDetailViews(prop) {
         getLogUserId();
     }, [prop?.isId]);
 
+    const [isLoading, setIsLoading] = useState(false);
+    const { commentPost } = usePost();
+
+    const handleComment = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        const comment = e.target;
+
+        const data = {
+            postId: isShowDetailPosts?.isId,
+            comment: comment?.comment?.value,
+        };
+
+        if (data?.comment) {
+            await commentPost(data).then((res) => {
+                if (res?.status === 200) {
+                    setIsLoading(false);
+                    api['success']({
+                        message: 'Success',
+                        description: res?.data?.message,
+                    });
+                    setTimeout(() => {
+                        getPostDetail();
+                        data.comment = '';
+                    }, 1000);
+                } else {
+                    setIsLoading(false);
+                    api['error']({
+                        message: 'Error',
+                        description: res?.response?.data?.message,
+                    });
+                }
+            });
+        } else {
+            setIsLoading(false);
+            api['error']({
+                message: 'Error',
+                description: 'Comment cannot be empty',
+            });
+        }
+    };
+
     return (
         <>
             {contextHolder}
@@ -139,6 +182,7 @@ export default function UserDetailViews(prop) {
                                         width: '100%',
                                         display: 'flex',
                                     }}
+                                    onSubmit={handleComment}
                                 >
                                     <input
                                         type="text"
@@ -152,12 +196,22 @@ export default function UserDetailViews(prop) {
                                             borderTop: '1px solid #222222',
                                             borderRadius: '10px',
                                             outline: 'none',
+                                            cursor: isLoading
+                                                ? 'not-allowed'
+                                                : 'text',
                                         }}
                                         name="comment"
+                                        disabled={isLoading}
                                     />
                                     <button
-                                        style={{ width: '10%' }}
+                                        style={{
+                                            width: '10%',
+                                            cursor: isLoading
+                                                ? 'not-allowed'
+                                                : 'pointer',
+                                        }}
                                         type="submit"
+                                        disabled={isLoading}
                                     >
                                         <SendOutlined />
                                     </button>
@@ -168,7 +222,7 @@ export default function UserDetailViews(prop) {
                 ]}
                 centered
             >
-                <ModalComment {...isDetailPost} />
+                <ModalComment {...isDetailPost} api={api} />
             </Modal>
             <div className="user-content-profile">
                 <div>

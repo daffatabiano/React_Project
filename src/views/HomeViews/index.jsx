@@ -37,10 +37,12 @@ export default function HomeViews() {
     const navigate = useNavigate();
     const { getLogUser } = useAccount();
     const [istotalFollowing, setIstotalFollowing] = useState(0);
+    const [isProfileData, setIsProfileData] = useState([]);
 
     const getData = async () => {
         const res = await getLogUser('user');
         setIstotalFollowing(res?.data?.data?.totalFollowing);
+        setIsProfileData(res?.data?.data);
     };
 
     // GET TOTAL DATA UPDATED
@@ -172,8 +174,6 @@ export default function HomeViews() {
     const { md } = useBreakpoint();
     const { likePost } = usePost();
 
-    console.log(isPosts, 'isPosts');
-
     const handleLike = async (e) => {
         console.log(e, 'event handle like dinner');
         const res = await likePost(e?.isLike ? 'unlike' : 'like', {
@@ -270,12 +270,7 @@ export default function HomeViews() {
                     {isLoading ? (
                         <Skeleton />
                     ) : (
-                        <ModalComment
-                            {...isDetailPost}
-                            api={api}
-                            {...isMyPost}
-                            {...isPosts}
-                        />
+                        <ModalComment {...isDetailPost} api={api} />
                     )}
                 </Modal>
             ) : (
@@ -308,58 +303,56 @@ export default function HomeViews() {
                 </Drawer>
             )}
             <div className="home">
-                {istotalFollowing === 0 ||
-                    (isMyPost?.totalItems === 0 && (
-                        <div style={{}}>
-                            <Empty
-                                image={'/img/sapiens.svg' || SUB_EMPTY_DATA}
-                                imageStyle={{ height: 300 }}
-                                description={
-                                    <Typography.Text style={{ color: 'white' }}>
-                                        Connect with your friends and{' '}
-                                        <Link to="/explore">Explore more</Link>
-                                    </Typography.Text>
-                                }
-                                style={{
-                                    height: '80vh',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    gap: '10px',
-                                }}
+                {istotalFollowing === 0 && isMyPost?.totalItems === 0 && (
+                    <div style={{}}>
+                        <Empty
+                            image={'/img/sapiens.svg' || SUB_EMPTY_DATA}
+                            imageStyle={{ height: 300 }}
+                            description={
+                                <Typography.Text style={{ color: 'white' }}>
+                                    Connect with your friends and{' '}
+                                    <Link to="/explore">Explore more</Link>
+                                </Typography.Text>
+                            }
+                            style={{
+                                height: '80vh',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                gap: '10px',
+                            }}
+                        >
+                            <Button
+                                type="primary"
+                                onClick={() => navigate('/explore')}
                             >
-                                <Button
-                                    type="primary"
-                                    onClick={() => navigate('/explore')}
-                                >
-                                    Go to Explore
-                                </Button>
-                            </Empty>
-                        </div>
-                    ))}
-                {istotalFollowing !== 0 && <StoryUpdated {...[isPosts]} />}
-                {isMyPost?.length === 0 || isLoading ? (
-                    <SkeletonHomeViews />
-                ) : (
-                    isMyPost?.posts?.map((item) => (
-                        <Postcard
-                            key={item?.id}
-                            {...item}
-                            onLike={() => handleLike(item)}
-                        />
-                    ))
+                                Go to Explore
+                            </Button>
+                        </Empty>
+                    </div>
                 )}
-                {isPosts?.length === 0 || isLoading ? (
+                {istotalFollowing !== 0 && <StoryUpdated {...[isPosts]} />}
+                {(isMyPost?.length === 0 && isPosts?.length === 0) ||
+                isLoading ? (
                     <SkeletonHomeViews />
                 ) : (
-                    isPosts?.map((item) => (
-                        <Postcard
-                            key={item?.id}
-                            {...item}
-                            onLike={() => handleLike(item)}
-                        />
-                    ))
+                    <>
+                        {isMyPost?.posts?.map((item) => (
+                            <Postcard
+                                key={item?.id}
+                                {...item}
+                                onLike={() => handleLike(item)}
+                            />
+                        ))}
+                        {isPosts?.map((item) => (
+                            <Postcard
+                                key={item?.id}
+                                {...item}
+                                onLike={() => handleLike(item)}
+                            />
+                        ))}
+                    </>
                 )}
             </div>
             <FootSide {...isData} />

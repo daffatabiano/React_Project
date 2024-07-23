@@ -6,6 +6,7 @@ import { SUB_IMAGE } from '../../../hooks/service/services.js';
 export default function StoryUpdated(prop) {
     const storyProfile = prop;
     const { xxl, xl } = useBreakpoint();
+    console.log(prop, 'prop');
     return (
         <div className="slide-container">
             <Slider

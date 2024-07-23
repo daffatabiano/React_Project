@@ -13,6 +13,8 @@ export default function ProfileCardUser(prop) {
     const token = localStorage.getItem('token');
     const [api, contextHolder] = notification.useNotification();
 
+    console.log(prop);
+
     const handleLogout = async () => {
         await authLogout(token).then((res) => {
             if (res?.status === 200) {
@@ -34,30 +36,33 @@ export default function ProfileCardUser(prop) {
         });
     };
 
+    console.log(prop[0]);
+
     return (
         <div>
             {contextHolder}
             {md ? (
                 <Modal
+                    footer={null}
                     title="Followers"
                     centered
                     open={prop?.isShowModalFollowers}
                     onOk={() => prop?.setIsShowModalFollowers(false)}
                     onCancel={() => prop?.setIsShowModalFollowers(false)}
-                    width={650}
+                    width={500}
                     style={{
                         maxHeight: '80vh',
                     }}
                     bodyStyle={{
-                        maxHeight: '80vh',
-                        minHeight: '80vh',
+                        maxHeight: '65vh',
+                        minHeight: '60vh',
                         overflow: 'auto',
                         padding: '10px',
                         backgroundColor: 'transparent',
                         color: '#0101010',
                     }}
                 >
-                    {prop?.isFollowers?.totalItems === 0 ? (
+                    {prop[1]?.length === 0 ? (
                         <div
                             style={{
                                 display: 'flex',
@@ -76,56 +81,7 @@ export default function ProfileCardUser(prop) {
                             </p>
                         </div>
                     ) : (
-                        prop?.users?.map((item) => (
-                            <div key={item?.id}>
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        justifyContent: 'space-between',
-                                        width: '100%',
-                                    }}
-                                >
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            gap: '15px',
-                                            alignItems: 'center',
-                                        }}
-                                    >
-                                        <img
-                                            style={{
-                                                width: 50,
-                                                height: 50,
-                                                objectFit: 'cover',
-                                                borderRadius: '50%',
-                                                objectPosition: 'center',
-                                            }}
-                                            src={item?.profilePictureUrl}
-                                            alt=""
-                                        />
-                                        <p
-                                            style={{
-                                                margin: 0,
-                                                fontWeight: 'bold',
-                                                color: 'black',
-                                            }}
-                                        >
-                                            {item?.username}
-                                        </p>
-                                    </div>
-                                    <button
-                                        style={{
-                                            color: 'white',
-                                            borderRadius: '10px',
-                                        }}
-                                    >
-                                        visit
-                                    </button>
-                                </div>
-                                <Divider />
-                            </div>
-                        )) ||
-                        prop?.isFollowers?.users?.map((item) => (
+                        prop[1]?.map((item) => (
                             <div key={item?.id}>
                                 <div
                                     style={{
@@ -199,7 +155,7 @@ export default function ProfileCardUser(prop) {
                         color: '#0101010',
                     }}
                 >
-                    {prop?.users?.totalItems === 0 ? (
+                    {prop[0]?.length === 0 ? (
                         <div
                             style={{
                                 display: 'flex',
@@ -218,7 +174,7 @@ export default function ProfileCardUser(prop) {
                             </p>
                         </div>
                     ) : (
-                        prop?.users?.map((item) => (
+                        prop[0]?.map((item) => (
                             <div key={item?.id}>
                                 <div
                                     style={{
@@ -262,7 +218,9 @@ export default function ProfileCardUser(prop) {
                                             borderRadius: '10px',
                                         }}
                                         // type="button"
-                                        // onClick={prop?.handleUnfollow(item?.id)}
+                                        onClick={() =>
+                                            prop?.handleUnfollow(item?.id)
+                                        }
                                     >
                                         Unfollow
                                     </button>

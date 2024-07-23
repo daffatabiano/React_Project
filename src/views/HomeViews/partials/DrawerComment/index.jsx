@@ -44,7 +44,6 @@ export default function DrawerComment(prop) {
         });
     };
 
-    console.log(prop, "PROPPPS");
 
     return (
         <div className="comments">

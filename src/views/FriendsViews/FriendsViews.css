@@ -28,30 +28,28 @@
     box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.5);
 }
 
-.friends .contain .pagination.ant-pagination {
+.friends .contain .ant-pagination {
     display: flex;
-    align-items: center;
     gap: 10px;
-    text-align: center;
 }
 
-.friends .contain .pagination.ant-pagination .ant-pagination-item {
+.friends .contain .ant-pagination .ant-pagination-item {
     color: white;
 }
 
-.friends .contain .pagination.ant-pagination .ant-pagination-item i {
+.friends .contain .ant-pagination .ant-pagination-item i {
     color: white;
 }
 
-.friends .contain .pagination.ant-pagination .ant-pagination-item-active {
+.friends .contain .ant-pagination .ant-pagination-item-active {
     margin-left: 5px;
     background-color: transparent;
     color: white;
     border: 1px solid rgb(255, 255, 255, 0.5);
 }
 
-@media (max-width : 768px) {
-    .friends{
-            padding: 2% 0 8% 0;
+@media (max-width: 768px) {
+    .friends {
+        padding: 2% 0 8% 0;
     }
 }
