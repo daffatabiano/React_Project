@@ -162,7 +162,10 @@ export default function ExploreViews() {
                 onCancel={() => dispatch(clearIsShow())}
                 width={md && 1000}
                 centered
-                bodyStyle={{ maxHeight: '70vh' }}
+                bodyStyle={{
+                    maxHeight: '70vh',
+                    overflow: 'hidden',
+                }}
             >
                 {isLoading ? (
                     <Skeleton />
