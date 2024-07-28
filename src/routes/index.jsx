@@ -2,7 +2,6 @@ import PostDetailPerson from '../page/detail-post/[id]';
 import EditProfile from '../page/EditProfile';
 import Home from '../page/Home';
 import Login from '../page/Login';
-import Profile from '../page/Profile';
 import UserDetail from '../page/personal-profile/[id]';
 import Register from '../page/Register';
 import ProtectRouted from './ProtectedRouted';
@@ -12,6 +11,8 @@ import Friends from '../page/friends';
 import Notifications from '../page/notifications';
 import EditPost from '../page/post/[id]';
 import UnderConstructions from '../components/Fragments/Empty';
+import Following from '../page/profile/following';
+import Profile from '../page/profile';
 
 export const routeList = [
     {
@@ -40,6 +41,14 @@ export const routeList = [
         element: (
             <ProtectRouted>
                 <Profile />
+            </ProtectRouted>
+        ),
+    },
+    {
+        path: '/profile/following',
+        element: (
+            <ProtectRouted>
+                <Following />
             </ProtectRouted>
         ),
     },
