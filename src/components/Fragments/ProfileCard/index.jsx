@@ -1,10 +1,9 @@
 import { EllipsisOutlined, UserAddOutlined } from '@ant-design/icons';
-import { Button, Divider, message, Modal, notification } from 'antd';
-import { Link, useParams } from 'react-router-dom';
+import { Button, Divider, Modal } from 'antd';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { SUB_IMAGE } from '../../../hooks/service/services';
 import { useEffect, useState } from 'react';
 import useGetPost from '../../../hooks/post/useGet';
-import usePost from '../../../hooks/post/usePost';
 
 export default function ProfileCard(prop) {
     const { getFollowing, getFollowers } = useGetPost();
@@ -13,8 +12,7 @@ export default function ProfileCard(prop) {
     const [isFollowing, setIsFollowing] = useState([]);
     const [isShowModalFollowers, setIsShowModalFollowers] = useState(false);
     const [isShowModalFollowing, setIsShowModalFollowing] = useState(false);
-    const [api, contextHolder] = notification.useNotification();
-    const { unfollowPost } = usePost();
+    const navigate = useNavigate();
 
     const handleGetFollowing = async () => {
         const res = await getFollowing(params?.id);
@@ -38,32 +36,9 @@ export default function ProfileCard(prop) {
         handleGetFollowers();
     }, []);
 
-    const handleUnfollow = async () => {
-        try {
-            const res = await unfollowPost(params?.id);
-            console.log(res);
-            if (res?.status === 200) {
-                api['success']({
-                    message: 'Success',
-                    description: res?.data?.message,
-                });
-            } else {
-                api['error']({
-                    message: 'Error',
-                    description: res?.response?.data?.message,
-                });
-            }
-        } catch (err) {
-            api['error']({
-                message: 'Error',
-                description: err?.response?.data?.message,
-            });
-        }
-    };
-
     return (
         <>
-            {isShowModalFollowing.length !== 0 && (
+            {isShowModalFollowing && (
                 <Modal
                     title="Following"
                     centered
@@ -148,6 +123,14 @@ export default function ProfileCard(prop) {
                                             borderRadius: '10px',
                                         }}
                                         type="button"
+                                        onClick={() => {
+                                            navigate(
+                                                `/personal-profile/${item.id}`
+                                            );
+                                            setTimeout(() => {
+                                                setIsShowModalFollowing(false);
+                                            }, 500);
+                                        }}
                                     >
                                         Visit
                                     </button>
@@ -158,7 +141,7 @@ export default function ProfileCard(prop) {
                     )}
                 </Modal>
             )}
-            {isShowModalFollowers.length > 0 && (
+            {isShowModalFollowers && (
                 <Modal
                     title="Followers"
                     centered
@@ -199,7 +182,7 @@ export default function ProfileCard(prop) {
                             </p>
                         </div>
                     ) : (
-                        isFollowers?.map((item) => (
+                        isFollowers?.users?.map((item) => (
                             <div key={item?.id}>
                                 <div
                                     style={{
@@ -243,6 +226,14 @@ export default function ProfileCard(prop) {
                                             borderRadius: '10px',
                                         }}
                                         type="button"
+                                        onClick={() => {
+                                            navigate(
+                                                `/personal-profile/${item.id}`
+                                            );
+                                            setTimeout(() => {
+                                                setIsShowModalFollowers(false);
+                                            }, 500);
+                                        }}
                                     >
                                         Visit
                                     </button>
