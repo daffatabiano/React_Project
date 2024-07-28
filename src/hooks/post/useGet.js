@@ -55,6 +55,32 @@ const useGetPost = () => {
             return err;
         }
     };
+    const getFollowing = async (end) => {
+        try {
+            const res = await axios.get(
+                `${BASE_URL}/following/${end}?size=9999&page=1`,
+                {
+                    headers: Headers,
+                }
+            );
+            return res;
+        } catch (err) {
+            return err;
+        }
+    };
+    const getFollowers = async (end) => {
+        try {
+            const res = await axios.get(
+                `${BASE_URL}/followers/${end}?size=9999&page=1`,
+                {
+                    headers: Headers,
+                }
+            );
+            return res;
+        } catch (err) {
+            return err;
+        }
+    };
 
     const getPostsByPerson = async (id) => {
         try {
@@ -77,6 +103,8 @@ const useGetPost = () => {
         getMyFollowing,
         getMyFollowers,
         getPostsByPerson,
+        getFollowing,
+        getFollowers,
     };
 };
 

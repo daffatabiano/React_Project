@@ -224,6 +224,7 @@ export default function UserDetailViews(prop) {
             >
                 <ModalComment {...isDetailPost} api={api} />
             </Modal>
+
             <div className="user-content-profile">
                 <div>
                     <ProfileCard
@@ -232,7 +233,7 @@ export default function UserDetailViews(prop) {
                         onFollow={() =>
                             isTextButtonFollow === 'follow'
                                 ? handleFollow()
-                                : handleUnfollow
+                                : handleUnfollow()
                         }
                         buttonFollow={isTextButtonFollow}
                     />

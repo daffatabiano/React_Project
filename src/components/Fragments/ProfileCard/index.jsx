@@ -1,49 +1,312 @@
 import { EllipsisOutlined, UserAddOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Button, Divider, message, Modal, notification } from 'antd';
+import { Link, useParams } from 'react-router-dom';
+import { SUB_IMAGE } from '../../../hooks/service/services';
+import { useEffect, useState } from 'react';
+import useGetPost from '../../../hooks/post/useGet';
+import usePost from '../../../hooks/post/usePost';
 
 export default function ProfileCard(prop) {
+    const { getFollowing, getFollowers } = useGetPost();
+    const params = useParams();
+    const [isFollowers, setIsFollowers] = useState([]);
+    const [isFollowing, setIsFollowing] = useState([]);
+    const [isShowModalFollowers, setIsShowModalFollowers] = useState(false);
+    const [isShowModalFollowing, setIsShowModalFollowing] = useState(false);
+    const [api, contextHolder] = notification.useNotification();
+    const { unfollowPost } = usePost();
+
+    const handleGetFollowing = async () => {
+        const res = await getFollowing(params?.id);
+        setIsFollowing(res?.data?.data);
+        if (res?.status === 200) {
+            setIsShowModalFollowing(!isShowModalFollowing);
+        }
+    };
+    const handleGetFollowers = async () => {
+        const res = await getFollowers(params?.id);
+        setIsFollowers(res?.data?.data);
+        if (res?.status === 200) {
+            setIsShowModalFollowers(!isShowModalFollowers);
+        }
+    };
+
+    console.log(isFollowing, 'isFollowing');
+
+    useEffect(() => {
+        handleGetFollowing();
+        handleGetFollowers();
+    }, []);
+
+    const handleUnfollow = async () => {
+        try {
+            const res = await unfollowPost(params?.id);
+            console.log(res);
+            if (res?.status === 200) {
+                api['success']({
+                    message: 'Success',
+                    description: res?.data?.message,
+                });
+            } else {
+                api['error']({
+                    message: 'Error',
+                    description: res?.response?.data?.message,
+                });
+            }
+        } catch (err) {
+            api['error']({
+                message: 'Error',
+                description: err?.response?.data?.message,
+            });
+        }
+    };
+
     return (
-        <div className="profile-card">
-            <div className="card-img">
-                <img src={prop?.profilePictureUrl} alt="" />
+        <>
+            {isShowModalFollowing.length !== 0 && (
+                <Modal
+                    title="Following"
+                    centered
+                    open={isShowModalFollowing}
+                    onOk={() => setIsShowModalFollowing(false)}
+                    onCancel={() => setIsShowModalFollowing(false)}
+                    onClose={() => setIsShowModalFollowing(false)}
+                    width={500}
+                    footer={null}
+                    style={{
+                        height: '80vh',
+                    }}
+                    bodyStyle={{
+                        maxHeight: '65vh',
+                        minHeight: '60vh',
+                        overflow: 'auto',
+                        padding: '10px',
+                        backgroundColor: 'transparent',
+                        color: '#0101010',
+                    }}
+                >
+                    {isFollowing?.length === 0 ? (
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: '100%',
+                            }}
+                        >
+                            <p
+                                style={{
+                                    color: 'black',
+                                    fontWeight: 'bold',
+                                }}
+                            >
+                                No following
+                            </p>
+                        </div>
+                    ) : (
+                        isFollowing?.users?.map((item) => (
+                            <div key={item?.id}>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        width: '100%',
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            gap: '15px',
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <img
+                                            style={{
+                                                width: 50,
+                                                height: 50,
+                                                objectFit: 'cover',
+                                                borderRadius: '50%',
+                                                objectPosition: 'center',
+                                            }}
+                                            src={item?.profilePictureUrl}
+                                            alt=""
+                                        />
+                                        <p
+                                            style={{
+                                                margin: 0,
+                                                fontWeight: 'bold',
+                                                color: 'black',
+                                            }}
+                                        >
+                                            {item?.username}
+                                        </p>
+                                    </div>
+                                    <button
+                                        style={{
+                                            backgroundColor: '#1677ff',
+                                            color: 'white',
+                                            borderRadius: '10px',
+                                        }}
+                                        type="button"
+                                    >
+                                        Visit
+                                    </button>
+                                </div>
+                                <Divider />
+                            </div>
+                        ))
+                    )}
+                </Modal>
+            )}
+            {isShowModalFollowers.length > 0 && (
+                <Modal
+                    title="Followers"
+                    centered
+                    open={isShowModalFollowers}
+                    onOk={() => setIsShowModalFollowers(false)}
+                    onCancel={() => setIsShowModalFollowers(false)}
+                    onClose={() => setIsShowModalFollowers(false)}
+                    width={500}
+                    footer={null}
+                    style={{
+                        height: '80vh',
+                    }}
+                    bodyStyle={{
+                        maxHeight: '65vh',
+                        minHeight: '60vh',
+                        overflow: 'auto',
+                        padding: '10px',
+                        backgroundColor: 'transparent',
+                        color: '#0101010',
+                    }}
+                >
+                    {isFollowers?.length === 0 ? (
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: '100%',
+                            }}
+                        >
+                            <p
+                                style={{
+                                    color: 'black',
+                                    fontWeight: 'bold',
+                                }}
+                            >
+                                No followers
+                            </p>
+                        </div>
+                    ) : (
+                        isFollowers?.map((item) => (
+                            <div key={item?.id}>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        width: '100%',
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            gap: '15px',
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <img
+                                            style={{
+                                                width: 50,
+                                                height: 50,
+                                                objectFit: 'cover',
+                                                borderRadius: '50%',
+                                                objectPosition: 'center',
+                                            }}
+                                            src={item?.profilePictureUrl}
+                                            alt=""
+                                        />
+                                        <p
+                                            style={{
+                                                margin: 0,
+                                                fontWeight: 'bold',
+                                                color: 'black',
+                                            }}
+                                        >
+                                            {item?.username}
+                                        </p>
+                                    </div>
+                                    <button
+                                        style={{
+                                            backgroundColor: '#1890ff',
+                                            color: 'white',
+                                            borderRadius: '10px',
+                                        }}
+                                        type="button"
+                                    >
+                                        Visit
+                                    </button>
+                                </div>
+                                <Divider />
+                            </div>
+                        ))
+                    )}
+                </Modal>
+            )}
+
+            <div className="profile-card">
+                <div className="card-img">
+                    <img src={prop?.profilePictureUrl || SUB_IMAGE} alt="" />
+                </div>
+                <div className="card-info">
+                    <div className="info-title">
+                        <p>{prop?.name || '(Unknown)'}</p>
+                        <Button onClick={prop?.onFollow}>
+                            {prop?.buttonFollow}
+                        </Button>
+                        <button>
+                            <UserAddOutlined />
+                        </button>
+                        <EllipsisOutlined />
+                    </div>
+                    <div className="info-content">
+                        <p>
+                            <span>{prop?.totalPosts || 0}</span> Post
+                        </p>
+                        <p
+                            style={{ cursor: 'pointer' }}
+                            onClick={() =>
+                                setIsShowModalFollowers(!isShowModalFollowers)
+                            }
+                        >
+                            <span>{isFollowers?.totalItems || 0}</span>{' '}
+                            Followers
+                        </p>
+                        <p
+                            style={{ cursor: 'pointer' }}
+                            onClick={() =>
+                                setIsShowModalFollowing(!isShowModalFollowing)
+                            }
+                        >
+                            <span>{isFollowing?.totalItems || 0}</span>{' '}
+                            Following
+                        </p>
+                    </div>
+                    <div className="info-desc">
+                        <h6>{prop?.username}</h6>
+                        <p>{prop?.bio}</p>
+                        <Link
+                            to={
+                                prop?.website?.includes('http' || 'https')
+                                    ? prop?.website
+                                    : `https://${prop?.website}`
+                            }
+                        >
+                            {prop?.website}
+                        </Link>
+                    </div>
+                </div>
             </div>
-            <div className="card-info">
-                <div className="info-title">
-                    <p>{prop?.name}</p>
-                    <Button onClick={prop?.onFollow}>
-                        {prop?.buttonFollow}
-                    </Button>
-                    <button>
-                        <UserAddOutlined />
-                    </button>
-                    <EllipsisOutlined />
-                </div>
-                <div className="info-content">
-                    <p>
-                        <span>{prop?.totalPosts}</span> Post
-                    </p>
-                    <p>
-                        <span>{prop?.totalFollowers}</span> Followers
-                    </p>
-                    <p>
-                        <span>{prop?.totalFollowing}</span> Following
-                    </p>
-                </div>
-                <div className="info-desc">
-                    <h6>{prop?.username}</h6>
-                    <p>{prop?.bio}</p>
-                    <Link
-                        to={
-                            prop?.website?.includes('http' || 'https')
-                                ? prop?.website
-                                : `https://${prop?.website}`
-                        }
-                    >
-                        {prop?.website}
-                    </Link>
-                </div>
-            </div>
-        </div>
+        </>
     );
 }
