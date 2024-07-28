@@ -32,7 +32,6 @@ export const CustomButton = (prop) => {
 
 const FirstSectionRegForm = (prop) => {
     const isDataFirstSection = useSelector((state) => state?.reg?.reg[0]);
-    console.log(isDataFirstSection);
     const {
         passwordNotice,
         setIsName,

@@ -71,6 +71,7 @@
     align-items: start;
     height: 100%;
     margin: 10px 15px;
+    padding: 10px;
 }
 
 .modal-comment .modal-content .comments .profile {
@@ -82,6 +83,9 @@
 .modal-comment .modal-content .comments .profile .content {
     display: flex;
     flex-direction: row;
+    max-width: 90%;
+
+    background-color: yellowgreen;
 }
 
 .modal-comment .modal-content .comments .profile .content img {
@@ -94,6 +98,13 @@
 }
 
 .modal-comment .modal-content .comments .profile .content p span {
+    font-size: 12px;
+    font-weight: 200;
+    flex-wrap: wrap;
+    display: inline-flex;
+    height: 100%;
+}
+
+.modal-comment .modal-content .comments .profile .content p {
     font-weight: bold;
-    margin-right: 5px;
 }

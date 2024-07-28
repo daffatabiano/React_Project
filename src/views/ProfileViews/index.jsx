@@ -20,7 +20,6 @@ export default function ProfileViews() {
     const { md } = useBreakpoint();
     const { getMyFollowing, getMyFollowers, getPostsByPerson, getDetailPosts } =
         useGetPost();
-    const { unfollowPost } = usePost();
     const [isFollowing, setIsFollowing] = useState([]);
     const [isFollowers, setIsFollowers] = useState([]);
     const { getLogUser } = useAccount();
@@ -45,13 +44,6 @@ export default function ProfileViews() {
     const handleGetFollowers = async () => {
         const res = await getMyFollowers('size=9999&page=1');
         setIsFollowers(res?.data?.data);
-    };
-
-    const handleUnfollow = async (id) => {
-        const res = await unfollowPost(id);
-        if (res?.status === 200) {
-            handleGetFollowing();
-        }
     };
 
     useEffect(() => {
@@ -206,7 +198,6 @@ export default function ProfileViews() {
                 setIsShowModalFollowers={setIsShowModalFollowers}
                 isShowModalFollowing={isShowModalFollowing}
                 setIsShowModalFollowing={setIsShowModalFollowing}
-                handleUnfollow={console.log('handleUnfollow')}
                 {...[isFollowing?.users]}
                 {...isFollowers}
                 {...isData}

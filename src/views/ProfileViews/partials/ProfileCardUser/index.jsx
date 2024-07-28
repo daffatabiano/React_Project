@@ -4,16 +4,31 @@ import { Divider, Dropdown, Modal, notification } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import useAuth from '../../../../hooks/auth/useAuth';
+import usePost from '../../../../hooks/post/usePost';
 
 export default function ProfileCardUser(prop) {
     const { md } = useBreakpoint();
     const navigate = useNavigate();
+    const { unfollowPost } = usePost();
 
     const { authLogout } = useAuth();
     const token = localStorage.getItem('token');
     const [api, contextHolder] = notification.useNotification();
 
-    console.log(prop);
+    const handleUnfollow = async (id) => {
+        const res = await unfollowPost(id);
+        if (res?.status === 200) {
+            api['success']({
+                message: 'Unfollow Success',
+                description: res?.data?.message,
+            });
+        } else {
+            api['error']({
+                message: 'Unfollow Failed',
+                description: res?.response?.data?.message,
+            });
+        }
+    };
 
     const handleLogout = async () => {
         await authLogout(token).then((res) => {
@@ -35,8 +50,6 @@ export default function ProfileCardUser(prop) {
             }
         });
     };
-
-    console.log(prop[0]);
 
     return (
         <div>
@@ -218,9 +231,7 @@ export default function ProfileCardUser(prop) {
                                             borderRadius: '10px',
                                         }}
                                         // type="button"
-                                        onClick={() =>
-                                            prop?.handleUnfollow(item?.id)
-                                        }
+                                        onClick={() => handleUnfollow(item?.id)}
                                     >
                                         Unfollow
                                     </button>

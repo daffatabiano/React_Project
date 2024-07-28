@@ -1,40 +1,8 @@
 import { EllipsisOutlined, UserAddOutlined } from '@ant-design/icons';
-import { Button, Dropdown } from 'antd';
+import { Button } from 'antd';
 import { Link } from 'react-router-dom';
 
 export default function ProfileCard(prop) {
-    const items = [
-        {
-            key: '1',
-            label: (
-                <p
-                    style={{
-                        textAlign: 'center',
-                        fontSize: '15px',
-                        padding: 0,
-                    }}
-                    onClick={prop?.onFollow}
-                >
-                    Follow
-                </p>
-            ),
-        },
-        {
-            key: '2',
-            label: (
-                <p
-                    style={{
-                        color: 'red',
-                        textAlign: 'center',
-                        fontSize: '15px',
-                        padding: 0,
-                    }}
-                >
-                    Unfollow
-                </p>
-            ),
-        },
-    ];
     return (
         <div className="profile-card">
             <div className="card-img">

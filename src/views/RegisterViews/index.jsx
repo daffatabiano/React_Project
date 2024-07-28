@@ -18,7 +18,6 @@ export default function RegisterViews() {
     const isImageUrl = useSelector((state) => state?.reg?.imageUrl);
     const isDataFirstSection = useSelector((state) => state?.reg?.reg[0]);
     const dispatch = useDispatch();
-    console.log(isDataFirstSection, 'isDataFirstSection');
     const handleRegister = async (e) => {
         e.preventDefault();
 
@@ -54,7 +53,6 @@ export default function RegisterViews() {
             }, 2000);
         } else {
             setIsLoading(false);
-            console.log(res?.response?.data?.errors[0]?.message, 'EERRRORRO');
             api['error']({
                 message: 'Register Failed',
                 description:

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import ProfileCard from '../../components/Fragments/ProfileCard';
 import usePostByUserId from '../../hooks/post/usePostbyUserId';
 import useAccount from '../../hooks/user/useAccount';
-import Aside from '../../components/Layout/Headers/partials/Aside';
 import PostDetailCard from './partials/PostDetailCard';
 import './UserDetailViews.css';
 import { SendOutlined } from '@ant-design/icons';
@@ -72,6 +71,7 @@ export default function UserDetailViews(prop) {
     const handleUnfollow = async () => {
         try {
             const res = await unfollowPost(params?.id);
+            console.log(res);
             if (res?.status === 200) {
                 setIsTextButtonFollow('follow');
             } else {
@@ -232,7 +232,7 @@ export default function UserDetailViews(prop) {
                         onFollow={() =>
                             isTextButtonFollow === 'follow'
                                 ? handleFollow()
-                                : handleUnfollow()
+                                : handleUnfollow
                         }
                         buttonFollow={isTextButtonFollow}
                     />

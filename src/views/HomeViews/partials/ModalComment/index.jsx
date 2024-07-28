@@ -186,10 +186,11 @@ export default function ModalComment(prop) {
                                                 }`}
                                             />
                                             <p>
+                                                {item?.user?.username}
                                                 <span>
-                                                    {item?.user?.username}
+                                                    {' '}
+                                                    {item?.comment || '(empty)'}
                                                 </span>
-                                                {item?.comment || '(empty)'}
                                             </p>
                                         </>
                                     )}
