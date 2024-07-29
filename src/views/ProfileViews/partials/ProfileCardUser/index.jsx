@@ -50,6 +50,7 @@ export default function ProfileCardUser(prop) {
             }
         });
     };
+    console.log(prop, 'PROPPS');
 
     return (
         <div>
@@ -59,9 +60,10 @@ export default function ProfileCardUser(prop) {
                     footer={null}
                     title="Followers"
                     centered
-                    open={prop?.isShowModalFollowers}
-                    onOk={() => prop?.setIsShowModalFollowers(false)}
-                    onCancel={() => prop?.setIsShowModalFollowers(false)}
+                    open={prop[1].setIsShowModalFollowers}
+                    onOk={() => !prop[1]?.clickToOpen()}
+                    onCancel={() => !prop[1]?.clickToOpen()}
+                    onClose={() => !prop[1]?.clickToOpen()}
                     width={500}
                     style={{
                         maxHeight: '80vh',
@@ -75,7 +77,8 @@ export default function ProfileCardUser(prop) {
                         color: '#0101010',
                     }}
                 >
-                    {prop[1]?.length === 0 ? (
+                    {prop[1]?.item?.length === 0 ||
+                    prop[1]?.item?.totalItems === 0 ? (
                         <div
                             style={{
                                 display: 'flex',
@@ -94,7 +97,7 @@ export default function ProfileCardUser(prop) {
                             </p>
                         </div>
                     ) : (
-                        prop[1]?.map((item) => (
+                        prop[1]?.item?.users?.map((item) => (
                             <div key={item?.id}>
                                 <div
                                     style={{
@@ -150,10 +153,10 @@ export default function ProfileCardUser(prop) {
                 <Modal
                     title="Following"
                     centered
-                    open={prop?.isShowModalFollowing}
-                    onOk={() => prop?.setIsShowModalFollowing(false)}
-                    onCancel={() => prop?.setIsShowModalFollowing(false)}
-                    onClose={() => prop?.setIsShowModalFollowing(false)}
+                    open={prop[0]?.setIsShowModalFollowing}
+                    onOk={() => !prop[0]?.setIsShowModalFollowing}
+                    onCancel={() => !prop[0]?.clickToOpen()}
+                    onClose={() => !prop[0]?.clickToOpen()}
                     width={500}
                     footer={null}
                     style={{
@@ -168,7 +171,8 @@ export default function ProfileCardUser(prop) {
                         color: '#0101010',
                     }}
                 >
-                    {prop[0]?.length === 0 ? (
+                    {prop[0]?.item?.length === 0 ||
+                    prop[0]?.item?.totalItems === 0 ? (
                         <div
                             style={{
                                 display: 'flex',
@@ -187,7 +191,7 @@ export default function ProfileCardUser(prop) {
                             </p>
                         </div>
                     ) : (
-                        prop[0]?.map((item) => (
+                        prop[0]?.item?.users.map((item) => (
                             <div key={item?.id}>
                                 <div
                                     style={{
@@ -230,7 +234,7 @@ export default function ProfileCardUser(prop) {
                                             color: 'white',
                                             borderRadius: '10px',
                                         }}
-                                        // type="button"
+                                        type="button"
                                         onClick={() => handleUnfollow(item?.id)}
                                     >
                                         Unfollow
@@ -288,26 +292,55 @@ export default function ProfileCardUser(prop) {
                         <p>
                             <span>{prop?.posts?.length || 0}</span> Post
                         </p>
-                        <p
-                            onClick={() =>
-                                md
-                                    ? prop?.setIsShowModalFollowers(true)
-                                    : navigate('/profile/followers')
-                            }
-                            style={{ cursor: 'pointer' }}
-                        >
-                            <span>{prop?.totalFollowers || 0}</span> Followers
-                        </p>
-                        <p
-                            onClick={() =>
-                                md
-                                    ? prop?.setIsShowModalFollowing(true)
-                                    : navigate('/profile/following')
-                            }
-                            style={{ cursor: 'pointer' }}
-                        >
-                            <span>{prop?.totalFollowing || 0}</span> Following
-                        </p>
+                        {md ? (
+                            <button
+                                type="button"
+                                onClick={() => prop[1]?.clickToOpen()}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                <span>{prop?.totalFollowers || 0}</span>{' '}
+                                Followers
+                            </button>
+                        ) : (
+                            <Link
+                                to={'/profile/followers'}
+                                style={{
+                                    cursor: 'pointer',
+                                    backgroundColor: 'transparent',
+                                    color: 'white',
+                                }}
+                            >
+                                {' '}
+                                <span>{prop?.totalFollowers || 0}</span>{' '}
+                                Followers
+                            </Link>
+                        )}
+                        {md ? (
+                            <button
+                                type="button"
+                                onClick={() => prop[0]?.clickToOpen()}
+                                style={{
+                                    cursor: 'pointer',
+                                    backgroundColor: 'transparent',
+                                    color: 'white',
+                                }}
+                            >
+                                <span>{prop?.totalFollowing || 0}</span>{' '}
+                                Following
+                            </button>
+                        ) : (
+                            <Link
+                                to={'/profile/following'}
+                                style={{
+                                    cursor: 'pointer',
+                                    backgroundColor: 'transparent',
+                                    color: 'white',
+                                }}
+                            >
+                                <span>{prop?.totalFollowing || 0}</span>{' '}
+                                Following
+                            </Link>
+                        )}
                     </div>
                     <div className="info-desc">
                         <h6>{prop?.username}</h6>

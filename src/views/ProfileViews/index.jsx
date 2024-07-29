@@ -116,6 +116,22 @@ export default function ProfileViews() {
             });
         }
     };
+    const itemFollow = [
+        {
+            id: 1,
+            name: 'Following',
+            setIsShowModalFollowing: isShowModalFollowing,
+            clickToOpen: () => setIsShowModalFollowing(!isShowModalFollowing),
+            item: isFollowing,
+        },
+        {
+            id: 2,
+            name: 'Followers',
+            setIsShowModalFollowers: isShowModalFollowers,
+            clickToOpen: () => setIsShowModalFollowers(!isShowModalFollowers),
+            item: isFollowers,
+        },
+    ];
 
     return (
         <div className="profile">
@@ -193,16 +209,7 @@ export default function ProfileViews() {
                 <ModalComment {...isDetailPost} api={api} />
             </Modal>
             {contextHolder}
-            <ProfileCardUser
-                isShowModalFollowers={isShowModalFollowers}
-                setIsShowModalFollowers={setIsShowModalFollowers}
-                isShowModalFollowing={isShowModalFollowing}
-                setIsShowModalFollowing={setIsShowModalFollowing}
-                {...[isFollowing?.users]}
-                {...isFollowers}
-                {...isData}
-                {...isMyPosts}
-            />
+            <ProfileCardUser {...itemFollow} {...isData} {...isMyPosts} />
             <div className="profile-posting">
                 <PostDetailCard {...isMyPosts} />
             </div>

@@ -12,6 +12,7 @@ export default function FollowLayouts(prop) {
                 message: 'unfollow success',
                 description: res?.data?.message,
             });
+            navigate(0);
         } else {
             prop.api['error']({
                 message: 'unfollow unsuccess',
@@ -72,7 +73,7 @@ export default function FollowLayouts(prop) {
                             <button
                                 type="button"
                                 style={{ color: 'red' }}
-                                onClick={handleUnfollow(item.id)}
+                                onClick={() => handleUnfollow(item.id)}
                             >
                                 Unfollow
                             </button>
