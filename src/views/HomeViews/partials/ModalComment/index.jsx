@@ -6,11 +6,14 @@ import { Button, Dropdown, Popconfirm } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import useAccount from '../../../../hooks/user/useAccount';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { clearIsShow } from '../../../../redux/slice/postSlice';
 
 export default function ModalComment(prop) {
     const { commentDelete, deletePost } = usePost();
     const { getLogUser } = useAccount();
     const [isMyData, setIsMyData] = useState([]);
+    const dispatch = useDispatch();
 
     const getLogUserData = async () => {
         const res = await getLogUser('user');
@@ -77,9 +80,12 @@ export default function ModalComment(prop) {
                     <div className="uploaded">
                         <div
                             className="identity"
-                            onClick={() =>
-                                navigate(`/personal-profile/${prop?.userId}`)
-                            }
+                            onClick={() => {
+                                navigate(`/personal-profile/${prop?.userId}`);
+                                setTimeout(() => {
+                                    dispatch(clearIsShow());
+                                }, 10);
+                            }}
                         >
                             <img
                                 src={
@@ -197,8 +203,8 @@ export default function ModalComment(prop) {
                                 </div>
                                 {item?.user?.id === isMyData?.id ? (
                                     <Popconfirm
-                                        title="Delete the task"
-                                        description="Are you sure to delete this task?"
+                                        title="Delete Comment"
+                                        description="Are you sure to delete this comment?"
                                         onConfirm={handleConfirmDeleted.bind(
                                             this,
                                             item.id

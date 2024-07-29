@@ -19,16 +19,10 @@ export default function ProfileCard(prop) {
     const handleGetFollowing = async () => {
         const res = await getFollowing(params?.id);
         setIsFollowing(res?.data?.data);
-        if (res?.status === 200) {
-            setIsShowModalFollowing(!isShowModalFollowing);
-        }
     };
     const handleGetFollowers = async () => {
         const res = await getFollowers(params?.id);
         setIsFollowers(res?.data?.data);
-        if (res?.status === 200) {
-            setIsShowModalFollowers(!isShowModalFollowers);
-        }
     };
 
     useEffect(() => {
@@ -44,7 +38,7 @@ export default function ProfileCard(prop) {
                 <Modal
                     title="Following"
                     centered
-                    open={isShowModalFollowing}
+                    open={() => isShowModalFollowing}
                     onOk={() => setIsShowModalFollowing(false)}
                     onCancel={() => setIsShowModalFollowing(false)}
                     onClose={() => setIsShowModalFollowing(false)}
@@ -147,7 +141,7 @@ export default function ProfileCard(prop) {
                 <Modal
                     title="Followers"
                     centered
-                    open={isShowModalFollowers}
+                    open={() => isShowModalFollowers}
                     onOk={() => setIsShowModalFollowers(false)}
                     onCancel={() => setIsShowModalFollowers(false)}
                     onClose={() => setIsShowModalFollowers(false)}

@@ -296,7 +296,11 @@ export default function ProfileCardUser(prop) {
                             <button
                                 type="button"
                                 onClick={() => prop[1]?.clickToOpen()}
-                                style={{ cursor: 'pointer' }}
+                                style={{
+                                    cursor: 'pointer',
+                                    backgroundColor: 'transparent',
+                                    color: 'white',
+                                }}
                             >
                                 <span>{prop?.totalFollowers || 0}</span>{' '}
                                 Followers
