@@ -1,0 +1,64 @@
+.follow {
+    padding: 2% 8% 18% 8%;
+}
+
+.follow h1 {
+    font-size: 32px;
+}
+
+.follow .follow-card {
+    background-color: var(--primary);
+    border-radius: 10px;
+}
+
+.follow .follow-card .follow-card-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    width: 100%;
+    height: 100%;
+}
+
+.follow .follow-card .follow-card-content .follow-card-content-img {
+    width: 50px;
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+}
+.follow .follow-card .follow-card-content .follow-card-content-img p {
+    width: 50%;
+    color: black;
+}
+
+.follow .follow-card .follow-card-content .follow-card-content-img img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.follow .follow-card .follow-card-content .follow-card-content-action {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.follow .follow-card .follow-card-content .follow-card-content-action button {
+    width: 100%;
+    padding: 4px 12px;
+    background-color: transparent;
+    border-radius: 10px;
+    color: black;
+    border: 1px solid #010101;
+}
+
+@media (max-width: 425px) {
+    .follow {
+        padding: 2%;
+    }
+    .follow h1 {
+        font-size: 24px;
+    }
+}

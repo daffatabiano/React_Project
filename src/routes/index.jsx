@@ -13,6 +13,7 @@ import EditPost from '../page/post/[id]';
 import UnderConstructions from '../components/Fragments/Empty';
 import Following from '../page/profile/following';
 import Profile from '../page/profile';
+import Followers from '../page/profile/followers';
 
 export const routeList = [
     {
@@ -49,6 +50,14 @@ export const routeList = [
         element: (
             <ProtectRouted>
                 <Following />
+            </ProtectRouted>
+        ),
+    },
+    {
+        path: '/profile/followers',
+        element: (
+            <ProtectRouted>
+                <Followers />
             </ProtectRouted>
         ),
     },
