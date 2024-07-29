@@ -14,6 +14,8 @@ import UnderConstructions from '../components/Fragments/Empty';
 import Following from '../page/profile/following';
 import Profile from '../page/profile';
 import Followers from '../page/profile/followers';
+import FollowingByPerson from '../page/personal-profile/following';
+import FollowersByPerson from '../page/personal-profile/followers';
 
 export const routeList = [
     {
@@ -36,6 +38,22 @@ export const routeList = [
                 ),
             },
         ],
+    },
+    {
+        path: '/personal-profile/followers',
+        element: (
+            <ProtectRouted>
+                <FollowersByPerson />
+            </ProtectRouted>
+        ),
+    },
+    {
+        path: '/personal-profile/following',
+        element: (
+            <ProtectRouted>
+                <FollowingByPerson />
+            </ProtectRouted>
+        ),
     },
     {
         path: '/profile',

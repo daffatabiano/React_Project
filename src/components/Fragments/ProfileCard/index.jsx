@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { SUB_IMAGE } from '../../../hooks/service/services';
 import { useEffect, useState } from 'react';
 import useGetPost from '../../../hooks/post/useGet';
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
 export default function ProfileCard(prop) {
     const { getFollowing, getFollowers } = useGetPost();
@@ -12,6 +13,7 @@ export default function ProfileCard(prop) {
     const [isFollowing, setIsFollowing] = useState([]);
     const [isShowModalFollowers, setIsShowModalFollowers] = useState(false);
     const [isShowModalFollowing, setIsShowModalFollowing] = useState(false);
+    const { md } = useBreakpoint();
     const navigate = useNavigate();
 
     const handleGetFollowing = async () => {
@@ -29,12 +31,12 @@ export default function ProfileCard(prop) {
         }
     };
 
-    console.log(isFollowing, 'isFollowing');
-
     useEffect(() => {
         handleGetFollowing();
         handleGetFollowers();
     }, []);
+
+    console.log(prop);
 
     return (
         <>
@@ -264,24 +266,68 @@ export default function ProfileCard(prop) {
                         <p>
                             <span>{prop?.totalPosts || 0}</span> Post
                         </p>
-                        <p
-                            style={{ cursor: 'pointer' }}
-                            onClick={() =>
-                                setIsShowModalFollowers(!isShowModalFollowers)
-                            }
-                        >
-                            <span>{isFollowers?.totalItems || 0}</span>{' '}
-                            Followers
-                        </p>
-                        <p
-                            style={{ cursor: 'pointer' }}
-                            onClick={() =>
-                                setIsShowModalFollowing(!isShowModalFollowing)
-                            }
-                        >
-                            <span>{isFollowing?.totalItems || 0}</span>{' '}
-                            Following
-                        </p>
+                        {md ? (
+                            <button
+                                type="button"
+                                style={{
+                                    cursor: 'pointer',
+                                    backgroundColor: 'transparent',
+                                    color: 'white',
+                                }}
+                                onClick={() =>
+                                    setIsShowModalFollowers(
+                                        !isShowModalFollowers
+                                    )
+                                }
+                            >
+                                <span>{isFollowers?.totalItems || 0}</span>{' '}
+                                Followers
+                            </button>
+                        ) : (
+                            <Link
+                                type="button"
+                                style={{
+                                    cursor: 'pointer',
+                                    backgroundColor: 'transparent',
+                                    color: 'white',
+                                }}
+                                to={'/personal-profile/followers'}
+                            >
+                                <span>{isFollowers?.totalItems || 0}</span>{' '}
+                                Followers
+                            </Link>
+                        )}
+                        {md ? (
+                            <button
+                                type="button"
+                                style={{
+                                    cursor: 'pointer',
+                                    backgroundColor: 'transparent',
+                                    color: 'white',
+                                }}
+                                onClick={() =>
+                                    setIsShowModalFollowing(
+                                        !isShowModalFollowing
+                                    )
+                                }
+                            >
+                                <span>{isFollowing?.totalItems || 0}</span>{' '}
+                                Following
+                            </button>
+                        ) : (
+                            <Link
+                                type="button"
+                                style={{
+                                    cursor: 'pointer',
+                                    backgroundColor: 'transparent',
+                                    color: 'white',
+                                }}
+                                to={'/personal-profile/following'}
+                            >
+                                <span>{isFollowing?.totalItems || 0}</span>{' '}
+                                Following
+                            </Link>
+                        )}
                     </div>
                     <div className="info-desc">
                         <h6>{prop?.username}</h6>

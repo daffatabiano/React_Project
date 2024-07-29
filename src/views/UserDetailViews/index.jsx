@@ -30,7 +30,7 @@ export default function UserDetailViews(prop) {
     const params = useParams();
 
     const getDetail = async () => {
-        const res = await getPostByUserId(`${prop?.isId}?size=1000&page=1`);
+        const res = await getPostByUserId(`${prop?.isId}?size=9999999&page=1`);
         setIsPosts(res?.data?.data);
     };
 
@@ -143,87 +143,89 @@ export default function UserDetailViews(prop) {
     return (
         <>
             {contextHolder}
-            <Modal
-                open={isShowDetailPosts?.isShow}
-                onClose={() => dispatch(clearIsShow())}
-                onCancel={() => dispatch(clearIsShow())}
-                width={md && 1000}
-                height={md && 500}
-                footer={[
-                    <>
-                        <div className="footer">
-                            <div className="action">
-                                <div className="action-item">
-                                    <button>
-                                        <i
-                                            className={`bi bi-heart
+            {md ? (
+                <Modal
+                    open={isShowDetailPosts?.isShow}
+                    onClose={() => dispatch(clearIsShow())}
+                    onCancel={() => dispatch(clearIsShow())}
+                    width={md && 1000}
+                    height={md && 500}
+                    footer={[
+                        <>
+                            <div className="footer">
+                                <div className="action">
+                                    <div className="action-item">
+                                        <button>
+                                            <i
+                                                className={`bi bi-heart
                                     `}
-                                        />
-                                    </button>
-                                    <button>
-                                        <i className="bi bi-send" />
-                                    </button>
+                                            />
+                                        </button>
+                                        <button>
+                                            <i className="bi bi-send" />
+                                        </button>
+                                    </div>
+                                    <div className="action-item2">
+                                        <button>
+                                            <i className="bi bi-bookmark" />
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className="action-item2">
-                                    <button>
-                                        <i className="bi bi-bookmark" />
-                                    </button>
-                                </div>
-                            </div>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    width: '50%',
-                                    justifyContent: 'end',
-                                }}
-                            >
-                                <form
+                                <div
                                     style={{
-                                        width: '100%',
                                         display: 'flex',
+                                        width: '50%',
+                                        justifyContent: 'end',
                                     }}
-                                    onSubmit={handleComment}
                                 >
-                                    <input
-                                        type="text"
-                                        placeholder="Add a comment..."
+                                    <form
                                         style={{
                                             width: '100%',
-                                            padding: '10px',
-                                            borderBottom: 'none',
-                                            borderLeft: 'none',
-                                            borderRight: 'none',
-                                            borderTop: '1px solid #222222',
-                                            borderRadius: '10px',
-                                            outline: 'none',
-                                            cursor: isLoading
-                                                ? 'not-allowed'
-                                                : 'text',
+                                            display: 'flex',
                                         }}
-                                        name="comment"
-                                        disabled={isLoading}
-                                    />
-                                    <button
-                                        style={{
-                                            width: '10%',
-                                            cursor: isLoading
-                                                ? 'not-allowed'
-                                                : 'pointer',
-                                        }}
-                                        type="submit"
-                                        disabled={isLoading}
+                                        onSubmit={handleComment}
                                     >
-                                        <SendOutlined />
-                                    </button>
-                                </form>
+                                        <input
+                                            type="text"
+                                            placeholder="Add a comment..."
+                                            style={{
+                                                width: '100%',
+                                                padding: '10px',
+                                                borderBottom: 'none',
+                                                borderLeft: 'none',
+                                                borderRight: 'none',
+                                                borderTop: '1px solid #222222',
+                                                borderRadius: '10px',
+                                                outline: 'none',
+                                                cursor: isLoading
+                                                    ? 'not-allowed'
+                                                    : 'text',
+                                            }}
+                                            name="comment"
+                                            disabled={isLoading}
+                                        />
+                                        <button
+                                            style={{
+                                                width: '10%',
+                                                cursor: isLoading
+                                                    ? 'not-allowed'
+                                                    : 'pointer',
+                                            }}
+                                            type="submit"
+                                            disabled={isLoading}
+                                        >
+                                            <SendOutlined />
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    </>,
-                ]}
-                centered
-            >
-                <ModalComment {...isDetailPost} api={api} />
-            </Modal>
+                        </>,
+                    ]}
+                    centered
+                >
+                    <ModalComment {...isDetailPost} api={api} />
+                </Modal>
+            ) : null}
 
             <div className="user-content-profile">
                 <div>

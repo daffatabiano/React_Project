@@ -25,7 +25,6 @@ export default function FollowingViews() {
                 title={'Following'}
                 image={SUB_IMAGE}
                 {...[isFollowing.users]}
-                username="jojon doe"
                 api={api}
             />
         </>

@@ -30,7 +30,7 @@ export default function PostDetailCard(prop) {
             key: '1',
             label: <Label text="Popular Posts" />,
             children: (
-                <Row gutter={[8, 32]}>
+                <Row gutter={[8, 8]}>
                     {!prop?.totalItems ||
                         (prop?.posts?.filter((item) => item?.totalLikes > 3) <=
                             0 && (
@@ -114,7 +114,7 @@ export default function PostDetailCard(prop) {
             key: '2',
             label: <Label text="All Posts" />,
             children: (
-                <Row gutter={[8, 32]}>
+                <Row gutter={[8, 8]}>
                     {!prop?.totalItems && (
                         <Col span={24}>
                             <Empty
@@ -216,7 +216,7 @@ export default function PostDetailCard(prop) {
             key: '3',
             label: <Label text="Less Popular Posts" />,
             children: (
-                <Row gutter={[8, 32]}>
+                <Row gutter={[8, 8]}>
                     {!prop?.totalItems && (
                         <Col span={24}>
                             <Empty

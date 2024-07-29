@@ -8,6 +8,8 @@
 
 .post-image img {
     width: 100%;
+    min-height: 250px;
+    max-height: 400px;
     height: 100%;
     object-fit: cover;
 }
