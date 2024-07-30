@@ -1,9 +1,13 @@
-import { Button, Input } from 'antd';
+import { Button, Input, Popconfirm } from 'antd';
 import { SUB_IMAGE } from '../../../../hooks/service/services';
 import './DrawerComment.css';
-import { SendOutlined } from '@ant-design/icons';
+import { DeleteOutlined, SendOutlined } from '@ant-design/icons';
 import usePost from '../../../../hooks/post/usePost';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import useAccount from '../../../../hooks/user/useAccount';
+import { useSelector } from 'react-redux';
 export default function DrawerComment(prop) {
     const apiCreatedAt = prop?.createdAt?.split('T')[0];
     const apiDate = new Date(apiCreatedAt);
@@ -27,9 +31,22 @@ export default function DrawerComment(prop) {
         result = Math.floor((diffDay * 24 * 60) / 60) + ' minute ago';
     }
 
-    const { commentPost } = usePost();
+    const { commentPost, commentDelete } = usePost();
+    const { getLogUser } = useAccount();
     const [isComment, setIsComment] = useState('');
+    const [isMyData, setIsMyData] = useState(null);
     const comment = document.querySelector('#comment');
+    const navigate = useNavigate();
+    const isDetail = useSelector((state) => state?.post);
+
+    const getLogUserData = async () => {
+        const res = await getLogUser('user');
+        setIsMyData(res?.data?.data);
+    };
+
+    useEffect(() => {
+        getLogUserData();
+    }, []);
 
     const handleComment = async (e) => {
         e.preventDefault();
@@ -37,16 +54,56 @@ export default function DrawerComment(prop) {
             postId: prop?.id,
             comment: isComment,
         };
-        await commentPost(data).then((res) => {
-            if (res?.status === 200) {
-                comment.resetFields();
-            }
-        });
+        await commentPost(data)
+            .then((res) => {
+                if (res?.status === 200) {
+                    prop.api['success']({
+                        message: 'success',
+                        description: res?.data?.message,
+                    });
+                }
+            })
+            .catch((err) =>
+                prop?.api['error']({
+                    message: 'error',
+                    description: err?.response?.data?.message,
+                })
+            );
     };
 
+    const handleConfirmDeleted = async (id) => {
+        const res = await commentDelete(id);
+        if (res?.status === 200) {
+            prop.api['success']({
+                message: 'Success',
+                description: res?.data?.message,
+            });
+            setTimeout(() => {
+                navigate(0);
+            }, 1000);
+        } else {
+            prop.api['error']({
+                message: 'Failed',
+                description: res?.response?.data?.message,
+            });
+        }
+    };
 
     return (
         <div className="comments">
+            <div className="postinger">
+                <div className="profile">
+                    <img src={SUB_IMAGE} alt="" />
+                    <h4>
+                        {'balbalbalbalbalablababalbalabla'}{' '}
+                        <span>{`• ${result}`}</span>
+                    </h4>
+                </div>
+                <div className="comment">
+                    {'balbalbalbalbalablababalbalabla'}
+                </div>
+                <hr />
+            </div>
             {prop?.comments?.length === 0 && <h3>Be the first to comment.</h3>}
             {prop?.comments?.map((item) => (
                 <div key={item.id} className="profile">
@@ -64,12 +121,39 @@ export default function DrawerComment(prop) {
                         </h4>
                         <p>{item?.comment}</p>
                     </div>
+                    {item?.user?.id === isMyData?.id ? (
+                        <Popconfirm
+                            title="Delete Comment"
+                            description="Are you sure to delete this comment?"
+                            onConfirm={handleConfirmDeleted.bind(this, item.id)}
+                            okText="Yes"
+                            cancelText="No"
+                        >
+                            <Button
+                                danger
+                                style={{
+                                    margin: 'auto',
+                                }}
+                            >
+                                <DeleteOutlined />
+                            </Button>
+                        </Popconfirm>
+                    ) : null}
                 </div>
             ))}
+            <div
+                style={{
+                    width: '100%',
+                    height: '100px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    paddingTop: '50px',
+                }}
+            />
             <Input
                 type="text"
                 style={{
-                    width: '100%',
+                    width: '90%',
                     position: 'absolute',
                     bottom: 0,
                     left: 0,
@@ -88,7 +172,6 @@ export default function DrawerComment(prop) {
                     right: 0,
                     height: '50px',
                     backgroundColor: 'transparent',
-                    border: 'none',
                 }}
                 onClick={handleComment}
             >

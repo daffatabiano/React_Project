@@ -299,6 +299,7 @@ export default function HomeViews() {
                         {...isDetailPost}
                         {...isMyPost}
                         {...isPosts}
+                        api={api}
                     />
                 </Drawer>
             )}

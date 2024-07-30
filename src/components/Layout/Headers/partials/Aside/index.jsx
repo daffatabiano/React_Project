@@ -15,7 +15,7 @@ export default function Aside(prop) {
         let lastScrollTop = 0;
         const handleScroll = () => {
             const scrollTop =
-                window.pageYOffset || document.documentElement.scrollTop;
+                window.scrollY || document.documentElement.scrollTop;
             if (window.screen.width <= 768) {
                 if (scrollTop > lastScrollTop) {
                     asideRef.current.style.bottom = '-100px';
