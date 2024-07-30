@@ -3,13 +3,37 @@ import './Aside.css';
 import { asideData } from '../../../../../hooks/data/asideData';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { SUB_IMAGE } from '../../../../../hooks/service/services';
+import { useEffect, useRef } from 'react';
 export default function Aside(prop) {
     const { md } = useBreakpoint();
     const { profilePictureUrl } = prop;
     const token = localStorage.getItem('token');
     const pathname = window.location.pathname;
+    const asideRef = useRef(null);
+
+    useEffect(() => {
+        let lastScrollTop = 0;
+        const handleScroll = () => {
+            const scrollTop =
+                window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop && !md) {
+                asideRef.current.style.bottom = '-100px';
+                asideRef.current.style.transition = '0.5s all';
+            } else {
+                asideRef.current.style.bottom = '0';
+            }
+            lastScrollTop = scrollTop;
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
-        <aside className="aside">
+        <aside ref={asideRef} className="aside">
             <ul>
                 {asideData.map((item, index) => (
                     <li

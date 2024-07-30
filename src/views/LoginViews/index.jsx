@@ -37,7 +37,7 @@ export default function LoginViews() {
             localStorage.setItem('token', `Bearer ${res?.data?.token}`);
             setLoading(false);
             setTimeout(() => {
-                navigate(0);
+                navigate('/profile');
             }, 1000);
         } else {
             setLoading(false);
