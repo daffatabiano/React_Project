@@ -16,13 +16,15 @@ export default function Aside(prop) {
         const handleScroll = () => {
             const scrollTop =
                 window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop && !md) {
-                asideRef.current.style.bottom = '-100px';
-                asideRef.current.style.transition = '0.5s all';
-            } else {
-                asideRef.current.style.bottom = '0';
+            if (window.screen.width <= 768) {
+                if (scrollTop > lastScrollTop) {
+                    asideRef.current.style.bottom = '-100px';
+                    asideRef.current.style.transition = '0.5s all linear';
+                } else {
+                    asideRef.current.style.bottom = '0';
+                }
+                lastScrollTop = scrollTop;
             }
-            lastScrollTop = scrollTop;
         };
 
         window.addEventListener('scroll', handleScroll);
