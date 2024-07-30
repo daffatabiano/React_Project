@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const CustomInput = (prop) => {
-    const { isData, label, type = 'text', ...rest } = prop;
+    const { isData, label, type = 'text', name, ...rest } = prop;
     return (
         <label style={{ width: '100%', color: 'white' }}>
             {label}
@@ -33,8 +33,9 @@ const CustomInput = (prop) => {
                 }}
                 label="Name"
                 type={type}
-                name="name"
+                name={name}
                 defaultValue={isData}
+                placeholder={isData}
             />
         </label>
     );
@@ -50,8 +51,17 @@ export default function EditProfileViews() {
     const [isShowModal, setIsShowModal] = useState(false);
     const [isSectionPage, setIsSectionPage] = useState(1);
     const navigate = useNavigate();
-    const { editUser, uploadImage } = useAccount();
-    const isData = useSelector((state) => state?.inventory?.user[0]);
+    const { editUser, uploadImage, getLogUser } = useAccount();
+    const [isData, setIsData] = useState([]);
+
+    const getMyData = async () => {
+        const res = await getLogUser('user');
+        setIsData(res?.data?.data);
+    };
+
+    useEffect(() => {
+        getMyData();
+    }, []);
 
     const fileChange = (e) => {
         const file = e.target.files[0];
@@ -131,6 +141,8 @@ export default function EditProfileViews() {
                 console.log(err);
             });
     };
+
+    console.log(isData);
 
     return (
         <BaseLayout>
@@ -310,19 +322,23 @@ export default function EditProfileViews() {
                             >
                                 <CustomInput
                                     label="Name"
+                                    name="name"
                                     isData={isData?.name}
                                 />
                                 <CustomInput
                                     label="Username"
+                                    name="username"
                                     isData={isData?.username}
                                 />
                                 <CustomInput
                                     type="email"
+                                    name="email"
                                     label="Email"
                                     isData={isData?.email}
                                 />
                                 <CustomInput
                                     label="Website"
+                                    name="website"
                                     isData={isData?.website}
                                 />
                                 <label htmlFor="" style={{ width: '100%' }}>
@@ -347,6 +363,7 @@ export default function EditProfileViews() {
                                                 backgroundColor: 'transparent',
                                                 color: '#fff',
                                             }}
+                                            name="phoneNumber"
                                             defaultValue={isData?.phoneNumber}
                                             type="number"
                                         />

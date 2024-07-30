@@ -95,6 +95,10 @@
     font-size: 16px;
 }
 
+.ant-input::placeholder {
+    color: rgba(232, 243, 255, 0.39);
+}
+
 @media (max-width: 768px) {
     .edit-profile {
         padding: 2% 0 0 0;
