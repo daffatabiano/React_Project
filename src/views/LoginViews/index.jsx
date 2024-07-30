@@ -37,8 +37,7 @@ export default function LoginViews() {
             localStorage.setItem('token', `Bearer ${res?.data?.token}`);
             setLoading(false);
             setTimeout(() => {
-                navigate('/');
-                window.location.reload();
+                navigate(0);
             }, 1000);
         } else {
             setLoading(false);

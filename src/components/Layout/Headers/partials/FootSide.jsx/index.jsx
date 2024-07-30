@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Footside.css';
 import { Dropdown, notification } from 'antd';
 import useAuth from '../../../../../hooks/auth/useAuth';
@@ -57,6 +57,7 @@ export default function FootSide(prop) {
     const { authLogout } = useAuth();
     const token = localStorage.getItem('token');
     const [api, contextHolder] = notification.useNotification();
+    const navigate = useNavigate();
 
     const handleLogout = async () => {
         await authLogout(token).then((res) => {
@@ -68,7 +69,7 @@ export default function FootSide(prop) {
                 setTimeout(() => {
                     localStorage.clear();
                     localStorage.removeItem('token');
-                    window.location.reload();
+                    navigate(0);
                 }, 2000);
             } else {
                 api['error']({

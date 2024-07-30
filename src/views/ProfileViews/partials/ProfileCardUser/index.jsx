@@ -40,7 +40,7 @@ export default function ProfileCardUser(prop) {
                 setTimeout(() => {
                     localStorage.clear();
                     localStorage.removeItem('token');
-                    window.location.reload();
+                    navigate(0);
                 }, 2000);
             } else {
                 api['error']({
@@ -50,7 +50,6 @@ export default function ProfileCardUser(prop) {
             }
         });
     };
-    console.log(prop, 'PROPPS');
 
     return (
         <div>
@@ -93,7 +92,7 @@ export default function ProfileCardUser(prop) {
                                     fontWeight: 'bold',
                                 }}
                             >
-                                No following
+                                No followers
                             </p>
                         </div>
                     ) : (

@@ -34,7 +34,7 @@ export default function ModalComment(prop) {
                 description: res?.data?.message,
             });
             setTimeout(() => {
-                navigate('/');
+                navigate(0);
             }, 1000);
         } else {
             prop.api['error']({

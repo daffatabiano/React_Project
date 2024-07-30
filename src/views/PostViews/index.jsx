@@ -170,7 +170,7 @@ export default function PostViews() {
                                             duration: 1,
                                         });
                                         setTimeout(() => {
-                                            window.location.reload();
+                                            navigate(0);
                                         }, 2000);
                                     }}
                                 >

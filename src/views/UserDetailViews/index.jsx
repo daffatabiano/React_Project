@@ -12,7 +12,7 @@ import ModalComment from '../HomeViews/partials/ModalComment';
 import useGetPost from '../../hooks/post/useGet';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import usePost from '../../hooks/post/usePost';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function UserDetailViews(prop) {
     const { getPostByUserId } = usePostByUserId();
@@ -26,8 +26,8 @@ export default function UserDetailViews(prop) {
     const { md } = useBreakpoint();
     const { followPost, unfollowPost } = usePost();
     const [api, contextHolder] = notification.useNotification();
-    const [isTextButtonFollow, setIsTextButtonFollow] = useState('follow');
     const params = useParams();
+    const navigate = useNavigate;
 
     const getDetail = async () => {
         const res = await getPostByUserId(`${prop?.isId}?size=9999999&page=1`);
@@ -53,13 +53,12 @@ export default function UserDetailViews(prop) {
             };
             const res = await followPost(body);
             if (res?.status === 200) {
-                setIsTextButtonFollow('unfollow');
                 api['success']({
                     message: 'Success',
                     description: res?.data?.message,
                 });
                 setTimeout(() => {
-                    window.location.reload();
+                    navigate(0);
                 }, 1000);
             } else {
                 api['error']({
@@ -80,13 +79,12 @@ export default function UserDetailViews(prop) {
             const res = await unfollowPost(params?.id);
             console.log(res);
             if (res?.status === 200) {
-                setIsTextButtonFollow('follow');
                 api['success']({
                     message: 'Success',
                     description: res?.data?.message,
                 });
                 setTimeout(() => {
-                    window.location.reload();
+                    navigate(0);
                 }, 1000);
             } else {
                 api['error']({
