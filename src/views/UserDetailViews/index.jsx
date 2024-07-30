@@ -21,7 +21,7 @@ export default function UserDetailViews(prop) {
     const [isPosts, setIsPosts] = useState([]);
     const isShowDetailPosts = useSelector((state) => state?.post);
     const [isDetailPost, setIsDetailPost] = useState([]);
-    const { getDetailPosts } = useGetPost();
+    const { getDetailPosts, getMyFollowing } = useGetPost();
     const dispatch = useDispatch();
     const { md } = useBreakpoint();
     const { followPost, unfollowPost } = usePost();
@@ -54,6 +54,13 @@ export default function UserDetailViews(prop) {
             const res = await followPost(body);
             if (res?.status === 200) {
                 setIsTextButtonFollow('unfollow');
+                api['success']({
+                    message: 'Success',
+                    description: res?.data?.message,
+                });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             } else {
                 api['error']({
                     message: 'Error',
@@ -74,6 +81,13 @@ export default function UserDetailViews(prop) {
             console.log(res);
             if (res?.status === 200) {
                 setIsTextButtonFollow('follow');
+                api['success']({
+                    message: 'Success',
+                    description: res?.data?.message,
+                });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             } else {
                 api['error']({
                     message: 'Error',
@@ -139,6 +153,16 @@ export default function UserDetailViews(prop) {
             });
         }
     };
+    const [isFollowStatus, setIsFollowStatus] = useState([]);
+
+    const getIsFollow = async () => {
+        const res = await getMyFollowing('size=9999&page=1');
+        setIsFollowStatus(res?.data?.data);
+    };
+
+    useEffect(() => {
+        getIsFollow();
+    }, [isData?.id]);
 
     return (
         <>
@@ -233,11 +257,21 @@ export default function UserDetailViews(prop) {
                         {...isData}
                         totalPosts={isPosts?.totalItems}
                         onFollow={() =>
-                            isTextButtonFollow === 'follow'
-                                ? handleFollow()
-                                : handleUnfollow()
+                            isFollowStatus.totalItems === 0 ||
+                            isFollowStatus?.users?.some(
+                                (item) => item.id === isData?.id
+                            )
+                                ? handleUnfollow()
+                                : handleFollow()
                         }
-                        buttonFollow={isTextButtonFollow}
+                        buttonFollow={
+                            isFollowStatus.totalItems === 0 ||
+                            isFollowStatus?.users?.some(
+                                (item) => item.id === isData?.id
+                            )
+                                ? 'unfollow'
+                                : 'follow'
+                        }
                     />
                 </div>
                 <div>

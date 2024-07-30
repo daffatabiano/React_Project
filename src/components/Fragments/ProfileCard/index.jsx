@@ -30,8 +30,6 @@ export default function ProfileCard(prop) {
         handleGetFollowers();
     }, []);
 
-    console.log(prop);
-
     return (
         <>
             {isShowModalFollowing && (
