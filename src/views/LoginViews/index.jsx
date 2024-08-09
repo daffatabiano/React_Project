@@ -38,6 +38,7 @@ export default function LoginViews() {
             setLoading(false);
             setTimeout(() => {
                 navigate('/profile');
+                navigate(0);
             }, 1000);
         } else {
             setLoading(false);
