@@ -7,6 +7,7 @@ import {
     imageUrl,
     reg,
 } from '../../../../redux/slice/registerSlice';
+import { Modal } from 'antd';
 
 export const Input = (prop) => {
     const { label, type, placeholder, name, disabled, isLoading, ...rest } =
@@ -203,6 +204,7 @@ export default function RegisterForm(prop) {
     const [isSection, setIsSection] = useState(1);
     const { uploadImage } = useAccount();
     const dispatch = useDispatch();
+    const [isShowModal, setIsShowModal] = useState(false);
     const [formValues, setFormValues] = useState({
         name: '',
         email: '',
@@ -273,77 +275,108 @@ export default function RegisterForm(prop) {
     };
 
     return (
-        <div className="register-form">
-            <div className="register-form-header">
-                <h1>Sign Up</h1>
-                <p>Please fill in this form to create an account.</p>
-            </div>
-            <form onSubmit={onSubmit}>
-                {isSection === 1 ? (
-                    <FirstSectionRegForm
-                        isLoading={isLoading}
-                        passwordNotice={passwordNotice}
-                        setIsName={(e) =>
-                            handleInputChange('name', e.target.value)
-                        }
-                        setIsEmail={(e) =>
-                            handleInputChange('email', e.target.value)
-                        }
-                        setIsPassword={(e) =>
-                            handleInputChange('password', e.target.value)
-                        }
-                        setIsPasswordRepeat={(e) =>
-                            handleInputChange('passwordRepeat', e.target.value)
-                        }
-                        setIsUsername={(e) =>
-                            handleInputChange('username', e.target.value)
-                        }
-                        setIsPhone={(e) =>
-                            handleInputChange('phoneNumber', e.target.value)
-                        }
-                    />
-                ) : (
-                    <SecondSectionRegForm
-                        isFile={isFile}
-                        disabled={isLoading}
-                        onChange={handleFile}
-                        saveButton={handleUploadImage}
-                        clearButton={() => {
-                            dispatch(clearImageUrl()) && setIsFile(null);
-                            api['success']({
-                                message: 'Image has been cleared',
-                            });
-                        }}
-                    />
-                )}
-                {isSection === 1 ? (
-                    <button
-                        type="button"
-                        onClick={() => {
-                            if (formValid) {
-                                setIsSection(2);
-                                dispatch(reg(formValues));
-                            } else
-                                api['error']({
-                                    message: 'Please fill in all the fields',
-                                });
+        <>
+            {isShowModal && (
+                <Modal
+                    open={isShowModal}
+                    onCancel={() => setIsShowModal(false)}
+                    onConfirm={() => setIsShowModal(false)}
+                    onOk={() => {
+                        setIsSection(1);
+                        setTimeout(() => {
+                            setIsShowModal(false);
+                        }, 500);
+                    }}
+                    title={<p style={{ color: '#eed202' }}>Warning</p>}
+                    centered
+                >
+                    <p>Are you sure you want to go back?</p>
+                    <em
+                        style={{
+                            color: 'red',
+                            fontWeight: '300',
+                            opacity: 0.8,
                         }}
                     >
-                        Next
-                    </button>
-                ) : (
-                    <div className="register-button">
-                        <button
-                            onClick={(e) =>
-                                e.preventDefault() || setIsSection(1)
+                        You will lose all your progress
+                    </em>
+                </Modal>
+            )}
+            <div className="register-form">
+                <div className="register-form-header">
+                    <h1>Sign Up</h1>
+                    <p>Please fill in this form to create an account.</p>
+                </div>
+                <form onSubmit={onSubmit}>
+                    {isSection === 1 ? (
+                        <FirstSectionRegForm
+                            isLoading={isLoading}
+                            passwordNotice={passwordNotice}
+                            setIsName={(e) =>
+                                handleInputChange('name', e.target.value)
                             }
+                            setIsEmail={(e) =>
+                                handleInputChange('email', e.target.value)
+                            }
+                            setIsPassword={(e) =>
+                                handleInputChange('password', e.target.value)
+                            }
+                            setIsPasswordRepeat={(e) =>
+                                handleInputChange(
+                                    'passwordRepeat',
+                                    e.target.value
+                                )
+                            }
+                            setIsUsername={(e) =>
+                                handleInputChange('username', e.target.value)
+                            }
+                            setIsPhone={(e) =>
+                                handleInputChange('phoneNumber', e.target.value)
+                            }
+                        />
+                    ) : (
+                        <SecondSectionRegForm
+                            isFile={isFile}
+                            disabled={isLoading}
+                            onChange={handleFile}
+                            saveButton={handleUploadImage}
+                            clearButton={() => {
+                                dispatch(clearImageUrl()) && setIsFile(null);
+                                api['success']({
+                                    message: 'Image has been cleared',
+                                });
+                            }}
+                        />
+                    )}
+                    {isSection === 1 ? (
+                        <button
+                            type="button"
+                            onClick={() => {
+                                if (formValid) {
+                                    setIsSection(2);
+                                    dispatch(reg(formValues));
+                                } else
+                                    api['error']({
+                                        message:
+                                            'Please fill in all the fields',
+                                    });
+                            }}
                         >
-                            Back
+                            Next
                         </button>
-                        <button type="submit">Submit</button>
-                    </div>
-                )}
-            </form>
-        </div>
+                    ) : (
+                        <div className="register-button">
+                            <button
+                                onClick={() => setIsShowModal(true)}
+                                type="button"
+                            >
+                                Back
+                            </button>
+                            <button type="submit">Submit</button>
+                        </div>
+                    )}
+                </form>
+            </div>
+        </>
     );
 }
