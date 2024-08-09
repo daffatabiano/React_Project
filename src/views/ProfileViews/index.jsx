@@ -242,7 +242,7 @@ export default function ProfileViews() {
                 {...isMyPosts}
             />
             <div className="profile-posting">
-                <PostDetailCard {...isMyPosts} />
+                <PostDetailCard isLoading={isLoading} {...isMyPosts} />
             </div>
         </div>
     );

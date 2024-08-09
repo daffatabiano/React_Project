@@ -1,6 +1,6 @@
 import { SettingOutlined } from '@ant-design/icons';
 import './ProfileCardUser.css';
-import { Divider, Dropdown, Modal, notification } from 'antd';
+import { Divider, Dropdown, Modal, notification, Skeleton } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import useAuth from '../../../../hooks/auth/useAuth';
@@ -260,112 +260,152 @@ export default function ProfileCardUser(prop) {
                 </div>
                 <div className="card-info">
                     <div className="info-title">
-                        <p>{prop?.name}</p>
-                        <button
-                            type="button"
-                            onClick={() => navigate('/edit-profile')}
-                        >
-                            Edit profile
-                        </button>
-                        <button>View archive</button>
-                        <Dropdown
-                            trigger={['click', 'hover']}
-                            placement="bottom"
-                            menu={{
-                                items: [
-                                    {
-                                        key: '1',
-                                        label: (
-                                            <button
-                                                style={{
-                                                    width: '100%',
-                                                    backgroundColor:
-                                                        'transparent',
-                                                    color: 'red',
-                                                }}
-                                                onClick={handleLogout}
-                                            >
-                                                Logout
-                                            </button>
-                                        ),
-                                    },
-                                ],
-                            }}
-                            arrow={{ pointAtCenter: true }}
-                        >
-                            <SettingOutlined />
-                        </Dropdown>
+                        {prop?.isLoading ? (
+                            <Skeleton
+                                active
+                                paragraph={{
+                                    rows: 1,
+                                    width: ['100%', '100%', '100%'],
+                                }}
+                            />
+                        ) : (
+                            <>
+                                <p>{prop?.name}</p>
+                                <button
+                                    type="button"
+                                    onClick={() => navigate('/edit-profile')}
+                                >
+                                    Edit profile
+                                </button>
+                                <button>View archive</button>
+                                <Dropdown
+                                    trigger={['click', 'hover']}
+                                    placement="bottom"
+                                    menu={{
+                                        items: [
+                                            {
+                                                key: '1',
+                                                label: (
+                                                    <button
+                                                        style={{
+                                                            width: '100%',
+                                                            backgroundColor:
+                                                                'transparent',
+                                                            color: 'red',
+                                                        }}
+                                                        onClick={handleLogout}
+                                                    >
+                                                        Logout
+                                                    </button>
+                                                ),
+                                            },
+                                        ],
+                                    }}
+                                    arrow={{ pointAtCenter: true }}
+                                >
+                                    <SettingOutlined />
+                                </Dropdown>
+                            </>
+                        )}
                     </div>
                     <div className="info-content">
-                        <p>
-                            <span>{prop?.posts?.length || 0}</span> Post
-                        </p>
-                        {md ? (
-                            <button
-                                type="button"
-                                onClick={() => prop[1]?.clickToOpen()}
-                                style={{
-                                    cursor: 'pointer',
-                                    backgroundColor: 'transparent',
-                                    color: 'white',
+                        {prop?.isLoading ? (
+                            <Skeleton
+                                active
+                                paragraph={{
+                                    rows: 1,
+                                    width: ['100%', '100%', '100%'],
                                 }}
-                            >
-                                <span>{prop?.totalFollowers || 0}</span>{' '}
-                                Followers
-                            </button>
+                            />
                         ) : (
-                            <Link
-                                to={'/profile/followers'}
-                                style={{
-                                    cursor: 'pointer',
-                                    backgroundColor: 'transparent',
-                                    color: 'white',
-                                }}
-                            >
-                                {' '}
-                                <span>{prop?.totalFollowers || 0}</span>{' '}
-                                Followers
-                            </Link>
-                        )}
-                        {md ? (
-                            <button
-                                type="button"
-                                onClick={() => prop[0]?.clickToOpen()}
-                                style={{
-                                    cursor: 'pointer',
-                                    backgroundColor: 'transparent',
-                                    color: 'white',
-                                }}
-                            >
-                                <span>{prop?.totalFollowing || 0}</span>{' '}
-                                Following
-                            </button>
-                        ) : (
-                            <Link
-                                to={'/profile/following'}
-                                style={{
-                                    cursor: 'pointer',
-                                    backgroundColor: 'transparent',
-                                    color: 'white',
-                                }}
-                            >
-                                <span>{prop?.totalFollowing || 0}</span>{' '}
-                                Following
-                            </Link>
+                            <>
+                                <p>
+                                    <span>{prop?.posts?.length || 0}</span> Post
+                                </p>
+                                {md ? (
+                                    <button
+                                        type="button"
+                                        onClick={() => prop[1]?.clickToOpen()}
+                                        style={{
+                                            cursor: 'pointer',
+                                            backgroundColor: 'transparent',
+                                            color: 'white',
+                                        }}
+                                    >
+                                        <span>{prop?.totalFollowers || 0}</span>{' '}
+                                        Followers
+                                    </button>
+                                ) : (
+                                    <Link
+                                        to={'/profile/followers'}
+                                        style={{
+                                            cursor: 'pointer',
+                                            backgroundColor: 'transparent',
+                                            color: 'white',
+                                        }}
+                                    >
+                                        {' '}
+                                        <span>
+                                            {prop?.totalFollowers || 0}
+                                        </span>{' '}
+                                        Followers
+                                    </Link>
+                                )}
+                                {md ? (
+                                    <button
+                                        type="button"
+                                        onClick={() => prop[0]?.clickToOpen()}
+                                        style={{
+                                            cursor: 'pointer',
+                                            backgroundColor: 'transparent',
+                                            color: 'white',
+                                        }}
+                                    >
+                                        <span>{prop?.totalFollowing || 0}</span>{' '}
+                                        Following
+                                    </button>
+                                ) : (
+                                    <Link
+                                        to={'/profile/following'}
+                                        style={{
+                                            cursor: 'pointer',
+                                            backgroundColor: 'transparent',
+                                            color: 'white',
+                                        }}
+                                    >
+                                        <span>{prop?.totalFollowing || 0}</span>{' '}
+                                        Following
+                                    </Link>
+                                )}
+                            </>
                         )}
                     </div>
                     <div className="info-desc">
-                        <h6>{prop?.username}</h6>
-                        <p>{prop?.bio}</p>
-                        <Link
-                            to={`${
-                                prop?.website?.includes('https' || 'http')
-                                    ? prop?.website
-                                    : `https://${prop?.website}`
-                            }`}
-                        >
-                            {prop?.website}
-                        </Link>
+                        {prop?.isLoading ? (
+                            <Skeleton
+                                active
+                                paragraph={{
+                                    rows: 0,
+                                    width: ['100%', '100%', '100%'],
+                                }}
+                            />
+                        ) : (
+                            <>
+                                <h6>{prop?.username}</h6>
+                                <p>{prop?.bio}</p>
+                                <Link
+                                    to={`${
+                                        prop?.website?.includes(
+                                            'https' || 'http'
+                                        )
+                                            ? prop?.website
+                                            : `https://${prop?.website}`
+                                    }`}
+                                >
+                                    {prop?.website}
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
