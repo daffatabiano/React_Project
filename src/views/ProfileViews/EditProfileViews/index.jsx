@@ -132,11 +132,15 @@ export default function EditProfileViews() {
             setTimeout(() => {
                 getMyData();
             }, 1000);
+            setIsSectionPage(2);
         } else {
             setIsLoading(false);
             api['error']({
                 message: 'Edit Failed',
-                description: res?.response?.data?.message,
+                description:
+                    res?.response?.data?.message ||
+                    res?.data?.message ||
+                    'Something went wrong !',
             });
         }
     };
