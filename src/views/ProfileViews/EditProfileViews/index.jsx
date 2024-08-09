@@ -15,10 +15,16 @@ import useAccount from '../../../hooks/user/useAccount';
 import { CheckCircleFilled, LoadingOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 const CustomInput = (prop) => {
-    const { isData, label, type = 'text', name, ...rest } = prop;
+    const {
+        placeholder,
+        label,
+        type = 'text',
+        defaultValue,
+        name,
+        ...rest
+    } = prop;
     return (
         <label style={{ width: '100%', color: 'white' }}>
             {label}
@@ -34,8 +40,8 @@ const CustomInput = (prop) => {
                 label="Name"
                 type={type}
                 name={name}
-                defaultValue={isData}
-                placeholder={isData}
+                defaultValue={defaultValue}
+                placeholder={placeholder}
             />
         </label>
     );
@@ -58,10 +64,6 @@ export default function EditProfileViews() {
         const res = await getLogUser('user');
         setIsData(res?.data?.data);
     };
-
-    useEffect(() => {
-        getMyData();
-    }, []);
 
     const fileChange = (e) => {
         const file = e.target.files[0];
@@ -111,38 +113,37 @@ export default function EditProfileViews() {
 
         setIsSection(1);
 
-        await editUser({
-            profilePictureUrl: isImageUrl,
-            name: e.target.name.value,
-            username: e.target.name.value,
+        const res = await editUser({
+            profilePictureUrl: isImageUrl || isData?.profilePictureUrl,
+            name: e.target.name.value || isData?.name,
+            username: e.target.name.value || isData?.username,
             email: e.target.email.value,
-            phoneNumber: e.target.phoneNumber.value,
-            bio: e.target.bio.value,
-            website: e.target.website.value,
-        })
-            .then((res) => {
-                if (res?.status === 200) {
-                    setIsLoading(false);
-                    setIsSection(2);
-                    api['success']({
-                        message: 'Edit Success',
-                        description: res?.data?.message,
-                    });
-                } else {
-                    setIsLoading(false);
-                    api['error']({
-                        message: 'Edit Failed',
-                        description: res?.response?.data?.message,
-                    });
-                }
-            })
-            .catch((err) => {
-                setIsLoading(false);
-                console.log(err);
+            phoneNumber: e.target.phoneNumber.value || isData?.phoneNumber,
+            bio: e.target.bio.value || isData?.bio,
+            website: e.target.website.value || isData?.website,
+        });
+
+        if (res?.status === 200) {
+            setIsLoading(false);
+            api['success']({
+                message: 'Edit Success',
+                description: res?.data?.message,
             });
+            setTimeout(() => {
+                getMyData();
+            }, 1000);
+        } else {
+            setIsLoading(false);
+            api['error']({
+                message: 'Edit Failed',
+                description: res?.response?.data?.message,
+            });
+        }
     };
 
-    console.log(isData);
+    useEffect(() => {
+        getMyData();
+    }, []);
 
     return (
         <BaseLayout>
@@ -323,7 +324,8 @@ export default function EditProfileViews() {
                                 <CustomInput
                                     label="Name"
                                     name="name"
-                                    isData={isData?.name}
+                                    defaultValue={isData?.name}
+                                    placeholder={isData?.name}
                                 />
                                 <CustomInput
                                     label="Username"
@@ -350,7 +352,7 @@ export default function EditProfileViews() {
                                     >
                                         <Input
                                             style={{
-                                                width: '15%',
+                                                width: md ? '15%' : '20%',
                                                 fontWeight: '600',
                                                 backgroundColor:
                                                     'var(--primary)',
@@ -363,6 +365,7 @@ export default function EditProfileViews() {
                                                 backgroundColor: 'transparent',
                                                 color: '#fff',
                                             }}
+                                            placeholder={isData?.phoneNumber}
                                             name="phoneNumber"
                                             defaultValue={isData?.phoneNumber}
                                             type="number"
@@ -398,7 +401,7 @@ export default function EditProfileViews() {
                                                 borderRadius: '15px',
                                             }}
                                             size="large"
-                                            onClick={() => setIsSectionPage(2)}
+                                            onClick={() => navigate(-1)}
                                         >
                                             Back
                                         </Button>
@@ -410,13 +413,15 @@ export default function EditProfileViews() {
                                                 borderRadius: '15px',
                                             }}
                                             size="large"
-                                            onClick={() => setIsSectionPage(2)}
+                                            htmlType="submit"
                                         >
                                             Submit Change
                                         </Button>
                                     </div>
                                 ) : (
                                     <Button
+                                        htmlType="button"
+                                        onClick={() => navigate('/profile')}
                                         style={{
                                             backgroundColor: '#ffff',
                                             color: '#010101',
@@ -424,7 +429,6 @@ export default function EditProfileViews() {
                                             borderRadius: '15px',
                                         }}
                                         size="large"
-                                        onClick={() => setIsSectionPage(2)}
                                     >
                                         Submit Change
                                     </Button>
