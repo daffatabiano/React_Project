@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import useAuth from '../../../../hooks/auth/useAuth';
 import usePost from '../../../../hooks/post/usePost';
+import { SUB_PROFILE_LOADING } from '../../../../hooks/service/services';
 
 export default function ProfileCardUser(prop) {
     const { md } = useBreakpoint();
@@ -247,7 +248,15 @@ export default function ProfileCardUser(prop) {
             ) : null}
             <div className="profile-card">
                 <div className="card-img">
-                    <img src={prop?.profilePictureUrl} alt="" />
+                    <img
+                        src={
+                            prop.isLoading
+                                ? SUB_PROFILE_LOADING
+                                : prop?.profilePictureUrl
+                        }
+                        alt=""
+                        className={prop?.isLoading ? 'loading-profile' : ''}
+                    />
                 </div>
                 <div className="card-info">
                     <div className="info-title">

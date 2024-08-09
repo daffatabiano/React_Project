@@ -25,25 +25,42 @@ export default function ProfileViews() {
     const { getLogUser } = useAccount();
     const [isMyPosts, setIsMyPosts] = useState([]);
     const [isDetailPost, setIsDetailPost] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const getLogUserData = async () => {
+        setIsLoading(true);
         const res = await getLogUser('user');
         setIsData(res?.data?.data);
+        if (res?.status === 200) {
+            setIsLoading(false);
+        } else {
+            setIsLoading(false);
+        }
     };
     useEffect(() => {
         getLogUserData();
     }, []);
 
     const handleGetFollowing = async () => {
+        setIsLoading(true);
         const res = await getMyFollowing('size=9999&page=1');
         if (res?.status === 200) {
             setIsFollowing(res?.data?.data);
+            setIsLoading(false);
+        } else {
+            setIsLoading(false);
         }
     };
 
     const handleGetFollowers = async () => {
+        setIsLoading(true);
         const res = await getMyFollowers('size=9999&page=1');
         setIsFollowers(res?.data?.data);
+        if (res?.status === 200) {
+            setIsLoading(false);
+        } else {
+            setIsLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -52,8 +69,14 @@ export default function ProfileViews() {
     }, []);
 
     const getPostsProfile = async () => {
+        setIsLoading(true);
         const res = await getPostsByPerson(isData?.id);
         setIsMyPosts(res?.data?.data);
+        if (res?.status === 200) {
+            setIsLoading(false);
+        } else {
+            setIsLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -64,9 +87,13 @@ export default function ProfileViews() {
     const isShowDetailPosts = useSelector((state) => state?.post);
 
     const getPostDetail = async () => {
+        setIsLoading(true);
         const res = await getDetailPosts(isShowDetailPosts?.isId);
         if (res?.status === 200) {
             setIsDetailPost(res?.data?.data);
+            setIsLoading(false);
+        } else {
+            setIsLoading(false);
         }
     };
 
@@ -75,7 +102,6 @@ export default function ProfileViews() {
     }, [isShowDetailPosts?.isId]);
 
     const { commentPost } = usePost();
-    const [isLoading, setIsLoading] = useState(false);
 
     const handleComment = async (e) => {
         e.preventDefault();
@@ -209,7 +235,12 @@ export default function ProfileViews() {
                 <ModalComment {...isDetailPost} api={api} />
             </Modal>
             {contextHolder}
-            <ProfileCardUser {...itemFollow} {...isData} {...isMyPosts} />
+            <ProfileCardUser
+                isLoading={isLoading}
+                {...itemFollow}
+                {...isData}
+                {...isMyPosts}
+            />
             <div className="profile-posting">
                 <PostDetailCard {...isMyPosts} />
             </div>
