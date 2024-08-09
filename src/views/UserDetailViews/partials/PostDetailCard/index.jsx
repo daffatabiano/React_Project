@@ -11,6 +11,7 @@ export default function PostDetailCard(prop) {
     const dispatch = useDispatch();
     const { md } = useBreakpoint();
     const navigate = useNavigate();
+    // eslint-disable-next-line react/prop-types
     const Label = ({ text }) => {
         return (
             <p
@@ -31,82 +32,103 @@ export default function PostDetailCard(prop) {
             label: <Label text="Popular Posts" />,
             children: (
                 <Row gutter={[8, 8]}>
-                    {!prop?.totalItems ||
-                        (prop?.posts?.filter((item) => item?.totalLikes > 3) <=
-                            0 && (
-                            <Col span={24}>
-                                <Empty
-                                    description={
-                                        <Typography.Text
-                                            style={{ color: 'white' }}
-                                        >
-                                            You don&apos;t have any fams post
-                                        </Typography.Text>
-                                    }
-                                />
-                            </Col>
-                        ))}
-                    {prop?.posts
-                        ?.filter((item) => item?.totalLikes > 3)
-                        .map((item) => (
-                            <Col span={8} key={item.id}>
-                                <div
-                                    className="post-image"
-                                    onClick={() =>
-                                        md
-                                            ? dispatch(setIsShow(item?.id))
-                                            : navigate(
-                                                  `/personal-post-detail/${item?.id}`
-                                              )
-                                    }
-                                >
-                                    <img
-                                        src={
-                                            item?.imageUrl?.includes(
-                                                'fakepath'
-                                            ) || item?.imageUrl?.length < 15
-                                                ? SUB_POST_IMAGE
-                                                : item?.imageUrl
-                                        }
-                                        alt="image"
-                                    />
-                                    <div className="explore-layout">
+                    {prop?.isLoading ? (
+                        <Col span={24}>
+                            <Empty
+                                description={
+                                    <Typography.Text style={{ color: 'white' }}>
+                                        Loading...
+                                    </Typography.Text>
+                                }
+                            />
+                        </Col>
+                    ) : (
+                        <>
+                            {!prop?.totalItems ||
+                                (prop?.posts?.filter(
+                                    (item) => item?.totalLikes > 3
+                                ) <= 0 && (
+                                    <Col span={24}>
+                                        <Empty
+                                            description={
+                                                <Typography.Text
+                                                    style={{ color: 'white' }}
+                                                >
+                                                    You don&apos;t have any fams
+                                                    post
+                                                </Typography.Text>
+                                            }
+                                        />
+                                    </Col>
+                                ))}
+                            {prop?.posts
+                                ?.filter((item) => item?.totalLikes > 3)
+                                .map((item) => (
+                                    <Col span={8} key={item.id}>
                                         <div
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                flexDirection: 'row',
-                                                gap: '5px',
-                                            }}
+                                            className="post-image"
+                                            onClick={() =>
+                                                md
+                                                    ? dispatch(
+                                                          setIsShow(item?.id)
+                                                      )
+                                                    : navigate(
+                                                          `/personal-post-detail/${item?.id}`
+                                                      )
+                                            }
                                         >
-                                            <HeartOutlined
-                                                style={{
-                                                    cursor: 'pointer',
-                                                    color: 'white',
-                                                }}
-                                                onClick={() => alert('like')}
+                                            <img
+                                                src={
+                                                    item?.imageUrl?.includes(
+                                                        'fakepath'
+                                                    ) ||
+                                                    item?.imageUrl?.length < 15
+                                                        ? SUB_POST_IMAGE
+                                                        : item?.imageUrl
+                                                }
+                                                alt="image"
                                             />
-                                            <span
-                                                style={{
-                                                    fontSize: '25px',
-                                                    color: 'white',
-                                                }}
-                                            >
-                                                {item?.totalLikes}
-                                            </span>
+                                            <div className="explore-layout">
+                                                <div
+                                                    style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        flexDirection: 'row',
+                                                        gap: '5px',
+                                                    }}
+                                                >
+                                                    <HeartOutlined
+                                                        style={{
+                                                            cursor: 'pointer',
+                                                            color: 'white',
+                                                        }}
+                                                        onClick={() =>
+                                                            alert('like')
+                                                        }
+                                                    />
+                                                    <span
+                                                        style={{
+                                                            fontSize: '25px',
+                                                            color: 'white',
+                                                        }}
+                                                    >
+                                                        {item?.totalLikes}
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <CommentOutlined
+                                                        style={{
+                                                            cursor: 'pointer',
+                                                            color: 'white',
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <CommentOutlined
-                                                style={{
-                                                    cursor: 'pointer',
-                                                    color: 'white',
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </Col>
-                        ))}
+                                    </Col>
+                                ))}
+                        </>
+                    )}
                 </Row>
             ),
         },
@@ -115,100 +137,123 @@ export default function PostDetailCard(prop) {
             label: <Label text="All Posts" />,
             children: (
                 <Row gutter={[8, 8]}>
-                    {!prop?.totalItems && (
+                    {prop?.isLoading ? (
                         <Col span={24}>
                             <Empty
                                 description={
                                     <Typography.Text style={{ color: 'white' }}>
-                                        You don&apos;t have any post yet
+                                        Loading...
                                     </Typography.Text>
                                 }
-                            >
-                                <Button onClick={() => navigate('/post')}>
-                                    Post Now
-                                </Button>
-                            </Empty>
+                            />
                         </Col>
-                    )}
-                    {prop?.posts
-                        ?.filter((item) => item?.totalLikes >= 0)
-                        .map((item) => (
-                            <Col span={8} key={item.id}>
-                                <div
-                                    className="post-image"
-                                    onClick={() =>
-                                        md
-                                            ? dispatch(setIsShow(item?.id))
-                                            : navigate(
-                                                  `/personal-post-detail/${item?.id}`
-                                              )
-                                    }
-                                >
-                                    <img
-                                        src={
-                                            item?.imageUrl?.includes(
-                                                'fakepath'
-                                            ) || item?.imageUrl?.length < 15
-                                                ? SUB_POST_IMAGE
-                                                : item?.imageUrl
-                                        }
-                                        alt="image"
-                                    />
-                                    <div
-                                        style={{ display: 'flex' }}
-                                        className="explore-layout"
-                                    >
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                flexDirection: 'row',
-                                                gap: '5px',
-                                            }}
-                                        >
-                                            <HeartOutlined
-                                                style={{
-                                                    cursor: 'pointer',
-                                                    color: 'white',
-                                                    fontSize: md
-                                                        ? '30px'
-                                                        : '20px',
-                                                }}
-                                                onClick={() => alert('like')}
-                                            />
-                                            <span
-                                                style={{
-                                                    fontSize: md
-                                                        ? '25px'
-                                                        : '15px',
-                                                    color: 'white',
-                                                }}
+                    ) : (
+                        <>
+                            {!prop?.totalItems && (
+                                <Col span={24}>
+                                    <Empty
+                                        description={
+                                            <Typography.Text
+                                                style={{ color: 'white' }}
                                             >
-                                                {item?.totalLikes}
-                                            </span>
-                                        </div>
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                flexDirection: 'row',
-                                                gap: '5px',
-                                            }}
+                                                You don&apos;t have any post yet
+                                            </Typography.Text>
+                                        }
+                                    >
+                                        <Button
+                                            onClick={() => navigate('/post')}
                                         >
-                                            <CommentOutlined
-                                                style={{
-                                                    cursor: 'pointer',
-                                                    color: 'white',
-                                                    fontSize: md
-                                                        ? '30px'
-                                                        : '20px',
-                                                }}
+                                            Post Now
+                                        </Button>
+                                    </Empty>
+                                </Col>
+                            )}
+                            {prop?.posts
+                                ?.filter((item) => item?.totalLikes >= 0)
+                                .map((item) => (
+                                    <Col span={8} key={item.id}>
+                                        <div
+                                            className="post-image"
+                                            onClick={() =>
+                                                md
+                                                    ? dispatch(
+                                                          setIsShow(item?.id)
+                                                      )
+                                                    : navigate(
+                                                          `/personal-post-detail/${item?.id}`
+                                                      )
+                                            }
+                                        >
+                                            <img
+                                                src={
+                                                    item?.imageUrl?.includes(
+                                                        'fakepath'
+                                                    ) ||
+                                                    item?.imageUrl?.length < 15
+                                                        ? SUB_POST_IMAGE
+                                                        : item?.imageUrl
+                                                }
+                                                alt="image"
                                             />
+                                            <div
+                                                style={{ display: 'flex' }}
+                                                className="explore-layout"
+                                            >
+                                                <div
+                                                    style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        flexDirection: 'row',
+                                                        gap: '5px',
+                                                    }}
+                                                >
+                                                    <HeartOutlined
+                                                        style={{
+                                                            cursor: 'pointer',
+                                                            color: 'white',
+                                                            fontSize: md
+                                                                ? '30px'
+                                                                : '20px',
+                                                        }}
+                                                        onClick={() =>
+                                                            alert('like')
+                                                        }
+                                                    />
+                                                    <span
+                                                        style={{
+                                                            fontSize: md
+                                                                ? '25px'
+                                                                : '15px',
+                                                            color: 'white',
+                                                        }}
+                                                    >
+                                                        {item?.totalLikes}
+                                                    </span>
+                                                </div>
+                                                <div
+                                                    style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        flexDirection: 'row',
+                                                        gap: '5px',
+                                                    }}
+                                                >
+                                                    <CommentOutlined
+                                                        style={{
+                                                            cursor: 'pointer',
+                                                            color: 'white',
+                                                            fontSize: md
+                                                                ? '30px'
+                                                                : '20px',
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </Col>
-                        ))}
+                                    </Col>
+                                ))}
+                        </>
+                    )}
                 </Row>
             ),
         },
@@ -217,85 +262,109 @@ export default function PostDetailCard(prop) {
             label: <Label text="Less Popular Posts" />,
             children: (
                 <Row gutter={[8, 8]}>
-                    {!prop?.totalItems && (
+                    {prop?.isLoading ? (
                         <Col span={24}>
                             <Empty
                                 description={
                                     <Typography.Text style={{ color: 'white' }}>
-                                        You don&apos;t have any post yet
+                                        Loading...
                                     </Typography.Text>
                                 }
-                            >
-                                <Button onClick={() => navigate('/post')}>
-                                    Post Now
-                                </Button>
-                            </Empty>
+                            />
                         </Col>
-                    )}
-                    {prop?.posts
-                        ?.filter(
-                            (item) =>
-                                item?.totalLikes <= 3 && item?.totalLikes >= 0
-                        )
-                        .map((item) => (
-                            <Col span={8} key={item.id}>
-                                <div
-                                    className="post-image"
-                                    onClick={() =>
-                                        md
-                                            ? dispatch(setIsShow(item?.id))
-                                            : navigate(
-                                                  `/personal-post-detail/${item?.id}`
-                                              )
-                                    }
-                                >
-                                    <img
-                                        src={
-                                            item?.imageUrl?.includes(
-                                                'fakepath'
-                                            ) || item?.imageUrl?.length < 15
-                                                ? SUB_POST_IMAGE
-                                                : item?.imageUrl
-                                        }
-                                        alt="image"
-                                    />
-                                    <div className="explore-layout">
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                flexDirection: 'row',
-                                                gap: '5px',
-                                            }}
-                                        >
-                                            <HeartOutlined
-                                                style={{
-                                                    cursor: 'pointer',
-                                                    color: 'white',
-                                                }}
-                                                onClick={() => alert('like')}
-                                            />
-                                            <span
-                                                style={{
-                                                    fontSize: '25px',
-                                                    color: 'white',
-                                                }}
+                    ) : (
+                        <>
+                            {!prop?.totalItems && (
+                                <Col span={24}>
+                                    <Empty
+                                        description={
+                                            <Typography.Text
+                                                style={{ color: 'white' }}
                                             >
-                                                {item?.totalLikes}
-                                            </span>
-                                        </div>
-                                        <div>
-                                            <CommentOutlined
-                                                style={{
-                                                    cursor: 'pointer',
-                                                    color: 'white',
-                                                }}
+                                                You don&apos;t have any post yet
+                                            </Typography.Text>
+                                        }
+                                    >
+                                        <Button
+                                            onClick={() => navigate('/post')}
+                                        >
+                                            Post Now
+                                        </Button>
+                                    </Empty>
+                                </Col>
+                            )}
+                            {prop?.posts
+                                ?.filter(
+                                    (item) =>
+                                        item?.totalLikes <= 3 &&
+                                        item?.totalLikes >= 0
+                                )
+                                .map((item) => (
+                                    <Col span={8} key={item.id}>
+                                        <div
+                                            className="post-image"
+                                            onClick={() =>
+                                                md
+                                                    ? dispatch(
+                                                          setIsShow(item?.id)
+                                                      )
+                                                    : navigate(
+                                                          `/personal-post-detail/${item?.id}`
+                                                      )
+                                            }
+                                        >
+                                            <img
+                                                src={
+                                                    item?.imageUrl?.includes(
+                                                        'fakepath'
+                                                    ) ||
+                                                    item?.imageUrl?.length < 15
+                                                        ? SUB_POST_IMAGE
+                                                        : item?.imageUrl
+                                                }
+                                                alt="image"
                                             />
+                                            <div className="explore-layout">
+                                                <div
+                                                    style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        flexDirection: 'row',
+                                                        gap: '5px',
+                                                    }}
+                                                >
+                                                    <HeartOutlined
+                                                        style={{
+                                                            cursor: 'pointer',
+                                                            color: 'white',
+                                                        }}
+                                                        onClick={() =>
+                                                            alert('like')
+                                                        }
+                                                    />
+                                                    <span
+                                                        style={{
+                                                            fontSize: '25px',
+                                                            color: 'white',
+                                                        }}
+                                                    >
+                                                        {item?.totalLikes}
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <CommentOutlined
+                                                        style={{
+                                                            cursor: 'pointer',
+                                                            color: 'white',
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </Col>
-                        ))}
+                                    </Col>
+                                ))}
+                        </>
+                    )}
                 </Row>
             ),
         },
