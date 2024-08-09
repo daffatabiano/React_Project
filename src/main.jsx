@@ -9,12 +9,12 @@ import BaseLayout from './components/Layout/Headers/BaseLayout.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <BrowserRouter>
-            <Provider store={store}>
+        <Provider store={store}>
+            <BrowserRouter>
                 <BaseLayout>
                     <App />
                 </BaseLayout>
-            </Provider>
-        </BrowserRouter>
+            </BrowserRouter>
+        </Provider>
     </React.StrictMode>
 );

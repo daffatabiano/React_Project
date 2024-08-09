@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import Logo from '../../Elements/Logo';
 import Aside from './partials/Aside';
-import FootSide from './partials/FootSide.jsx';
 import useAccount from '../../../hooks/user/useAccount.js';
-import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint.js';
+import { useNavigate } from 'react-router-dom';
 
 export default function BaseLayout(prop) {
     const { children } = prop;
@@ -20,6 +19,8 @@ export default function BaseLayout(prop) {
     const disableAside = ['/edit-profile', '/login', '/register'];
     const pathname = window.location.pathname;
     const [isData, setIsData] = useState([]);
+    const { path } = useNavigate();
+    console.log(path, 'this is path');
 
     const getUser = async () => {
         await getLogUser('user')
