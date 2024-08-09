@@ -108,7 +108,7 @@ export default function Postcard(prop) {
                         to={`/personal-profile/${prop?.user?.id}`}
                         style={{
                             width: '100px',
-                            backgroundColor: 'var(--primary)',
+                            backgroundColor: '#010101',
                         }}
                     >
                         Visit
