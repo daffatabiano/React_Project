@@ -2,8 +2,6 @@
     width: 100%;
     max-height: 400px;
     height: 100%;
-    /* width: 300px;
-    height: 300px; */
 }
 
 .post-image img {
@@ -33,4 +31,10 @@
 
 .explore-layout:hover {
     opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .post-image {
+        margin: 0 10px;
+    }
 }
