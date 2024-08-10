@@ -1,7 +1,7 @@
 import { Button, Col, Empty, Row, Tabs, Typography } from 'antd';
 import './PostDetailCard.css';
 import { useDispatch } from 'react-redux';
-import { setIsShow } from '../../../../redux/slice/postSlice';
+import { setIsId, setIsShow } from '../../../../redux/slice/postSlice';
 import { SUB_POST_IMAGE } from '../../../../hooks/service/services';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { useNavigate } from 'react-router-dom';
@@ -339,7 +339,11 @@ export default function PostDetailCard(prop) {
                                                             color: 'white',
                                                         }}
                                                         onClick={() =>
-                                                            alert('like')
+                                                            dispatch(
+                                                                setIsId(
+                                                                    item?.id
+                                                                )
+                                                            )
                                                         }
                                                     />
                                                     <span

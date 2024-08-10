@@ -18,11 +18,16 @@ const postSlice = createSlice({
             state.isId = '';
         },
 
+        setIsId: (state, action) => {
+            state.isId = action?.payload;
+        },
+
         setIsClose: (state) => {
             state.isShow = false;
         },
     },
 });
 
-export const { setIsShow, clearIsShow, setIsClose } = postSlice.actions;
+export const { setIsShow, clearIsShow, setIsClose, setIsId } =
+    postSlice.actions;
 export default postSlice.reducer;
