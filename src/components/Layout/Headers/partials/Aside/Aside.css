@@ -17,7 +17,7 @@
     padding: 20px 15px;
 }
 .aside:hover {
-    animation: flicker 1s linear infinite both;
+    animation: blink 0.6s steps(2, end) 4 both;
     box-shadow: 0 0 1px 0 rgba(255, 255, 255),
         0 0 10px 0 rgb(255, 255, 255, 0.7), 0 0 20px 0 rgb(0, 0, 0, 0.4);
 }
@@ -38,6 +38,7 @@
     height: 100%;
     font-size: 20px;
     width: 100%;
+    animation: flicker 2s linear steps(2, end) 4 both;
 }
 
 .aside ul li.active,
@@ -258,5 +259,17 @@
     }
     99.62% {
         opacity: 1;
+    }
+}
+
+@keyframes blink {
+    0%,
+    50%,
+    100% {
+        opacity: 1;
+    }
+    25%,
+    75% {
+        opacity: 0;
     }
 }
