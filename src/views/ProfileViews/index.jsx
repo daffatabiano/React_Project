@@ -164,9 +164,6 @@ export default function ProfileViews() {
     const { likePost } = usePost();
 
     const handleLike = async (e) => {
-        console.log(
-            isMyPosts.posts.some((e) => e.id === isShowDetailPosts?.isId)
-        );
         const res = await likePost(
             isMyPosts.posts.some((e) => e.id === isShowDetailPosts?.isId)
                 ? 'unlike'
