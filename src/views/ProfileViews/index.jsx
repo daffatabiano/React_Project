@@ -11,6 +11,7 @@ import { SendOutlined } from '@ant-design/icons';
 import { clearIsShow } from '../../redux/slice/postSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalComment from '../HomeViews/partials/ModalComment';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProfileViews() {
     const [api, contextHolder] = notification.useNotification();
@@ -26,6 +27,7 @@ export default function ProfileViews() {
     const [isMyPosts, setIsMyPosts] = useState([]);
     const [isDetailPost, setIsDetailPost] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
 
     const getLogUserData = async () => {
         setIsLoading(true);
@@ -161,18 +163,27 @@ export default function ProfileViews() {
 
     const { likePost } = usePost();
 
-
     const handleLike = async (e) => {
-        console.log(e, 'event handle like dinner');
-        const res = await likePost(e?.isLike ? 'unlike' : 'like', {
-            postId: e.id,
-        });
+        console.log(
+            isMyPosts.posts.some((e) => e.id === isShowDetailPosts?.isId)
+        );
+        const res = await likePost(
+            isMyPosts.posts.some((e) => e.id === isShowDetailPosts?.isId)
+                ? 'unlike'
+                : 'like',
+            {
+                postId: e.id,
+            }
+        );
         if (res?.status === 200) {
             getPostDetail();
             api['success']({
                 message: 'Success',
                 description: res?.data?.message,
             });
+            setTimeout(() => {
+                navigate(0);
+            }, 1000);
         } else {
             api['error']({
                 message: 'Error',
