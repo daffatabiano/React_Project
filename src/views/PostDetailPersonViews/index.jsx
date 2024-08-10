@@ -54,6 +54,26 @@ export default function PostDetailPersonViews() {
     };
     const dispatch = useDispatch();
 
+    const { getPostsByPerson } = useGetPost();
+    const [isMyPosts, setIsMyPosts] = useState([]);
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    const getPostsProfile = async () => {
+        setIsLoading(true);
+        const res = await getPostsByPerson(isPosts?.userId);
+        setIsMyPosts(res?.data?.data);
+        if (res?.status === 200) {
+            setIsLoading(false);
+        } else {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        getPostsProfile();
+    }, []);
+
     return (
         <>
             {contextHolder}
