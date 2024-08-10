@@ -175,7 +175,6 @@ export default function HomeViews() {
     const { likePost } = usePost();
 
     const handleLike = async (e) => {
-        console.log(e, 'event handle like dinner');
         const res = await likePost(e?.isLike ? 'unlike' : 'like', {
             postId: e.id,
         });

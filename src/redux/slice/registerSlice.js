@@ -21,7 +21,6 @@ const registerSlice = createSlice({
             if (action.payload) {
                 state.reg.push(action.payload);
             }
-            console.log(state);
         },
 
         clearReg: (state) => {

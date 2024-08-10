@@ -20,7 +20,7 @@ export default function BaseLayout(prop) {
     const pathname = window.location.pathname;
     const [isData, setIsData] = useState([]);
     const { path } = useNavigate();
-    console.log(path, 'this is path');
+    console.log(path);
 
     const getUser = async () => {
         await getLogUser('user')

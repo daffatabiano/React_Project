@@ -77,7 +77,6 @@ export default function UserDetailViews(prop) {
     const handleUnfollow = async () => {
         try {
             const res = await unfollowPost(params?.id);
-            console.log(res);
             if (res?.status === 200) {
                 api['success']({
                     message: 'Success',
