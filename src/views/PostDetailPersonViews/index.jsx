@@ -22,5 +22,15 @@ export default function PostDetailPersonViews() {
     }, [isId]);
 
     const { md } = useBreakpoint();
-    return <>{!md ? <Postcard {...isPosts} /> : navigate('/')}</>;
+    return (
+        <>
+            {!md ? (
+                <div style={{ padding: '24px' }}>
+                    <Postcard {...isPosts} />
+                </div>
+            ) : (
+                navigate('/')
+            )}
+        </>
+    );
 }

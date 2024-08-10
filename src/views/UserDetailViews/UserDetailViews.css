@@ -2,7 +2,7 @@
     padding: 2% 5% 0 25%;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 568px) {
     .user-content-profile {
         padding: 2% 2% 0 2%;
     }
