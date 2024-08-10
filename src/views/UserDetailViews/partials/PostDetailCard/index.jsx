@@ -102,9 +102,6 @@ export default function PostDetailCard(prop) {
                                                             cursor: 'pointer',
                                                             color: 'white',
                                                         }}
-                                                        onClick={() =>
-                                                            alert('like')
-                                                        }
                                                     />
                                                     <span
                                                         style={{
@@ -215,9 +212,6 @@ export default function PostDetailCard(prop) {
                                                                 ? '30px'
                                                                 : '20px',
                                                         }}
-                                                        onClick={() =>
-                                                            alert('like')
-                                                        }
                                                     />
                                                     <span
                                                         style={{
@@ -338,13 +332,6 @@ export default function PostDetailCard(prop) {
                                                             cursor: 'pointer',
                                                             color: 'white',
                                                         }}
-                                                        onClick={() =>
-                                                            dispatch(
-                                                                setIsId(
-                                                                    item?.id
-                                                                )
-                                                            )
-                                                        }
                                                     />
                                                     <span
                                                         style={{

@@ -159,6 +159,28 @@ export default function ProfileViews() {
         },
     ];
 
+    const { likePost } = usePost();
+
+
+    const handleLike = async (e) => {
+        console.log(e, 'event handle like dinner');
+        const res = await likePost(e?.isLike ? 'unlike' : 'like', {
+            postId: e.id,
+        });
+        if (res?.status === 200) {
+            getPostDetail();
+            api['success']({
+                message: 'Success',
+                description: res?.data?.message,
+            });
+        } else {
+            api['error']({
+                message: 'Error',
+                description: res?.response?.data?.message,
+            });
+        }
+    };
+
     return (
         <div className="profile">
             <Modal
@@ -172,7 +194,9 @@ export default function ProfileViews() {
                         <div className="footer">
                             <div className="action">
                                 <div className="action-item">
-                                    <button>
+                                    <button
+                                        onClick={() => handleLike(isDetailPost)}
+                                    >
                                         <i
                                             className={`bi bi-heart
                                     `}
